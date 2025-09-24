@@ -1,0 +1,1 @@
+App for keeping track of costs and activities with owned cars. Designed to store data locally on user's PC.
