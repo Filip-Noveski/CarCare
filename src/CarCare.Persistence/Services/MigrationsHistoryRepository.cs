@@ -1,6 +1,6 @@
-﻿using CarCare.Persistence.Interfaces;
+﻿using CarCare.Persistence.Configuration;
+using CarCare.Persistence.Interfaces;
 using CarCare.Persistence.Models;
-using CarCare.Persistence.Utilities;
 using Dapper;
 using Microsoft.Data.Sqlite;
 

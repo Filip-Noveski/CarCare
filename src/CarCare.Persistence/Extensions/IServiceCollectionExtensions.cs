@@ -1,6 +1,6 @@
-﻿using CarCare.Persistence.Interfaces;
+﻿using CarCare.Persistence.Configuration;
+using CarCare.Persistence.Interfaces;
 using CarCare.Persistence.Services;
-using CarCare.Persistence.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CarCare.Persistence.Extensions;

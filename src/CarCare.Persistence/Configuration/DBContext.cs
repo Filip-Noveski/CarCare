@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace CarCare.Persistence.Utilities;
+namespace CarCare.Persistence.Configuration;
 
 internal class DBContext
 {
