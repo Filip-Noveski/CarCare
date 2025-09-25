@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="CarCare.WindowsAppliaction" />
     <InternalsVisibleTo Include="CarCare.Persistence.Tests" />
   </ItemGroup>
 </Project>
