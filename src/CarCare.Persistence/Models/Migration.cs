@@ -8,12 +8,12 @@ public class Migration
     /// <summary>
     /// The id of the migration.
     /// </summary>
-    string Id { get; set; }
+    public string Id { get; set; }
 
     /// <summary>
     /// The version of the application that this migration is bound to.
     /// </summary>
-    string ProductVersion { get; set; }
+    public string ProductVersion { get; set; }
 
     /// <summary>
     /// Creates a new <see cref="Migration"/> object.
