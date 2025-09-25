@@ -1,0 +1,33 @@
+?[*.{cs,vb}]
+
+# IDE0028: Simplify collection initialization
+dotnet_style_collection_initializer = false
+dotnet_diagnostic.IDE0028.severity = silent
+
+# IDE0290: Use Primary constructor
+dotnet_diagnostic.IDE0290.severity = silent
+
+# IDE0300: Simplify collection initialization
+dotnet_diagnostic.IDE0300.severity = silent
+
+# IDE0301: Simplify collection initialization
+dotnet_diagnostic.IDE0301.severity = silent
+
+# IDE0302: Simplify collection initialization
+dotnet_diagnostic.IDE0302.severity = silent
+
+# IDE0305: Collection initialization can be simplified
+dotnet_diagnostic.IDE0305.severity = silent
+
+# SYSLIB1045: Convert to GeneratedRegexAttribute
+dotnet_diagnostic.SYSLIB1045.severity = silent
+
+[*.{cs}]
+
+# IDE0130: Namespace should match folder path
+dotnet_style_namespace_match_folder = true
+dotnet_diagnostic.IDE0130.severity = error
+
+# Xml files
+[*.xml]
+indent_size = 2
