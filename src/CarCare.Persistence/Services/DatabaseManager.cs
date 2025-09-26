@@ -1,4 +1,5 @@
 ﻿using CarCare.Persistence.Interfaces;
+using CarCare.Persistence.Interfaces.Private;
 
 namespace CarCare.Persistence.Services;
 

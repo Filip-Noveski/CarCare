@@ -1,4 +1,4 @@
-﻿namespace CarCare.Persistence.Interfaces;
+﻿namespace CarCare.Persistence.Interfaces.Private;
 
 internal interface IMigrationsManager
 {

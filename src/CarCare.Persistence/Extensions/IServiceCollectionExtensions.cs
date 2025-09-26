@@ -1,5 +1,6 @@
 ﻿using CarCare.Persistence.Configuration;
 using CarCare.Persistence.Interfaces;
+using CarCare.Persistence.Interfaces.Private;
 using CarCare.Persistence.Services;
 using Microsoft.Extensions.DependencyInjection;
 
