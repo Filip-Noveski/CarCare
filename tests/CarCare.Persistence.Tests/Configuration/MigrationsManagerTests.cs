@@ -1,5 +1,6 @@
 ﻿using CarCare.Persistence.Configuration;
 using CarCare.Persistence.Interfaces;
+using CarCare.Persistence.Models;
 using CarCare.Persistence.Services;
 using CarCare.Persistence.Tests.Base;
 using Dapper;
@@ -41,8 +42,18 @@ public class MigrationsManagerTests : DBTestsGroup
 
         int count = await connection.ExecuteScalarAsync<int>(sql);
 
+        sql = $"""
+            SELECT *
+            FROM __MigrationHistory
+            ORDER BY Id DESC
+            """;
+
+        IEnumerable<Migration> migrations = await connection.QueryAsync<Migration>(sql);
+
         await connection.CloseAsync();
 
         count.Should().Be(1);
+        migrations.Should().ContainSingle()
+            .Which.Should().BeEquivalentTo(new Migration(20250925));
     }
 }
