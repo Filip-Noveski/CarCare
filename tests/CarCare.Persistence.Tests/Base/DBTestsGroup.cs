@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Configuration;
 using Xunit.Abstractions;
 
 namespace CarCare.Persistence.Tests.Base;
@@ -35,12 +36,24 @@ public abstract class DBTestsGroup : IAsyncLifetime
         string dbName = Configuration["Database:Name"]!;
         string dbPath = Path.Combine(folderPath, appName, dbName);
 
+        SqliteConnection.ClearAllPools();
+
         if (File.Exists(dbPath))
         {
-            int remainingRetries = RetryCount;
+            await DeleteFile(dbPath);
+        }
+    }
+
+    private async Task DeleteFile(string path)
+    {
+        int remainingRetries = RetryCount;
+        do
+        {
             try
             {
-                File.Delete(dbPath);
+                File.Delete(path);
+                Output.WriteLine($"Deletion retries: {RetryCount - remainingRetries}");
+                return;
             }
             catch (IOException)
             {
@@ -48,10 +61,8 @@ public abstract class DBTestsGroup : IAsyncLifetime
                 // wait progressively more
                 await Task.Delay((RetryCount - remainingRetries) * 100);
             }
-            if (remainingRetries != RetryCount)
-            {
-                Output.WriteLine($"Deletion retries: {RetryCount - remainingRetries}");
-            }
-        }
+        } while (remainingRetries > 0);
+
+        Output.WriteLine("Failed to delete DB file");
     }
 }
