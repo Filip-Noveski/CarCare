@@ -17,6 +17,8 @@ public static class IServiceCollectionExtensions
     public static void AddPersistenceServices(this IServiceCollection services)
     {
         services.AddSingleton<DBContext>();
-        services.AddTransient<IMigrationsHistoryRepository, MigrationsHistoryRepository>();
+        services.AddSingleton<IMigrationsHistoryRepository, MigrationsHistoryRepository>();
+        services.AddSingleton<MigrationsManager>();
+        services.AddSingleton<IDatabaseManager, DatabaseManager>();
     }
 }
