@@ -1,11 +1,11 @@
 ﻿using CarCare.Persistence.Configuration;
 using CarCare.Persistence.Interfaces;
 using CarCare.Persistence.Models;
-using CarCare.Persistence.Services;
 using CarCare.Persistence.Tests.Base;
 using Dapper;
 using FluentAssertions;
 using Microsoft.Data.Sqlite;
+using NSubstitute;
 using Xunit.Abstractions;
 
 namespace CarCare.Persistence.Tests.Configuration;
@@ -19,7 +19,7 @@ public class MigrationsManagerTests : DBTestsGroup
     public MigrationsManagerTests(ITestOutputHelper output) : base(output)
     {
         _context = new(Configuration);
-        _historyRepository = new MigrationsHistoryRepository(_context);
+        _historyRepository = Substitute.For<IMigrationsHistoryRepository>();
         _sut = new(Configuration, _context, _historyRepository);
     }
 
@@ -27,7 +27,9 @@ public class MigrationsManagerTests : DBTestsGroup
     public async Task ShouldCreateMigrationsTableAndRegisterFirstMigration()
     {
         // Arrange
-        
+        Migration migration = new(20250925);
+        _historyRepository.AddAsync(migration).Returns(Task.CompletedTask);
+
         // Act
         await _sut.CreateMigrationHistoryTableAsync();
 
@@ -42,18 +44,8 @@ public class MigrationsManagerTests : DBTestsGroup
 
         int count = await connection.ExecuteScalarAsync<int>(sql);
 
-        sql = $"""
-            SELECT *
-            FROM __MigrationHistory
-            ORDER BY Id DESC
-            """;
-
-        IEnumerable<Migration> migrations = await connection.QueryAsync<Migration>(sql);
-
-        await connection.CloseAsync();
-
         count.Should().Be(1);
-        migrations.Should().ContainSingle()
-            .Which.Should().BeEquivalentTo(new Migration(20250925));
+
+        await _historyRepository.Received(1).AddAsync(Arg.Is<Migration>(x => x.Id == migration.Id));
     }
 }
