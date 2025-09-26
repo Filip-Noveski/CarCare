@@ -13,6 +13,14 @@ public class Migration
     /// <summary>
     /// Creates a new <see cref="Migration"/> object.
     /// </summary>
+    public Migration()
+    {
+        Id = 0;
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="Migration"/> object.
+    /// </summary>
     /// <param name="id">The id of the migration.</param>
     public Migration(int id)
     {
