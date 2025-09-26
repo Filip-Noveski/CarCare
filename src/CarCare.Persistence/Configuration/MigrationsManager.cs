@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace CarCare.Persistence.Configuration;
 
-internal class MigrationsManager
+internal class MigrationsManager : IMigrationsManager
 {
     private readonly DBContext _context;
     private readonly IMigrationsHistoryRepository _historyRepository;

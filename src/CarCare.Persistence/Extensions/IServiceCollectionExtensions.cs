@@ -18,7 +18,7 @@ public static class IServiceCollectionExtensions
     {
         services.AddSingleton<DBContext>();
         services.AddSingleton<IMigrationsHistoryRepository, MigrationsHistoryRepository>();
-        services.AddSingleton<MigrationsManager>();
+        services.AddSingleton<IMigrationsManager, MigrationsManager>();
         services.AddSingleton<IDatabaseManager, DatabaseManager>();
     }
 }

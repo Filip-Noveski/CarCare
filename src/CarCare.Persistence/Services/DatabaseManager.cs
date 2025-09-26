@@ -1,14 +1,13 @@
-﻿using CarCare.Persistence.Configuration;
-using CarCare.Persistence.Interfaces;
+﻿using CarCare.Persistence.Interfaces;
 
 namespace CarCare.Persistence.Services;
 
 internal class DatabaseManager : IDatabaseManager
 {
     private readonly IMigrationsHistoryRepository _historyRepository;
-    private readonly MigrationsManager _migrationsManager;
+    private readonly IMigrationsManager _migrationsManager;
 
-    public DatabaseManager(IMigrationsHistoryRepository historyRepository, MigrationsManager migrationsManager)
+    public DatabaseManager(IMigrationsHistoryRepository historyRepository, IMigrationsManager migrationsManager)
     {
         _historyRepository = historyRepository;
         _migrationsManager = migrationsManager;
@@ -22,6 +21,5 @@ internal class DatabaseManager : IDatabaseManager
         }
 
         await _migrationsManager.UpdateToLatestAsync();
-        throw new NotImplementedException();
     }
 }
