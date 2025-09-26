@@ -1,4 +1,5 @@
 ﻿using CarCare.Persistence.Interfaces;
+using CarCare.Persistence.Interfaces.Private;
 using CarCare.Persistence.Services;
 using CarCare.Persistence.Tests.Base;
 using NSubstitute;
