@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarCare.WindowsApplication"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarCare.UserInterface", "src\CarCare.UserInterface\CarCare.UserInterface.csproj", "{0B7F0042-6008-414C-BFE7-7BC46D6D8C4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarCare.Services", "src\CarCare.Services\CarCare.Services.csproj", "{1CBEA072-B5DB-4AEE-BFCD-0416C25580F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarCare.Processing", "src\CarCare.Processing\CarCare.Processing.csproj", "{1CBEA072-B5DB-4AEE-BFCD-0416C25580F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarCare.Persistence", "src\CarCare.Persistence\CarCare.Persistence.csproj", "{1AB4B3C6-D7F4-4F53-A704-A39BA8F32A09}"
 EndProject
@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarCare.InputOutput.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarCare.Persistence.Tests", "tests\CarCare.Persistence.Tests\CarCare.Persistence.Tests.csproj", "{C47F4B8F-F7DC-4C92-835D-17F1B9BD7E79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarCare.Services.Tests", "tests\CarCare.Services.Tests\CarCare.Services.Tests.csproj", "{8EE80ABF-E8BF-4111-B75B-3803BA69C642}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarCare.Processing.Tests", "tests\CarCare.Processing.Tests\CarCare.Processing.Tests.csproj", "{8EE80ABF-E8BF-4111-B75B-3803BA69C642}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{0CB79E15-D77B-4E10-B93A-D66D8AC25F78}"
 	ProjectSection(SolutionItems) = preProject
