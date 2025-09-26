@@ -25,5 +25,6 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="CarCare.Persistence.Tests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>
 </Project>
