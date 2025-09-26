@@ -18,7 +18,7 @@ internal class MigrationsHistoryRepository : IMigrationsHistoryRepository
 
     public async Task AddAsync(Migration migration)
     {
-        using SqliteConnection connection = await _context.CreateConnection();
+        using SqliteConnection connection = await _context.CreateConnectionAsync();
 
         string sql = $"""
             INSERT INTO {TableName} (Id)
@@ -30,7 +30,7 @@ internal class MigrationsHistoryRepository : IMigrationsHistoryRepository
 
     public async Task<bool> ExistsAsync()
     {
-        using SqliteConnection connection = await _context.CreateConnection();
+        using SqliteConnection connection = await _context.CreateConnectionAsync();
 
         string sql = $"""
             SELECT COUNT(*)
@@ -45,7 +45,7 @@ internal class MigrationsHistoryRepository : IMigrationsHistoryRepository
 
     public async Task<Migration> GetLatestMigrationAsync()
     {
-        using SqliteConnection connection = await _context.CreateConnection();
+        using SqliteConnection connection = await _context.CreateConnectionAsync();
 
         string sql = $"""
             SELECT *

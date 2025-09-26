@@ -23,7 +23,7 @@ internal class DBContext
         return $"Data Source={dbPath};{options}";
     }
 
-    public async Task<SqliteConnection> CreateConnection()
+    public async Task<SqliteConnection> CreateConnectionAsync()
     {
         SqliteConnection connection = new(_connectionString);
         await connection.OpenAsync();
