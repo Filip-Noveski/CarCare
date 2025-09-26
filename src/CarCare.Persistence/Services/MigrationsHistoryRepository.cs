@@ -21,8 +21,8 @@ internal class MigrationsHistoryRepository : IMigrationsHistoryRepository
         using SqliteConnection connection = await _context.CreateConnection();
 
         string sql = $"""
-            INSERT INTO {TableName} (Id, ProductVersion)
-            VALUES (@Id, @ProductVersion)
+            INSERT INTO {TableName} (Id)
+            VALUES (@Id)
             """;
 
         await connection.ExecuteAsync(sql, migration);
