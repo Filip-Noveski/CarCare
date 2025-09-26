@@ -8,7 +8,7 @@ namespace CarCare.Persistence.Services;
 
 internal class MigrationsHistoryRepository : IMigrationsHistoryRepository
 {
-    private const string TableName = "MigrationsHistory";
+    private const string TableName = "__MigrationHistory";
     private readonly DBContext _context;
 
     public MigrationsHistoryRepository(DBContext context)
@@ -18,8 +18,7 @@ internal class MigrationsHistoryRepository : IMigrationsHistoryRepository
 
     public async Task AddAsync(Migration migration)
     {
-        using SqliteConnection connection = new(_context.ConnectionString);
-        await connection.OpenAsync();
+        using SqliteConnection connection = await _context.CreateConnection();
 
         string sql = $"""
             INSERT INTO {TableName} (Id, ProductVersion)
@@ -31,8 +30,7 @@ internal class MigrationsHistoryRepository : IMigrationsHistoryRepository
 
     public async Task<bool> ExistsAsync()
     {
-        using SqliteConnection connection = new(_context.ConnectionString);
-        await connection.OpenAsync();
+        using SqliteConnection connection = await _context.CreateConnection();
 
         string sql = $"""
             SELECT COUNT(*)
@@ -45,10 +43,9 @@ internal class MigrationsHistoryRepository : IMigrationsHistoryRepository
         return count > 0;
     }
 
-    public async Task<Migration> GetLatestMigration()
+    public async Task<Migration> GetLatestMigrationAsync()
     {
-        using SqliteConnection connection = new(_context.ConnectionString);
-        await connection.OpenAsync();
+        using SqliteConnection connection = await _context.CreateConnection();
 
         string sql = $"""
             SELECT *

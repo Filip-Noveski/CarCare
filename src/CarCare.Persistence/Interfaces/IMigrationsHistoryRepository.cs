@@ -25,5 +25,5 @@ public interface IMigrationsHistoryRepository
     /// Returns the laterst applied <see cref="Migration"/>.
     /// </summary>
     /// <returns>The latest applied <see cref="Migration"/>.</returns>
-    Task<Migration> GetLatestMigration();
+    Task<Migration> GetLatestMigrationAsync();
 }
