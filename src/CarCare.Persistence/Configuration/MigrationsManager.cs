@@ -2,6 +2,7 @@
 using CarCare.Persistence.Models;
 using Dapper;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Configuration;
 
 namespace CarCare.Persistence.Configuration;
 
@@ -11,11 +12,27 @@ internal class MigrationsManager
     private readonly IMigrationsHistoryRepository _historyRepository;
     private readonly Dictionary<int, string> _migrations;
 
-    public MigrationsManager(DBContext context, IMigrationsHistoryRepository historyRepository)
+    public MigrationsManager(
+        IConfiguration configuration,
+        DBContext context,
+        IMigrationsHistoryRepository historyRepository)
     {
+        CreateAppDataDirectory(configuration);
         _context = context;
         _historyRepository = historyRepository;
         _migrations = GetMigrations();
+    }
+
+    private static void CreateAppDataDirectory(IConfiguration configuration)
+    {
+        string appName = configuration["Application:Name"]!;
+        Environment.SpecialFolder appDataType = Environment.SpecialFolder.ApplicationData;
+        string appDataPath = Environment.GetFolderPath(appDataType);
+        string finalPath = Path.Combine(appDataPath, appName);
+        if (!Directory.Exists(finalPath))
+        {
+            Directory.CreateDirectory(finalPath);
+        }
     }
 
     private static Dictionary<int, string> GetMigrations()
@@ -24,7 +41,7 @@ internal class MigrationsManager
         Dictionary<int, string> dictionary = new(files.Length);
         foreach (string file in files)
         {
-            int start = file.IndexOf('.') + 1;
+            int start = file.IndexOf('.', 1) + 1;
             int end = file.LastIndexOf('.');
             ReadOnlySpan<char> idStr = file.AsSpan()[start..end];
             int id = int.Parse(idStr);
