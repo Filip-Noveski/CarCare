@@ -22,12 +22,12 @@ public abstract class DBTestsGroup : IAsyncLifetime
         Configuration = builder.Build();
     }
 
-    public Task InitializeAsync()
+    public virtual Task InitializeAsync()
     {
         return Task.CompletedTask;
     }
 
-    public async Task DisposeAsync()
+    public virtual async Task DisposeAsync()
     {
         Environment.SpecialFolder folderType = Environment.SpecialFolder.ApplicationData;
         string folderPath = Environment.GetFolderPath(folderType);
