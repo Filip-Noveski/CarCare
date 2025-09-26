@@ -63,6 +63,6 @@ public abstract class DBTestsGroup : IAsyncLifetime
             }
         } while (remainingRetries > 0);
 
-        Output.WriteLine("Failed to delete DB file");
+        throw new Exception("Failed to delete DB file");
     }
 }
