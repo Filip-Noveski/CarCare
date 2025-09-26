@@ -11,4 +11,9 @@
     <ProjectReference Include="..\CarCare.Persistence\CarCare.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="CarCare.Processing.Tests"/>
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+  </ItemGroup>
+
 </Project>
