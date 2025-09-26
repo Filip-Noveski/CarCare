@@ -34,18 +34,56 @@ public class MigrationsManagerTests : DBTestsGroup
         await _sut.CreateMigrationHistoryTableAsync();
 
         // Assert
-        using SqliteConnection connection = await _context.CreateConnection();
-
+        // ensure table was created
+        using SqliteConnection connection = await _context.CreateConnectionAsync();
         string sql = $"""
             SELECT COUNT(*)
             FROM sqlite_master
             WHERE type = 'table' AND name = '__MigrationHistory'
             """;
-
         int count = await connection.ExecuteScalarAsync<int>(sql);
-
         count.Should().Be(1);
 
+        // ensure record addition was requested
         await _historyRepository.Received(1).AddAsync(Arg.Is<Migration>(x => x.Id == migration.Id));
+    }
+
+    [Fact]
+    public async Task ShouldUpdateToLatest()
+    {
+        // Arrange
+        Migration latest = new(49950101);
+        Migration mocked = new(50000101);
+        Migration mockedToExclude = new(45950101);
+        _historyRepository.GetLatestMigrationAsync().Returns(latest);
+        _historyRepository.AddAsync(mocked).Returns(Task.CompletedTask);
+
+        // Act
+        await _sut.UpdateToLatestAsync();
+
+        // Assert
+        // ensure mock table was created
+        using SqliteConnection connection = await _context.CreateConnectionAsync();
+        string sqlTest = $"""
+            SELECT COUNT(*)
+            FROM sqlite_master
+            WHERE type = 'table' AND name = '__TestTable'
+            """;
+        int countTest = await connection.ExecuteScalarAsync<int>(sqlTest);
+        countTest.Should().Be(1);
+
+        // ensure "included" table was not created
+        string sqlTestAlt = $"""
+            SELECT COUNT(*)
+            FROM sqlite_master
+            WHERE type = 'table' AND name = '__TestTableAlt'
+            """;
+        int countTestAlt = await connection.ExecuteScalarAsync<int>(sqlTestAlt);
+        countTestAlt.Should().Be(0);
+
+        // ensure records were read and written
+        await _historyRepository.Received(1).GetLatestMigrationAsync();
+        await _historyRepository.Received(1).AddAsync(Arg.Is<Migration>(x => x.Id == mocked.Id));
+        await _historyRepository.DidNotReceive().AddAsync(Arg.Is<Migration>(x => x.Id == mockedToExclude.Id));
     }
 }
