@@ -21,5 +21,6 @@ public static class IServiceCollectionExtensions
         services.AddSingleton<IMigrationsHistoryRepository, MigrationsHistoryRepository>();
         services.AddSingleton<IMigrationsManager, MigrationsManager>();
         services.AddSingleton<IDatabaseManager, DatabaseManager>();
+        services.AddSingleton<IUserRepository, UserRepository>();
     }
 }
