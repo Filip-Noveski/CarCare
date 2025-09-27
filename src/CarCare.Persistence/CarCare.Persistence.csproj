@@ -8,10 +8,14 @@
 
   <ItemGroup>
     <None Remove="Migrations\_migration.20250925.sql" />
+    <None Remove="Migrations\_migration.20250927.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Migrations\_migration.20250925.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Migrations\_migration.20250927.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
