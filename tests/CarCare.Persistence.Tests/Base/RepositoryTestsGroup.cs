@@ -1,4 +1,5 @@
 ﻿using CarCare.Persistence.Configuration;
+using CarCare.Persistence.Handlers;
 using Dapper;
 using Microsoft.Data.Sqlite;
 using Xunit.Abstractions;
@@ -17,6 +18,8 @@ public abstract class RepositoryTestsGroup : DBTestsGroup
 
     public override async Task InitializeAsync()
     {
+        SqlMapper.AddTypeHandler(new StringToGuidHandler());
+
         using SqliteConnection connection = await Context.CreateConnectionAsync();
         await connection.ExecuteAsync(RelevantTablesSql);
 
