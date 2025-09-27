@@ -57,12 +57,12 @@ internal class UserRepository : IUserRepository
         using SqliteConnection connection = await _context.CreateConnectionAsync();
 
         string sql = $"""
-            SELECT FROM {TableName}
+            SELECT * FROM {TableName}
             WHERE Id = @Id
             LIMIT 1
             """;
 
-        User user = await connection.QuerySingleAsync(sql, new { Id = id });
+        User user = await connection.QuerySingleAsync<User>(sql, new { Id = id });
         return user;
     }
 
@@ -76,7 +76,7 @@ internal class UserRepository : IUserRepository
             LIMIT 1
             """;
 
-        User user = await connection.QuerySingleAsync(sql, new { Username = username });
+        User user = await connection.QuerySingleAsync<User>(sql, new { Username = username });
         return user;
     }
 
