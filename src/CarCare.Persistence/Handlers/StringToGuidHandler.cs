@@ -10,7 +10,7 @@ internal class StringToGuidHandler : SqlMapper.TypeHandler<Guid>
         return value switch
         {
             string valueString => Guid.Parse(valueString),
-            _ => throw new ArgumentException("The provided value must be a string")
+            _ => throw new ArgumentException("The provided value must be a string", nameof(value))
         };
     }
 
