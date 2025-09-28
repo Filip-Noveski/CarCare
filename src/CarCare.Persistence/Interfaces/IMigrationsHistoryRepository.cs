@@ -15,15 +15,15 @@ public interface IMigrationsHistoryRepository
     Task<bool> ExistsAsync();
 
     /// <summary>
-    /// Adds a new <see cref="Migration"/> entry to the database.
+    /// Adds a new <see cref="MigrationDao"/> entry to the database.
     /// </summary>
     /// <param name="migration">The migration that has been applied.</param>
     /// <returns>An awaitable <see cref="Task"/>.</returns>
-    Task AddAsync(Migration migration);
+    Task AddAsync(MigrationDao migration);
 
     /// <summary>
-    /// Returns the laterst applied <see cref="Migration"/>.
+    /// Returns the laterst applied <see cref="MigrationDao"/>.
     /// </summary>
-    /// <returns>The latest applied <see cref="Migration"/>.</returns>
-    Task<Migration> GetLatestMigrationAsync();
+    /// <returns>The latest applied <see cref="MigrationDao"/>.</returns>
+    Task<MigrationDao> GetLatestMigrationAsync();
 }

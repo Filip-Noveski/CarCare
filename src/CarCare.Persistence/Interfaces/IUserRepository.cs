@@ -9,18 +9,18 @@ namespace CarCare.Persistence.Interfaces;
 public interface IUserRepository
 {
     /// <summary>
-    /// Adds a new <see cref="User"/> entry.
+    /// Adds a new <see cref="UserDao"/> entry.
     /// </summary>
-    /// <param name="user">The <see cref="User"/> to register.</param>
+    /// <param name="user">The <see cref="UserDao"/> to register.</param>
     /// <returns>An awaitable <see cref="Task"/>.</returns>
-    Task AddAsync(User user);
+    Task AddAsync(UserDao user);
 
     /// <summary>
-    /// Updates an existing <see cref="User"/> entry to the new values.
+    /// Updates an existing <see cref="UserDao"/> entry to the new values.
     /// </summary>
-    /// <param name="user">A <see cref="User"/> with the desired values.</param>
+    /// <param name="user">A <see cref="UserDao"/> with the desired values.</param>
     /// <returns>An awaitable <see cref="Task"/>.</returns>
-    Task UpdateAsync(User user);
+    Task UpdateAsync(UserDao user);
 
     /// <summary>
     /// Deletes the requested user by <paramref name="id"/>.
@@ -40,19 +40,19 @@ public interface IUserRepository
     /// Returns the requested user by <paramref name="id"/>.
     /// </summary>
     /// <param name="id">The id of the desired user.</param>
-    /// <returns>A matching <see cref="User"/>.</returns>
-    Task<User> GetUserAsync(Guid id);
+    /// <returns>A matching <see cref="UserDao"/>.</returns>
+    Task<UserDao> GetUserAsync(Guid id);
 
     /// <summary>
     /// Returns the requested user by <paramref name="username"/>.
     /// </summary>
     /// <param name="username">The username of the desired user.</param>
-    /// <returns>A matching <see cref="User"/>.</returns>
-    Task<User> GetUserAsync(string username);
+    /// <returns>A matching <see cref="UserDao"/>.</returns>
+    Task<UserDao> GetUserAsync(string username);
 
     /// <summary>
-    /// Returns all <see cref="User"/> entries.
+    /// Returns all <see cref="UserDao"/> entries.
     /// </summary>
-    /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="User"/>.</returns>
-    Task<IEnumerable<User>> GetUsersAsync();
+    /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="UserDao"/>.</returns>
+    Task<IEnumerable<UserDao>> GetUsersAsync();
 }

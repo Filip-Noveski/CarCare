@@ -3,7 +3,7 @@
 /// <summary>
 /// A database user model.
 /// </summary>
-public class User
+public class UserDao
 {
     /// <summary>
     /// The id of the user.
@@ -26,9 +26,9 @@ public class User
     public byte[]? Avatar { get; set; }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="User"/> class.
+    /// Creates a new instance of the <see cref="UserDao"/> class.
     /// </summary>
-    public User()
+    public UserDao()
     {
         Id = Guid.Empty;
         Username = string.Empty;
@@ -37,12 +37,12 @@ public class User
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="User"/> class.
+    /// Creates a new instance of the <see cref="UserDao"/> class.
     /// </summary>
     /// <param name="id">The id.</param>
     /// <param name="username">The username.</param>
     /// <param name="password">The hashed password.</param>
-    public User(Guid id, string username, string password)
+    public UserDao(Guid id, string username, string password)
     {
         Id = id;
         Username = username;
@@ -51,13 +51,13 @@ public class User
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="User"/> class.
+    /// Creates a new instance of the <see cref="UserDao"/> class.
     /// </summary>
     /// <param name="id">The id.</param>
     /// <param name="username">The username.</param>
     /// <param name="password">The hashed password.</param>
     /// <param name="avatar">The bytes of the avatar image.</param>
-    public User(Guid id, string username, string password, byte[]? avatar) : this(id, username, password)
+    public UserDao(Guid id, string username, string password, byte[]? avatar) : this(id, username, password)
     {
         Avatar = avatar;
     }

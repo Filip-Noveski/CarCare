@@ -16,7 +16,7 @@ internal class UserRepository : IUserRepository
         _context = context;
     }
 
-    public async Task AddAsync(User user)
+    public async Task AddAsync(UserDao user)
     {
         using SqliteConnection connection = await _context.CreateConnectionAsync();
 
@@ -52,7 +52,7 @@ internal class UserRepository : IUserRepository
         await connection.ExecuteAsync(sql, new { Username = username });
     }
 
-    public async Task<User> GetUserAsync(Guid id)
+    public async Task<UserDao> GetUserAsync(Guid id)
     {
         using SqliteConnection connection = await _context.CreateConnectionAsync();
 
@@ -62,11 +62,11 @@ internal class UserRepository : IUserRepository
             LIMIT 1
             """;
 
-        User user = await connection.QuerySingleAsync<User>(sql, new { Id = id });
+        UserDao user = await connection.QuerySingleAsync<UserDao>(sql, new { Id = id });
         return user;
     }
 
-    public async Task<User> GetUserAsync(string username)
+    public async Task<UserDao> GetUserAsync(string username)
     {
         using SqliteConnection connection = await _context.CreateConnectionAsync();
 
@@ -76,11 +76,11 @@ internal class UserRepository : IUserRepository
             LIMIT 1
             """;
 
-        User user = await connection.QuerySingleAsync<User>(sql, new { Username = username });
+        UserDao user = await connection.QuerySingleAsync<UserDao>(sql, new { Username = username });
         return user;
     }
 
-    public async Task<IEnumerable<User>> GetUsersAsync()
+    public async Task<IEnumerable<UserDao>> GetUsersAsync()
     {
         using SqliteConnection connection = await _context.CreateConnectionAsync();
 
@@ -88,11 +88,11 @@ internal class UserRepository : IUserRepository
             SELECT * FROM {TableName}
             """;
 
-        IEnumerable<User> users = await connection.QueryAsync<User>(sql);
+        IEnumerable<UserDao> users = await connection.QueryAsync<UserDao>(sql);
         return users;
     }
 
-    public async Task UpdateAsync(User user)
+    public async Task UpdateAsync(UserDao user)
     {
         using SqliteConnection connection = await _context.CreateConnectionAsync();
 
