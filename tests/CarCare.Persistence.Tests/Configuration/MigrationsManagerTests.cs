@@ -27,7 +27,7 @@ public class MigrationsManagerTests : DBTestsGroup
     public async Task ShouldCreateMigrationsTableAndRegisterFirstMigration()
     {
         // Arrange
-        Migration migration = new(20250925);
+        MigrationDao migration = new(20250925);
         _historyRepository.AddAsync(migration).Returns(Task.CompletedTask);
 
         // Act
@@ -45,16 +45,16 @@ public class MigrationsManagerTests : DBTestsGroup
         count.Should().Be(1);
 
         // ensure record addition was requested
-        await _historyRepository.Received(1).AddAsync(Arg.Is<Migration>(x => x.Id == migration.Id));
+        await _historyRepository.Received(1).AddAsync(Arg.Is<MigrationDao>(x => x.Id == migration.Id));
     }
 
     [Fact]
     public async Task ShouldUpdateToLatest()
     {
         // Arrange
-        Migration latest = new(49950101);
-        Migration mocked = new(50000101);
-        Migration mockedToExclude = new(45950101);
+        MigrationDao latest = new(49950101);
+        MigrationDao mocked = new(50000101);
+        MigrationDao mockedToExclude = new(45950101);
         _historyRepository.GetLatestMigrationAsync().Returns(latest);
         _historyRepository.AddAsync(mocked).Returns(Task.CompletedTask);
 
@@ -83,7 +83,7 @@ public class MigrationsManagerTests : DBTestsGroup
 
         // ensure records were read and written
         await _historyRepository.Received(1).GetLatestMigrationAsync();
-        await _historyRepository.Received(1).AddAsync(Arg.Is<Migration>(x => x.Id == mocked.Id));
-        await _historyRepository.DidNotReceive().AddAsync(Arg.Is<Migration>(x => x.Id == mockedToExclude.Id));
+        await _historyRepository.Received(1).AddAsync(Arg.Is<MigrationDao>(x => x.Id == mocked.Id));
+        await _historyRepository.DidNotReceive().AddAsync(Arg.Is<MigrationDao>(x => x.Id == mockedToExclude.Id));
     }
 }
