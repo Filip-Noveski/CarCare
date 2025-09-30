@@ -24,5 +24,6 @@ public static class IServiceCollectionExtensions
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         services.AddSingleton<IUserService, UserService>();
         services.AddScoped<IRegisterContext, RegisterContext>();
+        services.AddScoped<ILoginContext, LoginContext>();
     }
 }
