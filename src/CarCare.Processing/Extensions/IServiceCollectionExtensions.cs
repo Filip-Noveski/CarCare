@@ -23,5 +23,6 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ISplashScreenContext, SplashScreenContext>();
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         services.AddSingleton<IUserService, UserService>();
+        services.AddScoped<IRegisterContext, RegisterContext>();
     }
 }
