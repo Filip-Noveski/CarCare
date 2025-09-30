@@ -73,28 +73,25 @@ public class User
     /// <summary>
     /// Creates a new <see cref="User"/> object.
     /// </summary>
-    /// <param name="id">The id of the user.</param>
     /// <param name="username">The username of the user.</param>
     /// <param name="plainPassword">The plaintext password of the user.</param>
     /// <param name="hasher">A password hashing service.</param>
-    public static User Create(Guid id, string username, string plainPassword, IPasswordHasher<User> hasher)
+    public static User Create(string username, string plainPassword, IPasswordHasher<User> hasher)
     {
         string hashedPassword = hasher.HashPassword(null!, plainPassword);
-        return new(id, username, hashedPassword);
+        return new(Guid.NewGuid(), username, hashedPassword);
     }
 
     /// <summary>
     /// Creates a new <see cref="User"/> object.
     /// </summary>
-    /// <param name="id">The id of the user.</param>
     /// <param name="username">The username of the user.</param>
     /// <param name="plainPassword">The plaintext password of the user.</param>
     /// <param name="avatar">The bytes of the avatar image.</param>
     /// <param name="hasher">A password hashing service.</param>
-    public static User Create(
-        Guid id, string username, string plainPassword, byte[] avatar, IPasswordHasher<User> hasher)
+    public static User Create(string username, string plainPassword, byte[] avatar, IPasswordHasher<User> hasher)
     {
         string hashedPassword = hasher.HashPassword(null!, plainPassword);
-        return new(id, username, hashedPassword, avatar);
+        return new(Guid.NewGuid(), username, hashedPassword, avatar);
     }
 }
