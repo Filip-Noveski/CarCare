@@ -28,7 +28,7 @@ public class RegisterContextTests
     public async Task ShouldFailDueToIncorrectParamter()
     {
         // Arrange
-        object input = new object();
+        object input = new();
 
         // Act
         _sut.RegisterCommand.Execute(input);
