@@ -12,11 +12,16 @@ internal class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher<User> _hasher;
+    private readonly IBitmapCreatorService _bitmapService;
 
-    public UserService(IUserRepository userRepository, IPasswordHasher<User> hasher)
+    public UserService(
+        IUserRepository userRepository,
+        IPasswordHasher<User> hasher,
+        IBitmapCreatorService bitmapService)
     {
         _userRepository = userRepository;
         _hasher = hasher;
+        _bitmapService = bitmapService;
     }
 
     public async Task DeleteAsync(Guid id)
@@ -32,19 +37,19 @@ internal class UserService : IUserService
     public async Task<User> GetUserAsync(Guid id)
     {
         UserDao user = await _userRepository.GetUserAsync(id);
-        return new(user);
+        return new(user, _bitmapService);
     }
 
     public async Task<User> GetUserAsync(string username)
     {
         UserDao user = await _userRepository.GetUserAsync(username);
-        return new(user);
+        return new(user, _bitmapService);
     }
 
     public async Task<IEnumerable<User>> GetUsersAsync()
     {
         IEnumerable<UserDao> users = await _userRepository.GetUsersAsync();
-        return users.Select(x => new User(x));
+        return users.Select(x => new User(x, _bitmapService));
     }
 
     public async Task<OneOf<User, LoginError>> LoginAsync(string username, string password)
@@ -54,7 +59,7 @@ internal class UserService : IUserService
         return result switch
         {
             PasswordVerificationResult.Failed => new LoginError("Incorrect password"),
-            PasswordVerificationResult.Success => new User(user),
+            PasswordVerificationResult.Success => new User(user, _bitmapService),
             PasswordVerificationResult.SuccessRehashNeeded => throw new Exception("Needs handling"),
             _ => throw new UnreachableException()
         };
@@ -62,13 +67,13 @@ internal class UserService : IUserService
 
     public async Task RegisterAsync(User user)
     {
-        UserDao dao = user.ToDao();
+        UserDao dao = user.ToDao(_bitmapService);
         await _userRepository.AddAsync(dao);
     }
 
     public async Task UpdateAsync(User user)
     {
-        UserDao dao = user.ToDao();
+        UserDao dao = user.ToDao(_bitmapService);
         await _userRepository.UpdateAsync(dao);
     }
 }
