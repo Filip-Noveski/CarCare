@@ -1,8 +1,10 @@
 ﻿using CarCare.Processing.Contexts;
 using CarCare.Processing.Interfaces.Context;
 using CarCare.Processing.Interfaces.Service;
+using CarCare.Processing.Interfaces.Session;
 using CarCare.Processing.Models;
 using CarCare.Processing.Services;
+using CarCare.Processing.Sessions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,6 +24,7 @@ public static class IServiceCollectionExtensions
         services.AddSingleton<IDatabaseManagementService, DatabaseManagementService>();
         services.AddScoped<ISplashScreenContext, SplashScreenContext>();
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+        services.AddSingleton<IUserSession, UserSession>();
         services.AddSingleton<IUserService, UserService>();
         services.AddSingleton<IAuthenticationContext, AuthenticationContext>();
         services.AddScoped<IRegisterContext, RegisterContext>();
