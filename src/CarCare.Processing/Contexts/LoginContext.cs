@@ -14,7 +14,6 @@ internal class LoginContext : Context, ILoginContext
 {
     private readonly IUserService _userService;
     private readonly INavigationService _navigationService;
-    private readonly IBitmapCreatorService _bitmapService;
     private readonly IAuthenticationContext _authenticationContext;
 
     public event EventHandler UsernameChanged = null!;
@@ -63,12 +62,10 @@ internal class LoginContext : Context, ILoginContext
     public LoginContext(
         IUserService userService,
         INavigationService navigationService,
-        IBitmapCreatorService bitmapService,
         IAuthenticationContext authenticationContext)
     {
         _userService = userService;
         _navigationService = navigationService;
-        _bitmapService = bitmapService;
         _authenticationContext = authenticationContext;
         Users = new();
         Username = string.Empty;
