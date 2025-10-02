@@ -45,9 +45,9 @@ public partial class App : Application
         splash.Show();
         await splash.RunApplicationPreparationAsync();
 
-        Dashboard dashboard = AppHost.Services.GetRequiredService<Dashboard>();
+        Authentication auth = AppHost.Services.GetRequiredService<Authentication>();
         splash.Close();
-        dashboard.Show();
+        auth.Show();
 
         base.OnStartup(e);
     }
