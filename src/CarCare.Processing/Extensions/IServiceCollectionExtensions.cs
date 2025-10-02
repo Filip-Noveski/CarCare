@@ -25,5 +25,6 @@ public static class IServiceCollectionExtensions
         services.AddSingleton<IUserService, UserService>();
         services.AddScoped<IRegisterContext, RegisterContext>();
         services.AddScoped<ILoginContext, LoginContext>();
+        services.AddSingleton<IBitmapCreatorService, BitmapCreatorService>();
     }
 }
