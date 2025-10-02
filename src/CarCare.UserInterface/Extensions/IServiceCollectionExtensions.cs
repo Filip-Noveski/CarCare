@@ -19,6 +19,7 @@ public static class IServiceCollectionExtensions
     {
         services.AddSingleton<Splash>();
         services.AddSingleton<Dashboard>();
+        services.AddSingleton<Authentication>();
         services.AddSingleton<Login>();
         services.AddSingleton<Register>();
     }
