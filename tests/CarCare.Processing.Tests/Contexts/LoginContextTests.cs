@@ -13,7 +13,6 @@ public class LoginContextTests
 {
     private readonly IUserService _userService;
     private readonly INavigationService _navigationService;
-    private readonly IBitmapCreatorService _bitmapService;
     private readonly IAuthenticationContext _authenticationContext;
     private readonly LoginContext _sut;
 
@@ -21,9 +20,8 @@ public class LoginContextTests
     {
         _userService = Substitute.For<IUserService>();
         _navigationService = Substitute.For<INavigationService>();
-        _bitmapService = Substitute.For<IBitmapCreatorService>();
         _authenticationContext = Substitute.For<AuthenticationContext>();
-        _sut = new(_userService, _navigationService, _bitmapService, _authenticationContext);
+        _sut = new(_userService, _navigationService, _authenticationContext);
     }
 
 
