@@ -1,6 +1,7 @@
 ﻿using CarCare.Persistence.Interfaces;
 using CarCare.Persistence.Models;
 using CarCare.Processing.Interfaces.Service;
+using CarCare.Processing.Interfaces.Session;
 using CarCare.Processing.Models;
 using CarCare.Processing.Services;
 using FluentAssertions;
@@ -22,6 +23,7 @@ public class UserServiceTests
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher<User> _hasher;
     private readonly IBitmapCreatorService _bitmapService;
+    private readonly IUserSession _userSession;
     private readonly UserService _sut;
 
     public UserServiceTests()
@@ -29,7 +31,8 @@ public class UserServiceTests
         _userRepository = Substitute.For<IUserRepository>();
         _hasher = Substitute.For<IPasswordHasher<User>>();
         _bitmapService = Substitute.For<IBitmapCreatorService>();
-        _sut = new(_userRepository, _hasher, _bitmapService);
+        _userSession = Substitute.For<IUserSession>();
+        _sut = new(_userRepository, _hasher, _bitmapService, _userSession);
     }
 
     private static User GetUser() => new(Id, Username, Password, AvatarBmp, true);
@@ -40,12 +43,14 @@ public class UserServiceTests
     {
         // Arrange
         _userRepository.DeleteAsync(Id).Returns(Task.CompletedTask);
+        _userSession.IsAuthenticated(Id).Returns(true);
 
         // Act
         await _sut.DeleteAsync(Id);
 
         // Assert
         await _userRepository.Received(1).DeleteAsync(Id);
+        _userSession.Received().IsAuthenticated(Id);
     }
 
     [Fact]
@@ -53,12 +58,44 @@ public class UserServiceTests
     {
         // Arrange
         _userRepository.DeleteAsync(Username).Returns(Task.CompletedTask);
+        _userSession.IsAuthenticated(Username).Returns(true);
 
         // Act
         await _sut.DeleteAsync(Username);
 
         // Assert
         await _userRepository.Received(1).DeleteAsync(Username);
+        _userSession.Received().IsAuthenticated(Username);
+    }
+
+    [Fact]
+    public async Task ShouldRejectUserDeleteById()
+    {
+        // Arrange
+        _userRepository.DeleteAsync(Id).Returns(Task.CompletedTask);
+        _userSession.IsAuthenticated(Id).Returns(false);
+
+        // Act
+        await _sut.DeleteAsync(Id);
+
+        // Assert
+        await _userRepository.DidNotReceive().DeleteAsync(Id);
+        _userSession.Received().IsAuthenticated(Id);
+    }
+
+    [Fact]
+    public async Task ShouldRejectUserDeleteByUsername()
+    {
+        // Arrange
+        _userRepository.DeleteAsync(Username).Returns(Task.CompletedTask);
+        _userSession.IsAuthenticated(Username).Returns(false);
+
+        // Act
+        await _sut.DeleteAsync(Username);
+
+        // Assert
+        await _userRepository.DidNotReceive().DeleteAsync(Username);
+        _userSession.Received().IsAuthenticated(Username);
     }
 
     [Fact]
@@ -168,6 +205,7 @@ public class UserServiceTests
         _userRepository.GetUserAsync(Username).Returns(dao);
         _hasher.VerifyHashedPassword(null!, Password, Password).Returns(PasswordVerificationResult.Success);
         _bitmapService.ConvertToBitmap(Avatar).Returns(AvatarBmp);
+        _userSession.LoginUser(Arg.Any<UserDto>());
 
         // Act
         OneOf<User, LoginError> result = await _sut.LoginAsync(Username, Password);
@@ -176,6 +214,7 @@ public class UserServiceTests
         await _userRepository.Received().GetUserAsync(Username);
         _hasher.Received().VerifyHashedPassword(null!, Password, Password);
         _bitmapService.Received().ConvertToBitmap(Avatar);
+        _userSession.Received().LoginUser(Arg.Any<UserDto>());
 
         result.Value.Should().NotBeNull()
             .And.BeAssignableTo<User>()
@@ -197,6 +236,7 @@ public class UserServiceTests
         // Assert
         await _userRepository.Received().GetUserAsync(Username);
         _hasher.Received().VerifyHashedPassword(null!, Password, Password);
+        _userSession.DidNotReceive().LoginUser(Arg.Any<UserDto>());
 
         result.Value.Should().NotBeNull()
             .And.BeAssignableTo<LoginError>();
@@ -210,6 +250,7 @@ public class UserServiceTests
         UserDao dao = GetUserDao();
         _userRepository.AddAsync(dao).Returns(Task.CompletedTask);
         _bitmapService.ConvertToBinary(AvatarBmp).Returns(Avatar);
+        _userSession.LoginUser(Arg.Any<UserDto>());
 
         // Act
         await _sut.RegisterAsync(user);
@@ -218,6 +259,7 @@ public class UserServiceTests
         await _userRepository.Received().AddAsync(Arg.Is<UserDao>(x =>
             x.Username == Username && x.Password == Password && x.Id == Id && x.Avatar == Avatar));
         _bitmapService.Received().ConvertToBinary(AvatarBmp);
+        _userSession.Received().LoginUser(Arg.Any<UserDto>());
     }
 
     [Fact]
@@ -228,6 +270,7 @@ public class UserServiceTests
         UserDao dao = GetUserDao();
         _userRepository.UpdateAsync(dao).Returns(Task.CompletedTask);
         _bitmapService.ConvertToBinary(AvatarBmp).Returns(Avatar);
+        _userSession.IsAuthenticated(user).Returns(true);
 
         // Act
         await _sut.UpdateAsync(user);
@@ -236,5 +279,26 @@ public class UserServiceTests
         await _userRepository.Received().UpdateAsync(Arg.Is<UserDao>(x =>
             x.Username == Username && x.Password == Password && x.Id == Id && x.Avatar == Avatar));
         _bitmapService.Received().ConvertToBinary(AvatarBmp);
+        _userSession.Received().IsAuthenticated(user);
+    }
+
+    [Fact]
+    public async Task ShouldRejectUserUpdate()
+    {
+        // Arrange
+        User user = GetUser();
+        UserDao dao = GetUserDao();
+        _userRepository.UpdateAsync(dao).Returns(Task.CompletedTask);
+        _bitmapService.ConvertToBinary(AvatarBmp).Returns(Avatar);
+        _userSession.IsAuthenticated(user).Returns(false);
+
+        // Act
+        await _sut.UpdateAsync(user);
+
+        // Assert
+        await _userRepository.DidNotReceive().UpdateAsync(Arg.Is<UserDao>(x =>
+            x.Username == Username && x.Password == Password && x.Id == Id && x.Avatar == Avatar));
+        _bitmapService.DidNotReceive().ConvertToBinary(AvatarBmp);
+        _userSession.Received().IsAuthenticated(user);
     }
 }
