@@ -1,34 +1,23 @@
 ﻿using CarCare.Persistence.Models;
+using CarCare.Processing.Interfaces.Service;
 using Microsoft.AspNetCore.Identity;
+using System.Windows.Media.Imaging;
 
 namespace CarCare.Processing.Models;
 
-/// <summary>
-/// A constrained user model.
-/// </summary>
-public class User
+internal class User
 {
-    /// <summary>
-    /// The id of the <see cref="User"/>.
-    /// </summary>
     public Guid Id { get; internal set; }
 
-    /// <summary>
-    /// The username of the <see cref="User"/>.
-    /// </summary>
     public string Username { get; internal set; }
 
-    /// <summary>
-    /// The hashed password of the <see cref="User"/>.
-    /// </summary>
     public string Password { get; internal set; }
 
-    /// <summary>
-    /// The avatar image of the <see cref="User"/>.
-    /// </summary>
-    public byte[]? Avatar { get; internal set; }
+    public BitmapImage Avatar { get; internal set; }
 
-    internal User(Guid id, string username, string passwordHash)
+    public bool HasCustomAvatar { get; internal set; }
+
+    internal User(Guid id, string username, string passwordHash, BitmapImage avatar, bool hasCustomAvatar)
     {
         if (id == Guid.Empty)
         {
@@ -48,50 +37,48 @@ public class User
         }
         Password = passwordHash;
 
-        Avatar = null;
-    }
-
-    internal User(Guid id, string username, string passwordHash, byte[] avatar) 
-        : this(id, username, passwordHash)
-    {
         Avatar = avatar;
+        HasCustomAvatar = hasCustomAvatar;
     }
 
-    internal User(UserDao dao)
+    internal User(UserDao dao, IBitmapCreatorService bitmapCreator)
     {
         Id = dao.Id;
         Username = dao.Username;
         Password = dao.Password;
-        Avatar = dao.Avatar;
+        Avatar = dao.Avatar switch
+        {
+            null => bitmapCreator.GetGenericAvatar(dao.Username),
+            _ => bitmapCreator.ConvertToBitmap(dao.Avatar)
+        };
+        HasCustomAvatar = dao.Avatar is not null;
     }
 
-    internal UserDao ToDao()
-    {
-        return new(Id, Username, Password, Avatar);
-    }
-
-    /// <summary>
-    /// Creates a new <see cref="User"/> object.
-    /// </summary>
-    /// <param name="username">The username of the user.</param>
-    /// <param name="plainPassword">The plaintext password of the user.</param>
-    /// <param name="hasher">A password hashing service.</param>
-    public static User Create(string username, string plainPassword, IPasswordHasher<User> hasher)
+    public static User Create(string username, string plainPassword, IPasswordHasher<User> hasher, IBitmapCreatorService bitmapCreator)
     {
         string hashedPassword = hasher.HashPassword(null!, plainPassword);
-        return new(Guid.NewGuid(), username, hashedPassword);
+        return new(Guid.NewGuid(), username, hashedPassword, bitmapCreator.GetGenericAvatar(username), false);
     }
 
-    /// <summary>
-    /// Creates a new <see cref="User"/> object.
-    /// </summary>
-    /// <param name="username">The username of the user.</param>
-    /// <param name="plainPassword">The plaintext password of the user.</param>
-    /// <param name="avatar">The bytes of the avatar image.</param>
-    /// <param name="hasher">A password hashing service.</param>
-    public static User Create(string username, string plainPassword, byte[] avatar, IPasswordHasher<User> hasher)
+    public static User Create(string username, string plainPassword, byte[] avatar, IPasswordHasher<User> hasher, IBitmapCreatorService bitmapCreator)
     {
         string hashedPassword = hasher.HashPassword(null!, plainPassword);
-        return new(Guid.NewGuid(), username, hashedPassword, avatar);
+        return new(Guid.NewGuid(), username, hashedPassword, bitmapCreator.ConvertToBitmap(avatar), true);
+    }
+
+    public static User Create(string username, string plainPassword, BitmapImage avatar, IPasswordHasher<User> hasher)
+    {
+        string hashedPassword = hasher.HashPassword(null!, plainPassword);
+        return new(Guid.NewGuid(), username, hashedPassword, avatar, true);
+    }
+
+    public UserDto ToDto()
+    {
+        return new(Id, Username, Avatar);
+    }
+
+    internal UserDao ToDao(IBitmapCreatorService bitmapCreator)
+    {
+        return new(Id, Username, Password, HasCustomAvatar ? bitmapCreator.ConvertToBinary(Avatar) : null);
     }
 }
