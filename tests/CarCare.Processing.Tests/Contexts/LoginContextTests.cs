@@ -5,6 +5,7 @@ using CarCare.Processing.Models;
 using FluentAssertions;
 using NSubstitute;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace CarCare.Processing.Tests.Contexts;
 
@@ -12,18 +13,22 @@ public class LoginContextTests
 {
     private readonly IUserService _userService;
     private readonly INavigationService _navigationService;
+    private readonly IBitmapCreatorService _bitmapService;
+    private readonly IAuthenticationContext _authenticationContext;
     private readonly LoginContext _sut;
 
     public LoginContextTests()
     {
         _userService = Substitute.For<IUserService>();
         _navigationService = Substitute.For<INavigationService>();
-        _sut = new(_userService, _navigationService);
+        _bitmapService = Substitute.For<IBitmapCreatorService>();
+        _authenticationContext = Substitute.For<AuthenticationContext>();
+        _sut = new(_userService, _navigationService, _bitmapService, _authenticationContext);
     }
 
 
     [Fact]
-    public async Task ShouldFailDueToIncorrectParamter()
+    public async Task LoginShouldFailDueToIncorrectParamter()
     {
         // Arrange
         object input = new();
@@ -39,7 +44,7 @@ public class LoginContextTests
     }
 
     [Fact]
-    public async Task ShouldDenyLogin()
+    public async Task LoginShouldBeDenied()
     {
         _userService.LoginAsync(Arg.Any<string>(), Arg.Any<string>())
             .Returns(new LoginError("Invalid Password let's say"));
@@ -72,7 +77,7 @@ public class LoginContextTests
     public async Task ShouldApproveLogin()
     {
         _userService.LoginAsync(Arg.Any<string>(), Arg.Any<string>())
-            .Returns(new User(Guid.NewGuid(), "Username", "Password"));
+            .Returns(new User(Guid.NewGuid(), "Username", "Password", new BitmapImage(), true));
 
         Thread sta = new(() =>
         {
@@ -98,5 +103,76 @@ public class LoginContextTests
         // Assert
         await _userService.Received().LoginAsync("Username", "Password");
         _sut.Error.Should().Be("");
+    }
+
+    [Fact]
+    public void ShouldNavigateToRegister()
+    {
+        // Arrange
+        _authenticationContext.OnRegisterRequested();
+
+        // Act
+        _sut.RegisterCommand.Execute(null);
+
+        // Assert
+        _authenticationContext.Received().OnRegisterRequested();
+    }
+
+    [Fact]
+    public void ShouldSelectUser()
+    {
+        // Arrange
+        BitmapImage avatar = new();
+        _sut.Users.Add(new(Guid.NewGuid(), "Username", avatar));
+
+        // Act
+        _sut.SelectUserCommand.Execute("Username");
+
+        // Assert
+        _sut.Username.Should().Be("Username");
+        _sut.Avatar.Should().Be(avatar);
+    }
+
+    [Fact]
+    public void ShouldFailToSelectUser()
+    {
+        // Act
+        _sut.SelectUserCommand.Execute(new object());
+
+        // Assert
+        _sut.Error.Should().NotBe("");
+    }
+
+    [Fact]
+    public void ShouldClearUsernameAndAvatar()
+    {
+        // Arrange
+        _sut.Username = "asdsad";
+        _sut.Avatar = new BitmapImage();
+
+        // Act
+        _sut.ReturnToUsersListCommand.Execute(null);
+
+        // Assert
+        _sut.Username.Should().Be("");
+        _sut.Avatar.Should().BeNull();
+    }
+
+    [Fact]
+    public void UsernameChangeShouldRaiseEvent()
+    {
+        // Arrange
+        bool called = false;
+        EventHandler a = (s, e) =>
+        {
+            called = true;
+        };
+        _sut.UsernameChanged += a;
+
+        // Act
+        _sut.Username = "Hello";
+
+        // Assert
+        called.Should().BeTrue();
     }
 }
