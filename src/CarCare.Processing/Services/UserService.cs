@@ -1,6 +1,7 @@
 ﻿using CarCare.Persistence.Interfaces;
 using CarCare.Persistence.Models;
 using CarCare.Processing.Interfaces.Service;
+using CarCare.Processing.Interfaces.Session;
 using CarCare.Processing.Models;
 using Microsoft.AspNetCore.Identity;
 using OneOf;
@@ -13,24 +14,37 @@ internal class UserService : IUserService
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher<User> _hasher;
     private readonly IBitmapCreatorService _bitmapService;
+    private readonly IUserSession _userSession;
 
     public UserService(
         IUserRepository userRepository,
         IPasswordHasher<User> hasher,
-        IBitmapCreatorService bitmapService)
+        IBitmapCreatorService bitmapService,
+        IUserSession userSession)
     {
         _userRepository = userRepository;
         _hasher = hasher;
         _bitmapService = bitmapService;
+        _userSession = userSession;
     }
 
     public async Task DeleteAsync(Guid id)
     {
+        if (!_userSession.IsAuthenticated(id))
+        {
+            return;
+        }
+
         await _userRepository.DeleteAsync(id);
     }
 
     public async Task DeleteAsync(string username)
     {
+        if (!_userSession.IsAuthenticated(username))
+        {
+            return;
+        }
+
         await _userRepository.DeleteAsync(username);
     }
 
@@ -56,23 +70,36 @@ internal class UserService : IUserService
     {
         UserDao user = await _userRepository.GetUserAsync(username);
         PasswordVerificationResult result = _hasher.VerifyHashedPassword(null!, user.Password, password);
-        return result switch
+
+        if (result is PasswordVerificationResult.Failed)
         {
-            PasswordVerificationResult.Failed => new LoginError("Incorrect password"),
-            PasswordVerificationResult.Success => new User(user, _bitmapService),
-            PasswordVerificationResult.SuccessRehashNeeded => throw new Exception("Needs handling"),
-            _ => throw new UnreachableException()
-        };
+            return new LoginError("Incorrect password");
+        }
+
+        if (result is PasswordVerificationResult.Success)
+        {
+            User loggedIn = new(user, _bitmapService);
+            _userSession.LoginUser(loggedIn.ToDto());
+            return loggedIn;
+        }
+
+        throw new UnreachableException();
     }
 
     public async Task RegisterAsync(User user)
     {
         UserDao dao = user.ToDao(_bitmapService);
         await _userRepository.AddAsync(dao);
+        _userSession.LoginUser(user.ToDto());
     }
 
     public async Task UpdateAsync(User user)
     {
+        if (!_userSession.IsAuthenticated(user))
+        {
+            return;
+        }
+
         UserDao dao = user.ToDao(_bitmapService);
         await _userRepository.UpdateAsync(dao);
     }
