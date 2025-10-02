@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace CarCare.Processing.Interfaces.Context;
 
@@ -11,6 +12,21 @@ public interface IRegisterContext
     /// The command to register a new user.
     /// </summary>
     ICommand RegisterCommand { get; }
+
+    /// <summary>
+    /// The command to choose a custom user avatar.
+    /// </summary>
+    ICommand ChooseAvatarCommand { get; }
+
+    /// <summary>
+    /// The command to navigate to the Login view.
+    /// </summary>
+    ICommand NavigateToLoginCommand { get; }
+
+    /// <summary>
+    /// The selected avatar image.
+    /// </summary>
+    BitmapImage? Avatar { get; }
 
     /// <summary>
     /// The username of the user.
