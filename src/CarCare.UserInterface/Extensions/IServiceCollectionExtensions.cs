@@ -1,3 +1,6 @@
+﻿using CarCare.Processing.Interfaces.Service;
+using CarCare.UserInterface.Components;
+using CarCare.UserInterface.Services;
 ﻿using CarCare.UserInterface.Windows;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,5 +19,6 @@ public static class IServiceCollectionExtensions
     {
         services.AddSingleton<Splash>();
         services.AddSingleton<Dashboard>();
+        services.AddSingleton<Login>();
     }
 }
