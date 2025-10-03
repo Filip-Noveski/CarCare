@@ -4,6 +4,8 @@ using CarCare.Processing.Interfaces.Context;
 using CarCare.Processing.Interfaces.Service;
 using CarCare.Processing.Interfaces.Session;
 using CarCare.Processing.Models;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CarCare.Processing.Contexts;
@@ -13,7 +15,7 @@ internal class SessionControlContext : Context, ISessionControlContext
     private readonly INavigationService _navigationService;
     private readonly IUserSession _userSession;
 
-    public bool IsOpen 
+    public Visibility MenuVisibility 
     {
         get => field; 
         private set
@@ -36,7 +38,7 @@ internal class SessionControlContext : Context, ISessionControlContext
         _navigationService = navigationService;
         _userSession = userSession;
         User = _userSession.User!;
-        IsOpen = false;
+        MenuVisibility = Visibility.Collapsed;
         LogoutCommand = new Command(Logout);
         ToggleMenuCommand = new Command(ToggleMenu);
         CloseMenuCommand = new Command(CloseMenu);
@@ -50,11 +52,16 @@ internal class SessionControlContext : Context, ISessionControlContext
 
     private void ToggleMenu(object? parameter)
     {
-        IsOpen = !IsOpen;
+        MenuVisibility = MenuVisibility switch
+        {
+            Visibility.Collapsed => Visibility.Visible,
+            Visibility.Visible => Visibility.Collapsed,
+            _ => throw new UnreachableException()
+        };
     }
 
     private void CloseMenu(object? parameter)
     {
-        IsOpen = false;
+        MenuVisibility = Visibility.Collapsed;
     }
 }

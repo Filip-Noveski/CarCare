@@ -1,4 +1,5 @@
 ﻿using CarCare.Processing.Models;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CarCare.Processing.Interfaces.Context;
@@ -9,9 +10,9 @@ namespace CarCare.Processing.Interfaces.Context;
 public interface ISessionControlContext
 {
     /// <summary>
-    /// Whether the session control menu is open.
+    /// Whether the session control menu is visible.
     /// </summary>
-    bool IsOpen { get; }
+    Visibility MenuVisibility { get; }
 
     /// <summary>
     /// The logged-in user.
