@@ -6,13 +6,13 @@ using NSubstitute;
 
 namespace CarCare.Processing.Tests.Contexts;
 
-public class UserControlContextTests
+public class SessionControlContextTests
 {
     private readonly INavigationService _navigationService;
     private readonly IUserSession _userSession;
-    private readonly UserControlContext _sut;
+    private readonly SessionControlContext _sut;
 
-    public UserControlContextTests()
+    public SessionControlContextTests()
     {
         _navigationService = Substitute.For<INavigationService>();
         _userSession = Substitute.For<IUserSession>();
