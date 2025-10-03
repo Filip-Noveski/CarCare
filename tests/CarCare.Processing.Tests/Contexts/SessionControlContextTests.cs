@@ -5,6 +5,7 @@ using CarCare.Processing.Interfaces.Session;
 using FluentAssertions;
 using NSubstitute;
 using System.Reflection;
+using System.Windows;
 
 namespace CarCare.Processing.Tests.Contexts;
 
@@ -24,9 +25,9 @@ public class SessionControlContextTests
     private void ForceShowMenu()
     {
         PropertyInfo isOpenProperty = typeof(SessionControlContext)
-            .GetProperty(nameof(SessionControlContext.IsOpen))!;
+            .GetProperty(nameof(SessionControlContext.MenuVisibility))!;
 
-        isOpenProperty.SetValue(_sut, true);
+        isOpenProperty.SetValue(_sut, Visibility.Visible);
     }
 
     [Fact]
@@ -48,10 +49,10 @@ public class SessionControlContextTests
     public void MenuShouldBeHiddenOnStart()
     {
         // Act
-        bool result = _sut.IsOpen;
+        Visibility result = _sut.MenuVisibility;
 
         // Assert
-        result.Should().BeFalse();
+        result.Should().Be(Visibility.Collapsed);
     }
 
     [Fact]
@@ -61,7 +62,7 @@ public class SessionControlContextTests
         _sut.ToggleMenuCommand.Execute(null);
 
         // Assert
-        _sut.IsOpen.Should().BeTrue();
+        _sut.MenuVisibility.Should().Be(Visibility.Visible);
     }
 
     [Fact]
@@ -74,7 +75,7 @@ public class SessionControlContextTests
         _sut.ToggleMenuCommand.Execute(null);
 
         // Assert
-        _sut.IsOpen.Should().BeFalse();
+        _sut.MenuVisibility.Should().Be(Visibility.Collapsed);
     }
 
     [Fact]
@@ -84,7 +85,7 @@ public class SessionControlContextTests
         _sut.CloseMenuCommand.Execute(null);
 
         // Assert
-        _sut.IsOpen.Should().BeFalse();
+        _sut.MenuVisibility.Should().Be(Visibility.Collapsed);
     }
 
     [Fact]
@@ -97,6 +98,6 @@ public class SessionControlContextTests
         _sut.CloseMenuCommand.Execute(null);
 
         // Assert
-        _sut.IsOpen.Should().BeFalse();
+        _sut.MenuVisibility.Should().Be(Visibility.Collapsed);
     }
 }
