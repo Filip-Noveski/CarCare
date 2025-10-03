@@ -30,6 +30,6 @@ public static class IServiceCollectionExtensions
         services.AddScoped<IRegisterContext, RegisterContext>();
         services.AddScoped<ILoginContext, LoginContext>();
         services.AddSingleton<IBitmapCreatorService, BitmapCreatorService>();
-        services.AddSingleton<IUserControlContext, UserControlContext>();
+        services.AddSingleton<ISessionControlContext, SessionControlContext>();
     }
 }

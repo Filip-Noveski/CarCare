@@ -1,16 +1,17 @@
-﻿using System.Windows.Input;
+﻿using CarCare.Processing.Models;
+using System.Windows.Input;
 
 namespace CarCare.Processing.Interfaces.Context;
 
 /// <summary>
 /// A data context for the user controls.
 /// </summary>
-public interface IUserControlContext
+public interface ISessionControlContext
 {
     /// <summary>
-    /// The id of the logged-in user.
+    /// The logged-in user.
     /// </summary>
-    Guid UserId { get; }
+    UserDto User { get; }
 
     /// <summary>
     /// A command that logs the user out.
