@@ -24,6 +24,7 @@ public static class IServiceCollectionExtensions
         services.AddSingleton<IMigrationsManager, MigrationsManager>();
         services.AddSingleton<IDatabaseManager, DatabaseManager>();
         services.AddSingleton<IUserRepository, UserRepository>();
+        services.AddSingleton<IUserSettingsRepository, UserSettingsRepository>();
 
         SqlMapper.AddTypeHandler(new StringToGuidHandler());
     }
