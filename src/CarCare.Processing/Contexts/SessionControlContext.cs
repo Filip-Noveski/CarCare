@@ -46,8 +46,13 @@ internal class SessionControlContext : Context, ISessionControlContext
 
     private void Logout(object? parameter)
     {
+        if (parameter is not Window window)
+        {
+            return;
+        }
+
         _userSession.LogoutUser();
-        _navigationService.NavigateTo<IAuthenticationContext>();
+        _navigationService.NavigateTo<IAuthenticationContext>(window);
     }
 
     private void ToggleMenu(object? parameter)
