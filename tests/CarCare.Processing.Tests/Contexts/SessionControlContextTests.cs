@@ -33,16 +33,25 @@ public class SessionControlContextTests
     [Fact]
     public void ShouldRequestUserLogoutAndNavigateToAuthenticationView()
     {
-        // Arrange
-        _userSession.LogoutUser();
-        _navigationService.NavigateTo<IAuthenticationContext>();
+        Thread sta = new(() =>
+        {
+            // Arrange
+            Window window = new();
+            _userSession.LogoutUser();
+            _navigationService.NavigateTo<IAuthenticationContext>(window);
 
-        // Act
-        _sut.LogoutCommand.Execute(null);
+            // Act
+            _sut.LogoutCommand.Execute(window);
+
+            // Assert window while in scope
+            _navigationService.Received().NavigateTo<IAuthenticationContext>(window);
+        });
+        sta.SetApartmentState(ApartmentState.STA);
+        sta.Start();
+        sta.Join();
 
         // Assert
         _userSession.Received().LogoutUser();
-        _navigationService.Received().NavigateTo<IAuthenticationContext>();
     }
 
     [Fact]
