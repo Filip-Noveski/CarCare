@@ -22,6 +22,7 @@ public static class IServiceCollectionExtensions
         services.AddSingleton<Authentication>();
         services.AddSingleton<Login>();
         services.AddSingleton<Register>();
+        services.AddTransient<SessionControl>();
         services.AddSingleton<INavigationService, NavigationService>();
     }
 }
