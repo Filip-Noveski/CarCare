@@ -26,10 +26,10 @@ public static class IServiceCollectionExtensions
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         services.AddSingleton<IUserSession, UserSession>();
         services.AddSingleton<IUserService, UserService>();
-        services.AddSingleton<IAuthenticationContext, AuthenticationContext>();
+        services.AddScoped<IAuthenticationContext, AuthenticationContext>();
         services.AddScoped<IRegisterContext, RegisterContext>();
         services.AddScoped<ILoginContext, LoginContext>();
         services.AddSingleton<IBitmapCreatorService, BitmapCreatorService>();
-        services.AddSingleton<ISessionControlContext, SessionControlContext>();
+        services.AddTransient<ISessionControlContext, SessionControlContext>();
     }
 }
