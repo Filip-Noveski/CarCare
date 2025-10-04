@@ -17,12 +17,13 @@ public static class IServiceCollectionExtensions
     /// <param name="services">The <see cref="IServiceCollection"/>.</param>
     public static void AddUserInterfaceServices(this IServiceCollection services)
     {
-        services.AddSingleton<Splash>();
-        services.AddSingleton<Dashboard>();
-        services.AddSingleton<Authentication>();
-        services.AddSingleton<Login>();
-        services.AddSingleton<Register>();
+        services.AddTransient<Splash>();
+        services.AddTransient<Dashboard>();
+        services.AddTransient<Authentication>();
+        services.AddTransient<Login>();
+        services.AddTransient<Register>();
         services.AddTransient<SessionControl>();
         services.AddSingleton<INavigationService, NavigationService>();
+        services.AddSingleton<IFileDialogueService, FileDialogueService>();
     }
 }
