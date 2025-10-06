@@ -20,7 +20,7 @@ internal class UserSettingsRepository : IUserSettingsRepository
     {
         using SqliteConnection connection = await _context.CreateConnectionAsync();
         string sql = $"""
-            INSERT INTO {TableName} (UserId),
+            INSERT INTO {TableName} (UserId)
             VALUES (@UserId)
             """;
 
