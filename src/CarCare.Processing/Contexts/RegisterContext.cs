@@ -2,7 +2,8 @@
 using CarCare.Processing.Commands;
 using CarCare.Processing.Interfaces.Context;
 using CarCare.Processing.Interfaces.Service;
-using CarCare.Processing.Models;
+using CarCare.Processing.Models.Communication;
+using CarCare.Processing.Models.Core;
 using Microsoft.AspNetCore.Identity;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;

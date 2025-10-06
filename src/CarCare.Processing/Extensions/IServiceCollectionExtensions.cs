@@ -2,7 +2,7 @@
 using CarCare.Processing.Interfaces.Context;
 using CarCare.Processing.Interfaces.Service;
 using CarCare.Processing.Interfaces.Session;
-using CarCare.Processing.Models;
+using CarCare.Processing.Models.Core;
 using CarCare.Processing.Services;
 using CarCare.Processing.Sessions;
 using Microsoft.AspNetCore.Identity;
