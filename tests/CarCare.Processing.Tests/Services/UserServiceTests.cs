@@ -2,7 +2,9 @@
 using CarCare.Persistence.Models;
 using CarCare.Processing.Interfaces.Service;
 using CarCare.Processing.Interfaces.Session;
-using CarCare.Processing.Models;
+using CarCare.Processing.Models.Communication;
+using CarCare.Processing.Models.Core;
+using CarCare.Processing.Models.Dto;
 using CarCare.Processing.Services;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;

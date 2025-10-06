@@ -1,7 +1,8 @@
 ﻿using CarCare.Processing.Contexts;
 using CarCare.Processing.Interfaces.Context;
 using CarCare.Processing.Interfaces.Service;
-using CarCare.Processing.Models;
+using CarCare.Processing.Models.Communication;
+using CarCare.Processing.Models.Core;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using NSubstitute;

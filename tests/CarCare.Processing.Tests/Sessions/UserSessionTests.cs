@@ -1,4 +1,5 @@
-﻿using CarCare.Processing.Models;
+﻿using CarCare.Processing.Models.Core;
+using CarCare.Processing.Models.Dto;
 using CarCare.Processing.Sessions;
 using FluentAssertions;
 using System.Reflection;
