@@ -26,6 +26,7 @@ public class UserServiceTests
     private readonly IPasswordHasher<User> _hasher;
     private readonly IBitmapCreatorService _bitmapService;
     private readonly IUserSession _userSession;
+    private readonly IUserSettingsService _userSettingsService;
     private readonly UserService _sut;
 
     public UserServiceTests()
@@ -34,7 +35,8 @@ public class UserServiceTests
         _hasher = Substitute.For<IPasswordHasher<User>>();
         _bitmapService = Substitute.For<IBitmapCreatorService>();
         _userSession = Substitute.For<IUserSession>();
-        _sut = new(_userRepository, _hasher, _bitmapService, _userSession);
+        _userSettingsService = Substitute.For<IUserSettingsService>();
+        _sut = new(_userRepository, _hasher, _bitmapService, _userSession, _userSettingsService);
     }
 
     private static User GetUser() => new(Id, Username, Password, AvatarBmp, true);
@@ -46,6 +48,7 @@ public class UserServiceTests
         // Arrange
         _userRepository.DeleteAsync(Id).Returns(Task.CompletedTask);
         _userSession.IsAuthenticated(Id).Returns(true);
+        _userSettingsService.DeleteAsync(Id).Returns(Task.CompletedTask);
 
         // Act
         await _sut.DeleteAsync(Id);
@@ -53,6 +56,7 @@ public class UserServiceTests
         // Assert
         await _userRepository.Received(1).DeleteAsync(Id);
         _userSession.Received().IsAuthenticated(Id);
+        await _userSettingsService.Received().DeleteAsync(Id);
     }
 
     [Fact]
@@ -61,6 +65,9 @@ public class UserServiceTests
         // Arrange
         _userRepository.DeleteAsync(Username).Returns(Task.CompletedTask);
         _userSession.IsAuthenticated(Username).Returns(true);
+        UserDao dao = GetUserDao();
+        _userRepository.GetUserAsync(Username).Returns(dao);
+        _userSettingsService.DeleteAsync(Id).Returns(Task.CompletedTask);
 
         // Act
         await _sut.DeleteAsync(Username);
@@ -68,6 +75,8 @@ public class UserServiceTests
         // Assert
         await _userRepository.Received(1).DeleteAsync(Username);
         _userSession.Received().IsAuthenticated(Username);
+        await _userRepository.Received().GetUserAsync(Username);
+        await _userSettingsService.Received().DeleteAsync(Id);
     }
 
     [Fact]
@@ -253,6 +262,7 @@ public class UserServiceTests
         _userRepository.AddAsync(dao).Returns(Task.CompletedTask);
         _bitmapService.ConvertToBinary(AvatarBmp).Returns(Avatar);
         _userSession.LoginUser(Arg.Any<UserDto>());
+        _userSettingsService.AddAsync(Arg.Any<UserSettings>()).Returns(Task.CompletedTask);
 
         // Act
         await _sut.RegisterAsync(user);
@@ -262,6 +272,8 @@ public class UserServiceTests
             x.Username == Username && x.Password == Password && x.Id == Id && x.Avatar == Avatar));
         _bitmapService.Received().ConvertToBinary(AvatarBmp);
         _userSession.Received().LoginUser(Arg.Any<UserDto>());
+        await _userSettingsService.Received().AddAsync(Arg.Is<UserSettings>(
+            x => x.UserId == user.Id));
     }
 
     [Fact]
