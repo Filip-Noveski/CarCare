@@ -8,6 +8,7 @@ using Xunit.Abstractions;
 
 namespace CarCare.Persistence.Tests.Services;
 
+[Collection("RepositoryTests")]
 public class MigrationsHistoryRepositoryTests : RepositoryTestsGroup
 {
     protected override string RelevantTablesSql => """

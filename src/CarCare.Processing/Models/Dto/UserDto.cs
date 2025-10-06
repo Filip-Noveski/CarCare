@@ -1,7 +1,7 @@
 ﻿using CarCare.Processing.Abstract;
 using System.Windows.Media.Imaging;
 
-namespace CarCare.Processing.Models;
+namespace CarCare.Processing.Models.Dto;
 
 /// <summary>
 /// A transferable User model.

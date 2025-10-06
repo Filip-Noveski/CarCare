@@ -3,7 +3,7 @@ using CarCare.Processing.Commands;
 using CarCare.Processing.Interfaces.Context;
 using CarCare.Processing.Interfaces.Service;
 using CarCare.Processing.Interfaces.Session;
-using CarCare.Processing.Models;
+using CarCare.Processing.Models.Dto;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;

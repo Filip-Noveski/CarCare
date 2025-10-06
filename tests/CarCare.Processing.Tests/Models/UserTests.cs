@@ -1,6 +1,7 @@
 ﻿using CarCare.Persistence.Models;
 using CarCare.Processing.Interfaces.Service;
-using CarCare.Processing.Models;
+using CarCare.Processing.Models.Core;
+using CarCare.Processing.Models.Dto;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using NSubstitute;

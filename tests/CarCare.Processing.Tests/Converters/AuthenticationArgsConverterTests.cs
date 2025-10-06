@@ -1,5 +1,5 @@
 ﻿using CarCare.Processing.Converters;
-using CarCare.Processing.Models;
+using CarCare.Processing.Models.Communication;
 using FluentAssertions;
 using System.Globalization;
 using System.Windows;

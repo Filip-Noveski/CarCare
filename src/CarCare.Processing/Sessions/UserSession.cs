@@ -1,5 +1,6 @@
 ﻿using CarCare.Processing.Interfaces.Session;
-using CarCare.Processing.Models;
+using CarCare.Processing.Models.Core;
+using CarCare.Processing.Models.Dto;
 
 namespace CarCare.Processing.Sessions;
 

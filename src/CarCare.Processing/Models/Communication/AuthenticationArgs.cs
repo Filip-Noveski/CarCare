@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace CarCare.Processing.Models;
+namespace CarCare.Processing.Models.Communication;
 
 /// <summary>
 /// A model containing the arguments for user registration.

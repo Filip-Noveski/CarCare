@@ -1,4 +1,4 @@
-﻿using CarCare.Processing.Models;
+﻿using CarCare.Processing.Models.Dto;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;

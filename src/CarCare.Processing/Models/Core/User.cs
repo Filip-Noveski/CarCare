@@ -1,9 +1,10 @@
 ﻿using CarCare.Persistence.Models;
 using CarCare.Processing.Interfaces.Service;
+using CarCare.Processing.Models.Dto;
 using Microsoft.AspNetCore.Identity;
 using System.Windows.Media.Imaging;
 
-namespace CarCare.Processing.Models;
+namespace CarCare.Processing.Models.Core;
 
 internal class User
 {

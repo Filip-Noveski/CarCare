@@ -2,7 +2,8 @@
 using CarCare.Persistence.Models;
 using CarCare.Processing.Interfaces.Service;
 using CarCare.Processing.Interfaces.Session;
-using CarCare.Processing.Models;
+using CarCare.Processing.Models.Communication;
+using CarCare.Processing.Models.Core;
 using Microsoft.AspNetCore.Identity;
 using OneOf;
 using System.Diagnostics;
@@ -15,17 +16,20 @@ internal class UserService : IUserService
     private readonly IPasswordHasher<User> _hasher;
     private readonly IBitmapCreatorService _bitmapService;
     private readonly IUserSession _userSession;
+    private readonly IUserSettingsService _settingsService;
 
     public UserService(
         IUserRepository userRepository,
         IPasswordHasher<User> hasher,
         IBitmapCreatorService bitmapService,
-        IUserSession userSession)
+        IUserSession userSession,
+        IUserSettingsService settingsService)
     {
         _userRepository = userRepository;
         _hasher = hasher;
         _bitmapService = bitmapService;
         _userSession = userSession;
+        _settingsService = settingsService;
     }
 
     public async Task DeleteAsync(Guid id)
@@ -35,6 +39,7 @@ internal class UserService : IUserService
             return;
         }
 
+        await _settingsService.DeleteAsync(id);
         await _userRepository.DeleteAsync(id);
     }
 
@@ -45,6 +50,8 @@ internal class UserService : IUserService
             return;
         }
 
+        UserDao user = await _userRepository.GetUserAsync(username);
+        await _settingsService.DeleteAsync(user.Id);
         await _userRepository.DeleteAsync(username);
     }
 
@@ -89,7 +96,9 @@ internal class UserService : IUserService
     public async Task RegisterAsync(User user)
     {
         UserDao dao = user.ToDao(_bitmapService);
+        UserSettings settings = UserSettings.CreateDefault(user.Id);
         await _userRepository.AddAsync(dao);
+        await _settingsService.AddAsync(settings);
         _userSession.LoginUser(user.ToDto());
     }
 

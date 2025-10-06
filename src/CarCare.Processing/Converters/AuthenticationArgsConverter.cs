@@ -1,4 +1,4 @@
-﻿using CarCare.Processing.Models;
+﻿using CarCare.Processing.Models.Communication;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;

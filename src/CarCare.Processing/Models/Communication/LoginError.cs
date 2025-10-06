@@ -1,4 +1,4 @@
-﻿namespace CarCare.Processing.Models;
+﻿namespace CarCare.Processing.Models.Communication;
 
 /// <summary>
 /// Represents an error from a failed login attempt.

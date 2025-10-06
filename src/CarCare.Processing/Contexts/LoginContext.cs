@@ -2,7 +2,9 @@
 using CarCare.Processing.Commands;
 using CarCare.Processing.Interfaces.Context;
 using CarCare.Processing.Interfaces.Service;
-using CarCare.Processing.Models;
+using CarCare.Processing.Models.Communication;
+using CarCare.Processing.Models.Core;
+using CarCare.Processing.Models.Dto;
 using OneOf;
 using System.Collections.ObjectModel;
 using System.Windows.Input;

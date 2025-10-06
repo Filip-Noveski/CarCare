@@ -1,4 +1,5 @@
-﻿using CarCare.Processing.Models;
+﻿using CarCare.Processing.Models.Communication;
+using CarCare.Processing.Models.Core;
 using OneOf;
 
 namespace CarCare.Processing.Interfaces.Service;
