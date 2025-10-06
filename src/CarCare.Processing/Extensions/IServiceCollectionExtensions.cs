@@ -31,5 +31,6 @@ public static class IServiceCollectionExtensions
         services.AddScoped<ILoginContext, LoginContext>();
         services.AddSingleton<IBitmapCreatorService, BitmapCreatorService>();
         services.AddTransient<ISessionControlContext, SessionControlContext>();
+        services.AddSingleton<IUserSettingsService, UserSettingsService>();
     }
 }
