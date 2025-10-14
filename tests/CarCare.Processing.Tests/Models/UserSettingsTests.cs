@@ -1,4 +1,5 @@
 ﻿using CarCare.Persistence.Models;
+using CarCare.Processing.Enums;
 using CarCare.Processing.Models.Core;
 using CarCare.Processing.Models.Dto;
 using FluentAssertions;
@@ -18,6 +19,7 @@ public class UserSettingsTests
 
         // Assert
         settings.UserId.Should().Be(id);
+        settings.Theme.Should().Be(ApplicationTheme.Dark);
     }
 
     [Fact]
@@ -25,13 +27,14 @@ public class UserSettingsTests
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        UserSettings settings = new(id);
+        UserSettings settings = new(id, ApplicationTheme.Light);
 
         // Act
         UserSettingsDto dto = settings.ToDto();
 
         // Assert
         dto.UserId.Should().Be(id);
+        dto.Theme.Should().Be(ApplicationTheme.Light);
     }
 
     [Fact]
@@ -39,12 +42,13 @@ public class UserSettingsTests
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        UserSettings settings = new(id);
+        UserSettings settings = new(id, ApplicationTheme.Light);
 
         // Act
         UserSettingsDao dao = settings.ToDao();
 
         // Assert
         dao.UserId.Should().Be(id);
+        dao.Theme.Should().Be("Light");
     }
 }
