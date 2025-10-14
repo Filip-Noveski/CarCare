@@ -1,5 +1,6 @@
 ﻿using CarCare.Persistence.Interfaces;
 using CarCare.Persistence.Models;
+using CarCare.Processing.Enums;
 using CarCare.Processing.Interfaces.Service;
 using CarCare.Processing.Interfaces.Session;
 using CarCare.Processing.Models.Communication;
@@ -27,6 +28,7 @@ public class UserServiceTests
     private readonly IBitmapCreatorService _bitmapService;
     private readonly IUserSession _userSession;
     private readonly IUserSettingsService _userSettingsService;
+    private readonly IThemeService _themeService;
     private readonly UserService _sut;
 
     public UserServiceTests()
@@ -36,7 +38,14 @@ public class UserServiceTests
         _bitmapService = Substitute.For<IBitmapCreatorService>();
         _userSession = Substitute.For<IUserSession>();
         _userSettingsService = Substitute.For<IUserSettingsService>();
-        _sut = new(_userRepository, _hasher, _bitmapService, _userSession, _userSettingsService);
+        _themeService = Substitute.For<IThemeService>();
+        _sut = new(
+            _userRepository,
+            _hasher,
+            _bitmapService,
+            _userSession,
+            _userSettingsService,
+            _themeService);
     }
 
     private static User GetUser() => new(Id, Username, Password, AvatarBmp, true);
@@ -217,6 +226,8 @@ public class UserServiceTests
         _hasher.VerifyHashedPassword(null!, Password, Password).Returns(PasswordVerificationResult.Success);
         _bitmapService.ConvertToBitmap(Avatar).Returns(AvatarBmp);
         _userSession.LoginUser(Arg.Any<UserDto>());
+        _userSettingsService.GetAsync(user.Id).Returns(new UserSettings(user.Id, ApplicationTheme.Light));
+        _themeService.ChangeTheme(ApplicationTheme.Light);
 
         // Act
         OneOf<User, LoginError> result = await _sut.LoginAsync(Username, Password);
@@ -226,6 +237,8 @@ public class UserServiceTests
         _hasher.Received().VerifyHashedPassword(null!, Password, Password);
         _bitmapService.Received().ConvertToBitmap(Avatar);
         _userSession.Received().LoginUser(Arg.Any<UserDto>());
+        await _userSettingsService.Received().GetAsync(user.Id);
+        _themeService.Received().ChangeTheme(ApplicationTheme.Light);
 
         result.Value.Should().NotBeNull()
             .And.BeAssignableTo<User>()
@@ -248,6 +261,8 @@ public class UserServiceTests
         await _userRepository.Received().GetUserAsync(Username);
         _hasher.Received().VerifyHashedPassword(null!, Password, Password);
         _userSession.DidNotReceive().LoginUser(Arg.Any<UserDto>());
+        await _userSettingsService.DidNotReceive().GetAsync(Arg.Any<Guid>());
+        _themeService.DidNotReceive().ChangeTheme(Arg.Any<ApplicationTheme>());
 
         result.Value.Should().NotBeNull()
             .And.BeAssignableTo<LoginError>();
