@@ -1,5 +1,6 @@
 ﻿using CarCare.Persistence.Interfaces;
 using CarCare.Persistence.Models;
+using CarCare.Processing.Enums;
 using CarCare.Processing.Interfaces.Session;
 using CarCare.Processing.Models.Core;
 using CarCare.Processing.Services;
@@ -26,7 +27,7 @@ public class UserSettingsServiceTests
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        UserSettings settings = new(id);
+        UserSettings settings = new(id, ApplicationTheme.Light);
         _settingsRepository.AddAsync(Arg.Any<UserSettingsDao>()).Returns(Task.CompletedTask);
 
         // Act
@@ -34,7 +35,7 @@ public class UserSettingsServiceTests
 
         // Assert
         await _settingsRepository.Received().AddAsync(Arg.Is<UserSettingsDao>(
-                x => x.UserId == id));
+                x => x.UserId == id && x.Theme == "Light"));
     }
 
     [Fact]
@@ -65,7 +66,7 @@ public class UserSettingsServiceTests
         await _sut.DeleteAsync(id);
 
         // Assert
-        await _settingsRepository.DidNotReceive().DeleteAsync(id);
+        await _settingsRepository.DidNotReceive().DeleteAsync(Arg.Any<Guid>());
         _session.Received().IsAuthenticated(id);
     }
 
@@ -74,7 +75,7 @@ public class UserSettingsServiceTests
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        UserSettingsDao dao = new(id);
+        UserSettingsDao dao = new(id, "Light");
         _settingsRepository.GetAsync(id).Returns(dao);
 
         // Act
@@ -82,14 +83,14 @@ public class UserSettingsServiceTests
 
         // Assert
         await _settingsRepository.Received().GetAsync(id);
-        result.Should().BeEquivalentTo(new UserSettings(id));
+        result.Should().BeEquivalentTo(new UserSettings(id, ApplicationTheme.Light));
     }
 
     [Fact]
     public async Task ShouldRequestUpdateOnAuth()
     {
         // Arrange
-        UserSettings settings = new(Guid.NewGuid());
+        UserSettings settings = new(Guid.NewGuid(), ApplicationTheme.Light);
         _settingsRepository.UpdateAsync(Arg.Any<UserSettingsDao>()).Returns(Task.CompletedTask);
         _session.IsAuthenticated(settings.UserId).Returns(true);
 
@@ -98,7 +99,7 @@ public class UserSettingsServiceTests
 
         // Assert
         await _settingsRepository.Received().UpdateAsync(Arg.Is<UserSettingsDao>(
-            x => x.UserId == settings.UserId));
+            x => x.UserId == settings.UserId && x.Theme == "Light"));
         _session.Received().IsAuthenticated(settings.UserId);
     }
 
@@ -106,7 +107,7 @@ public class UserSettingsServiceTests
     public async Task ShouldNotRequestUpdateWithoutAuth()
     {
         // Arrange
-        UserSettings settings = new(Guid.NewGuid());
+        UserSettings settings = new(Guid.NewGuid(), ApplicationTheme.Light);
         _settingsRepository.UpdateAsync(Arg.Any<UserSettingsDao>()).Returns(Task.CompletedTask);
         _session.IsAuthenticated(settings.UserId).Returns(false);
 
@@ -114,8 +115,7 @@ public class UserSettingsServiceTests
         await _sut.UpdateAsync(settings);
 
         // Assert
-        await _settingsRepository.DidNotReceive().UpdateAsync(Arg.Is<UserSettingsDao>(
-            x => x.UserId == settings.UserId));
+        await _settingsRepository.DidNotReceive().UpdateAsync(Arg.Any<UserSettingsDao>());
         _session.Received().IsAuthenticated(settings.UserId);
     }
 }
