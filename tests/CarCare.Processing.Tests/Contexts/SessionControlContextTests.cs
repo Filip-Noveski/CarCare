@@ -42,6 +42,7 @@ public class SessionControlContextTests
             Window window = new();
             _userSession.LogoutUser();
             _navigationService.NavigateTo<IAuthenticationContext>(window);
+            _themeService.SetDefaultTheme();
 
             // Act
             _sut.LogoutCommand.Execute(window);
@@ -55,6 +56,7 @@ public class SessionControlContextTests
 
         // Assert
         _userSession.Received().LogoutUser();
+        _themeService.Received().SetDefaultTheme();
     }
 
     [Fact]
