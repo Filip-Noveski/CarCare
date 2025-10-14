@@ -2,7 +2,7 @@
 
 namespace CarCare.Processing.Contexts;
 
-internal class AuthenticationContext : IAuthenticationContext
+internal class AuthenticationContext : WindowContext, IAuthenticationContext
 {
     public event EventHandler RegisterRequested = null!;
 
