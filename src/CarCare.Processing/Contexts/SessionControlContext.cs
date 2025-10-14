@@ -70,6 +70,7 @@ internal class SessionControlContext : Context, ISessionControlContext
 
         _userSession.LogoutUser();
         _navigationService.NavigateTo<IAuthenticationContext>(window);
+        _themeService.SetDefaultTheme();
     }
 
     private void ToggleMenu(object? parameter)

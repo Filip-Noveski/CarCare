@@ -17,19 +17,22 @@ internal class UserService : IUserService
     private readonly IBitmapCreatorService _bitmapService;
     private readonly IUserSession _userSession;
     private readonly IUserSettingsService _settingsService;
+    private readonly IThemeService _themeService;
 
     public UserService(
         IUserRepository userRepository,
         IPasswordHasher<User> hasher,
         IBitmapCreatorService bitmapService,
         IUserSession userSession,
-        IUserSettingsService settingsService)
+        IUserSettingsService settingsService,
+        IThemeService themeService)
     {
         _userRepository = userRepository;
         _hasher = hasher;
         _bitmapService = bitmapService;
         _userSession = userSession;
         _settingsService = settingsService;
+        _themeService = themeService;
     }
 
     public async Task DeleteAsync(Guid id)
@@ -87,6 +90,8 @@ internal class UserService : IUserService
         {
             User loggedIn = new(user, _bitmapService);
             _userSession.LoginUser(loggedIn.ToDto());
+            UserSettings settings = await _settingsService.GetAsync(loggedIn.Id);
+            _themeService.ChangeTheme(settings.Theme);
             return loggedIn;
         }
 
