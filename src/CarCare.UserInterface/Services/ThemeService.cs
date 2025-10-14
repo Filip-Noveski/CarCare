@@ -7,6 +7,8 @@ namespace CarCare.UserInterface.Services;
 
 internal class ThemeService : IThemeService
 {
+    private const string TemplatePack = "pack://application:,,,/CarCare.UserInterface;component";
+
     public ApplicationTheme Theme { get; private set; }
 
     public void ChangeTheme(ApplicationTheme theme)
@@ -16,8 +18,8 @@ internal class ThemeService : IThemeService
         {
             Source = theme switch
             {
-                ApplicationTheme.Light => new("./Themes/LightTemplate.xaml"),
-                ApplicationTheme.Dark => new("./Themes/DarkTemplate.xaml"),
+                ApplicationTheme.Light => new($"{TemplatePack}/Themes/LightTemplate.xaml"),
+                ApplicationTheme.Dark => new($"{TemplatePack}/Themes/DarkTemplate.xaml"),
                 _ => throw new UnreachableException()
             }
         };
