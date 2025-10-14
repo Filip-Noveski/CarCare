@@ -22,6 +22,7 @@ public static class IServiceCollectionExtensions
     public static void AddProcessingServices(this IServiceCollection services)
     {
         services.AddSingleton<IDatabaseManagementService, DatabaseManagementService>();
+        services.AddScoped<IWindowContext, WindowContext>();
         services.AddScoped<ISplashScreenContext, SplashScreenContext>();
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         services.AddSingleton<IUserSession, UserSession>();
