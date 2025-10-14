@@ -19,6 +19,7 @@ public class UserSettingsRepositoryTests : RepositoryTestsGroup
 
         CREATE TABLE IF NOT EXISTS UserSettings (
             UserId TEXT PRIMARY KEY,
+            Theme TEXT,
 
             FOREIGN KEY (UserId) REFERENCES Users(Id)
         );
@@ -49,12 +50,12 @@ public class UserSettingsRepositoryTests : RepositoryTestsGroup
         await connection.ExecuteAsync(addUsersSql, new { Id = id2 });
 
         string addSettingsSql = """
-            INSERT INTO UserSettings (UserId)
-            VALUES (@UserId)
+            INSERT INTO UserSettings (UserId, Theme)
+            VALUES (@UserId, @Theme)
             """;
-        UserSettingsDao settings1 = new(id0);
-        UserSettingsDao settings2 = new(id1);
-        UserSettingsDao settings3 = new(id2);
+        UserSettingsDao settings1 = new(id0, "Dark");
+        UserSettingsDao settings2 = new(id1, "Light");
+        UserSettingsDao settings3 = new(id2, "Blue");
         await connection.ExecuteAsync(addSettingsSql, settings1);
         await connection.ExecuteAsync(addSettingsSql, settings2);
         await connection.ExecuteAsync(addSettingsSql, settings3);
@@ -70,7 +71,7 @@ public class UserSettingsRepositoryTests : RepositoryTestsGroup
         string addUserSql = "INSERT INTO Users (Id) VALUES (@Id)";
         Guid id = Guid.NewGuid();
         await connection.ExecuteAsync(addUserSql, new { Id = id });
-        UserSettingsDao settings = new(id);
+        UserSettingsDao settings = new(id, "Grey");
 
         // Act
         await _sut.AddAsync(settings);
@@ -92,7 +93,7 @@ public class UserSettingsRepositoryTests : RepositoryTestsGroup
         string addUserSql = "INSERT INTO Users (Id) VALUES (@Id)";
         Guid id = Guid.NewGuid();
         await connection.ExecuteAsync(addUserSql, new { Id = id });
-        UserSettingsDao input = new(id);
+        UserSettingsDao input = new(id, "Grey");
 
         // Act
         await _sut.AddAsync(input);
@@ -143,11 +144,9 @@ public class UserSettingsRepositoryTests : RepositoryTestsGroup
     [Fact]
     public async Task ShouldUpdateSettings()
     {
-        // test invalidated as query needs values to update to work
-        return;
         // Arrange
         UserSettingsDao[] starterEntries = await AddStarterEntries();
-        UserSettingsDao newSettings1 = new(starterEntries[1].UserId);
+        UserSettingsDao newSettings1 = new(starterEntries[1].UserId, "Grey");
 
         // Act
         await _sut.UpdateAsync(newSettings1);
