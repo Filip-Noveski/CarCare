@@ -17,4 +17,9 @@ public interface IThemeService
     /// </summary>
     /// <param name="theme">The <see cref="ApplicationTheme"/> to set.</param>
     void ChangeTheme(ApplicationTheme theme);
+
+    /// <summary>
+    /// Sets the initial 
+    /// </summary>
+    void SetDefaultTheme();
 }
