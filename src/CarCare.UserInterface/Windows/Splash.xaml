@@ -20,7 +20,7 @@
                Width="250" Height="250" 
                Canvas.Left="245" Canvas.Top="85" />
 
-        <Image Source="/CarCare.UserInterface;component/Resources/Script.png"
+        <Image Source="/CarCare.UserInterface;component/Resources/script_intermediate.png"
                Width="150" Height="50"
                Canvas.Left="20" Canvas.Top="40" />
 
