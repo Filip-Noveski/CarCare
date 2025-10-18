@@ -1,4 +1,5 @@
-﻿using CarCare.Processing.Models.Dto;
+﻿using CarCare.Processing.Enums;
+using CarCare.Processing.Models.Dto;
 using System.Windows;
 using System.Windows.Input;
 
@@ -18,6 +19,11 @@ public interface ISessionControlContext
     /// The logged-in user.
     /// </summary>
     UserDto User { get; }
+
+    /// <summary>
+    /// The selected application theme.
+    /// </summary>
+    ApplicationTheme Theme { get; set; }
 
     /// <summary>
     /// A command that logs the user out.

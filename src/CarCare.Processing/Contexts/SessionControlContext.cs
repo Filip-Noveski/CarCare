@@ -1,5 +1,6 @@
 ﻿using CarCare.Processing.Abstract;
 using CarCare.Processing.Commands;
+using CarCare.Processing.Enums;
 using CarCare.Processing.Interfaces.Context;
 using CarCare.Processing.Interfaces.Service;
 using CarCare.Processing.Interfaces.Session;
@@ -14,6 +15,7 @@ internal class SessionControlContext : Context, ISessionControlContext
 {
     private readonly INavigationService _navigationService;
     private readonly IUserSession _userSession;
+    private readonly IThemeService _themeService;
 
     public Visibility MenuVisibility 
     {
@@ -27,16 +29,31 @@ internal class SessionControlContext : Context, ISessionControlContext
 
     public UserDto User { get; }
 
+    public ApplicationTheme Theme
+    {
+        get => field;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+            UpdateTheme();
+        }
+    }
+
     public ICommand LogoutCommand { get; }
 
     public ICommand ToggleMenuCommand { get; }
 
     public ICommand CloseMenuCommand { get; }
 
-    public SessionControlContext(INavigationService navigationService, IUserSession userSession)
+    public SessionControlContext(
+        INavigationService navigationService, 
+        IUserSession userSession, 
+        IThemeService themeService)
     {
         _navigationService = navigationService;
         _userSession = userSession;
+        _themeService = themeService;
         User = _userSession.User!;
         MenuVisibility = Visibility.Collapsed;
         LogoutCommand = new Command(Logout);
@@ -53,6 +70,7 @@ internal class SessionControlContext : Context, ISessionControlContext
 
         _userSession.LogoutUser();
         _navigationService.NavigateTo<IAuthenticationContext>(window);
+        _themeService.SetDefaultTheme();
     }
 
     private void ToggleMenu(object? parameter)
@@ -68,5 +86,10 @@ internal class SessionControlContext : Context, ISessionControlContext
     private void CloseMenu(object? parameter)
     {
         MenuVisibility = Visibility.Collapsed;
+    }
+
+    private void UpdateTheme()
+    {
+        _themeService.ChangeTheme(Theme);
     }
 }

@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CarCare.UserInterface.Components" xmlns:models="clr-namespace:CarCare.Processing.Models;assembly=CarCare.Processing" xmlns:converters="clr-namespace:CarCare.Processing.Converters;assembly=CarCare.Processing"
+             xmlns:local="clr-namespace:CarCare.UserInterface.Components" 
+             xmlns:models="clr-namespace:CarCare.Processing.Models;assembly=CarCare.Processing" 
+             xmlns:converters="clr-namespace:CarCare.Processing.Converters;assembly=CarCare.Processing" 
+             xmlns:controls="clr-namespace:CarCare.UserInterface.Controls"
              mc:Ignorable="d"
              Loaded="Initialise"
              d:DesignHeight="275" d:DesignWidth="400">
@@ -41,47 +44,60 @@
             </Grid>
         </ScrollViewer>
 
-        <StackPanel Orientation="Horizontal">
-            <StackPanel.RenderTransform>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*" />
+                <ColumnDefinition Width="0.6*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RenderTransform>
                 <TranslateTransform x:Name="CredentialsTransform" X="400" />
-            </StackPanel.RenderTransform>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center"
-                        Margin="20">
-                <Button Command="{Binding ReturnToUsersListCommand}">←</Button>
-                <Ellipse Width="60" Height="60">
+            </Grid.RenderTransform>
+            
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top"
+                        Margin="0,0,20,0" Grid.Column="0">
+                <Button Style="{StaticResource IconButton}" Command="{Binding ReturnToUsersListCommand}" 
+                        Width="40" Height="30"
+                        HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6">
+                    <Path Width="30" Height="20" Stroke="{DynamicResource Shared.Accent}" StrokeThickness="2"
+                          Data="M5,10 L25,10 M10,5L5,10L10,15" />
+                </Button>
+                <Ellipse Width="60" Height="60" Margin="2">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="{Binding Avatar}" Stretch="UniformToFill"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <TextBlock Text="{Binding Username}" />
+                <TextBlock Style="{StaticResource HeadingMedium}" Text="{Binding Username}" Margin="2"
+                           TextWrapping="Wrap" TextAlignment="Center" />
             </StackPanel>
 
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                <StackPanel Orientation="Horizontal">
-                    <PasswordBox Width="160" Height="20" x:Name="PasswordBox" />
+            <Grid Grid.Column="1">
+                <controls:PasswordBoxControl Heading="Password" x:Name="PasswordBox" 
+                                             Margin="6" VerticalAlignment="Center" />
+                <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
+                    <TextBlock Style="{StaticResource Default}"
+                               Foreground="{StaticResource Shared.Accent}"
+                               Text="{Binding Error}" />
                     <Button Command="{Binding LoginCommand}"
-                            Width="60" Height="20" Margin="20">
+                            Width="80" Height="30" Margin="6">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource AuthenticationArgsConverter}">
                                 <Binding RelativeSource="{RelativeSource AncestorType={x:Type Window}}"/>
-                                <Binding ElementName="PasswordBox"/>
+                                <Binding Path="InnerPasswordBox" ElementName="PasswordBox"/>
                             </MultiBinding>
                         </Button.CommandParameter>
                         Login
                     </Button>
                 </StackPanel>
-
-                <TextBlock Text="{Binding Error}" />
-            </StackPanel>
-            
-        </StackPanel>
+            </Grid>
+        </Grid>
 
         <Grid Grid.Row="1">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                <TextBlock TextAlignment="Center" Margin="5" Width="200">
+                <TextBlock Style="{StaticResource Default}"
+                           TextAlignment="Center" Margin="5" Width="200">
                     Don't have an account?
                 </TextBlock>
-                <Button Width="80" Margin="5"
+                <Button Width="80" Margin="5" Height="30"
                         Command="{Binding RegisterCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
                     Register

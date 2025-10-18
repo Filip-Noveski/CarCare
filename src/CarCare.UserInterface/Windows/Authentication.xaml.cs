@@ -30,6 +30,7 @@ public partial class Authentication : Window
     {
         InitializeComponent();
         _context = context;
+        DataContext = context;
         _context.LoginRequested += ShiftToShowLogin;
         _context.RegisterRequested += ShiftToShowRegister;
         Login loginComponent = serviceProvider.GetRequiredService<Login>();

@@ -13,12 +13,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources/logo_and_script.png" />
+    <Resource Include="Resources/logo_and_script_dark.png" />
+    <Resource Include="Resources/logo_and_script_light.png" />
     <Resource Include="Resources/logo_fullsize.png" />
     <Resource Include="Resources/logo_fullsize_backgrnd.png" />
     <Resource Include="Resources/logo_smaller.png" />
     <Resource Include="Resources/logo_smaller.ico" />
-    <Resource Include="Resources/script.png" />
+    <Resource Include="Resources/script_dark.png" />
+    <Resource Include="Resources/script_light.png" />
+    <Resource Include="Resources/script_intermediate.png" />
     <Resource Include="Resources/splash_background.png" />
   </ItemGroup>
   

@@ -3,7 +3,7 @@
 /// <summary>
 /// A data context for the Authentication window.
 /// </summary>
-public interface IAuthenticationContext
+public interface IAuthenticationContext : IWindowContext
 {
     /// <summary>
     /// An event where the Register view was requested.

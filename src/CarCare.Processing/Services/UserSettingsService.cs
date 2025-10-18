@@ -1,5 +1,6 @@
 ﻿using CarCare.Persistence.Interfaces;
 using CarCare.Persistence.Models;
+using CarCare.Processing.Enums;
 using CarCare.Processing.Interfaces.Service;
 using CarCare.Processing.Interfaces.Session;
 using CarCare.Processing.Models.Core;
@@ -36,7 +37,8 @@ internal class UserSettingsService : IUserSettingsService
     public async Task<UserSettings> GetAsync(Guid userId)
     {
         UserSettingsDao dao = await _settingsRepository.GetAsync(userId);
-        UserSettings settings = new(dao.UserId);
+        ApplicationTheme theme = Enum.Parse<ApplicationTheme>(dao.Theme);
+        UserSettings settings = new(dao.UserId, theme);
         return settings;
     }
 
