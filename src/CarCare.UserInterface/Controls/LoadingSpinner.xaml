@@ -1,0 +1,195 @@
+﻿<UserControl x:Class="CarCare.UserInterface.Controls.LoadingSpinner"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CarCare.UserInterface.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="22" d:DesignWidth="22">
+
+    <UserControl.Resources>
+        <Style x:Key="SpinnerSegment" TargetType="Path">
+            <Setter Property="Data" 
+                    Value="M0.00000,-11.00000 L0.00000,-5.00000 L1.03964,-4.89072 L2.28722,-10.75958Z" />
+            <Setter Property="Fill" Value="{StaticResource Text.Colour}" />
+        </Style>
+        <Storyboard x:Key="RotationAnimation">
+            <DoubleAnimation Storyboard.TargetName="SpinnerRotation" Storyboard.TargetProperty="Angle"
+                             Duration="0:0:1" From="360" To="0" RepeatBehavior="Forever" />
+        </Storyboard>
+    </UserControl.Resources>
+    
+    <Grid Width="22" Height="22">
+        <Canvas Margin="11">
+            <Canvas.Triggers>
+                <EventTrigger RoutedEvent="Canvas.Loaded">
+                    <BeginStoryboard Storyboard="{StaticResource RotationAnimation}" />
+                </EventTrigger>
+            </Canvas.Triggers>
+            
+            <Canvas.RenderTransform>
+                <RotateTransform x:Name="SpinnerRotation" />
+            </Canvas.RenderTransform>
+            
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="1.00000">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="0" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.96667">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="12" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.93333">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="24" />
+                </Path.RenderTransform>
+            </Path>
+            
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.90000">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="36" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.86667">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="48" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.83333">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="60" />
+                </Path.RenderTransform>
+            </Path>
+
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.80000">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="72" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.76667">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="84" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.73333">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="96" />
+                </Path.RenderTransform>
+            </Path>
+            
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.70000">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="108" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.66667">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="120" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.63333">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="132" />
+                </Path.RenderTransform>
+            </Path>
+
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.60000">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="144" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.56667">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="156" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.53333">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="168" />
+                </Path.RenderTransform>
+            </Path>
+            
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.50000">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="180" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.46667">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="192" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.43333">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="204" />
+                </Path.RenderTransform>
+            </Path>
+
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.40000">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="216" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.36667">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="228" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.33333">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="240" />
+                </Path.RenderTransform>
+            </Path>
+            
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.30000">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="252" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.26667">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="264" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.23333">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="276" />
+                </Path.RenderTransform>
+            </Path>
+
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.20000">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="288" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.16667">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="300" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.13333">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="312" />
+                </Path.RenderTransform>
+            </Path>
+            
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.10000">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="324" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.06667">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="336" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Style="{StaticResource SpinnerSegment}" Opacity="0.03333">
+                <Path.RenderTransform>
+                    <RotateTransform Angle="348" />
+                </Path.RenderTransform>
+            </Path>
+        </Canvas>
+    </Grid>
+</UserControl>

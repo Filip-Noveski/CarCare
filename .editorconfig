@@ -1,5 +1,8 @@
 [*.{cs,vb}]
 
+# IDE0005: Remove unnecessary using
+dotnet_diagnostic.IDE0005.severity = error
+
 # IDE0028: Simplify collection initialization
 dotnet_style_collection_initializer = false
 dotnet_diagnostic.IDE0028.severity = silent

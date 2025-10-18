@@ -1,7 +1,9 @@
 ﻿using CarCare.Persistence.Configuration;
+using CarCare.Persistence.Handlers;
 using CarCare.Persistence.Interfaces;
 using CarCare.Persistence.Interfaces.Private;
 using CarCare.Persistence.Services;
+using Dapper;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CarCare.Persistence.Extensions;
@@ -21,5 +23,9 @@ public static class IServiceCollectionExtensions
         services.AddSingleton<IMigrationsHistoryRepository, MigrationsHistoryRepository>();
         services.AddSingleton<IMigrationsManager, MigrationsManager>();
         services.AddSingleton<IDatabaseManager, DatabaseManager>();
+        services.AddSingleton<IUserRepository, UserRepository>();
+        services.AddSingleton<IUserSettingsRepository, UserSettingsRepository>();
+
+        SqlMapper.AddTypeHandler(new StringToGuidHandler());
     }
 }

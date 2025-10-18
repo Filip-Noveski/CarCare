@@ -8,6 +8,7 @@ using Xunit.Abstractions;
 
 namespace CarCare.Persistence.Tests.Services;
 
+[Collection("RepositoryTests")]
 public class MigrationsHistoryRepositoryTests : RepositoryTestsGroup
 {
     protected override string RelevantTablesSql => """
@@ -27,7 +28,7 @@ public class MigrationsHistoryRepositoryTests : RepositoryTestsGroup
     public async Task ShouldAddEntry()
     {
         // Arrange
-        Migration migration = new(12340205);
+        MigrationDao migration = new(12340205);
 
         // Act
         await _sut.AddAsync(migration);
@@ -37,7 +38,7 @@ public class MigrationsHistoryRepositoryTests : RepositoryTestsGroup
         string sql = """
             SELECT * FROM __MigrationHistory
             """;
-        IEnumerable<Migration> migrations = await connection.QueryAsync<Migration>(sql);
+        IEnumerable<MigrationDao> migrations = await connection.QueryAsync<MigrationDao>(sql);
 
         migrations.Should().ContainSingle()
             .Which.Should().BeEquivalentTo(migration);
@@ -72,7 +73,7 @@ public class MigrationsHistoryRepositoryTests : RepositoryTestsGroup
     public async Task ShouldNotFindEntry()
     {
         // Arrange
-        Func<Task<Migration>> func = _sut.GetLatestMigrationAsync;
+        Func<Task<MigrationDao>> func = _sut.GetLatestMigrationAsync;
 
         // Act & Assert
         await func.Should().ThrowAsync<InvalidOperationException>();
@@ -90,9 +91,9 @@ public class MigrationsHistoryRepositoryTests : RepositoryTestsGroup
         await connection.ExecuteAsync(addSql);
 
         // Act
-        Migration migration = await _sut.GetLatestMigrationAsync();
+        MigrationDao migration = await _sut.GetLatestMigrationAsync();
 
         // Assert
-        migration.Should().BeEquivalentTo(new Migration(20250921));
+        migration.Should().BeEquivalentTo(new MigrationDao(20250921));
     }
 }

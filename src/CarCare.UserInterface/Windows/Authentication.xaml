@@ -1,0 +1,49 @@
+﻿<Window x:Class="CarCare.UserInterface.Windows.Authentication"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Title="CarCare" Height="275" Width="400"
+        Background="{DynamicResource Window.Background}"
+        ResizeMode="CanMinimize">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0" />
+    </WindowChrome.WindowChrome>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="{DynamicResource Pane.Background}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0"
+                   Source="{DynamicResource TitleBarLogo}"
+                   Height="18" HorizontalAlignment="Left" Margin="6"/>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Style="{DynamicResource WindowControlButton}" 
+                        Content="&#x1f5d5;" Command="{Binding MinimiseCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+
+                <Button Style="{DynamicResource WindowCloseButton}" 
+                        Content="&#x1f5d9;" Command="{Binding CloseCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            </StackPanel>
+        </Grid>
+        
+        <Grid x:Name="MainGrid" Grid.Row="1" ClipToBounds="True">
+
+        </Grid>
+    </Grid>
+</Window>

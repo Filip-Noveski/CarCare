@@ -16,7 +16,7 @@ internal class MigrationsHistoryRepository : IMigrationsHistoryRepository
         _context = context;
     }
 
-    public async Task AddAsync(Migration migration)
+    public async Task AddAsync(MigrationDao migration)
     {
         using SqliteConnection connection = await _context.CreateConnectionAsync();
 
@@ -43,7 +43,7 @@ internal class MigrationsHistoryRepository : IMigrationsHistoryRepository
         return count > 0;
     }
 
-    public async Task<Migration> GetLatestMigrationAsync()
+    public async Task<MigrationDao> GetLatestMigrationAsync()
     {
         using SqliteConnection connection = await _context.CreateConnectionAsync();
 
@@ -54,7 +54,7 @@ internal class MigrationsHistoryRepository : IMigrationsHistoryRepository
             LIMIT 1
             """;
 
-        Migration migration = await connection.QuerySingleAsync<Migration>(sql);
+        MigrationDao migration = await connection.QuerySingleAsync<MigrationDao>(sql);
 
         return migration;
     }

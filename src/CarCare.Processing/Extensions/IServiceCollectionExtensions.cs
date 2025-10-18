@@ -1,7 +1,11 @@
 ﻿using CarCare.Processing.Contexts;
 using CarCare.Processing.Interfaces.Context;
 using CarCare.Processing.Interfaces.Service;
+using CarCare.Processing.Interfaces.Session;
+using CarCare.Processing.Models.Core;
 using CarCare.Processing.Services;
+using CarCare.Processing.Sessions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CarCare.Processing.Extensions;
@@ -18,6 +22,16 @@ public static class IServiceCollectionExtensions
     public static void AddProcessingServices(this IServiceCollection services)
     {
         services.AddSingleton<IDatabaseManagementService, DatabaseManagementService>();
+        services.AddScoped<IWindowContext, WindowContext>();
         services.AddScoped<ISplashScreenContext, SplashScreenContext>();
+        services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+        services.AddSingleton<IUserSession, UserSession>();
+        services.AddSingleton<IUserService, UserService>();
+        services.AddScoped<IAuthenticationContext, AuthenticationContext>();
+        services.AddScoped<IRegisterContext, RegisterContext>();
+        services.AddScoped<ILoginContext, LoginContext>();
+        services.AddSingleton<IBitmapCreatorService, BitmapCreatorService>();
+        services.AddTransient<ISessionControlContext, SessionControlContext>();
+        services.AddSingleton<IUserSettingsService, UserSettingsService>();
     }
 }

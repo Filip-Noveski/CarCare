@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Icon="/CarCare.UserInterface;component/Resources/logo_smaller.ico"
         Title="CarCare" Height="450" Width="800">
-    <Grid>
+    <Grid x:Name="MainGrid">
         
     </Grid>
 </Window>

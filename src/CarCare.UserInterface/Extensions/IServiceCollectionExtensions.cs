@@ -1,4 +1,7 @@
-﻿using CarCare.UserInterface.Windows;
+﻿using CarCare.Processing.Interfaces.Service;
+using CarCare.UserInterface.Components;
+using CarCare.UserInterface.Services;
+using CarCare.UserInterface.Windows;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CarCare.UserInterface.Extensions;
@@ -14,7 +17,14 @@ public static class IServiceCollectionExtensions
     /// <param name="services">The <see cref="IServiceCollection"/>.</param>
     public static void AddUserInterfaceServices(this IServiceCollection services)
     {
-        services.AddSingleton<Splash>();
-        services.AddSingleton<Dashboard>();
+        services.AddTransient<Splash>();
+        services.AddTransient<Dashboard>();
+        services.AddTransient<Authentication>();
+        services.AddTransient<Login>();
+        services.AddTransient<Register>();
+        services.AddTransient<SessionControl>();
+        services.AddSingleton<INavigationService, NavigationService>();
+        services.AddSingleton<IFileDialogueService, FileDialogueService>();
+        services.AddSingleton<IThemeService, ThemeService>();
     }
 }

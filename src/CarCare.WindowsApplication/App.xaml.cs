@@ -19,6 +19,7 @@ public partial class App : Application
     public App()
     {
         IHostBuilder builder = Host.CreateDefaultBuilder();
+
         builder.ConfigureAppConfiguration((context, config) =>
         {
             config.AddJsonFile("appsettings.json");
@@ -28,13 +29,17 @@ public partial class App : Application
             config.AddJsonFile("appsettings.Production.json");
 #endif
         });
+
         builder.ConfigureServices((context, services) =>
         {
             services.AddPersistenceServices();
             services.AddProcessingServices();
             services.AddUserInterfaceServices();
         });
+
         AppHost = builder.Build();
+
+        AppHost.Services.InitialiseApplication();
     }
 
     protected override async void OnStartup(StartupEventArgs e)
@@ -45,9 +50,9 @@ public partial class App : Application
         splash.Show();
         await splash.RunApplicationPreparationAsync();
 
-        Dashboard dashboard = AppHost.Services.GetRequiredService<Dashboard>();
+        Authentication auth = AppHost.Services.GetRequiredService<Authentication>();
         splash.Close();
-        dashboard.Show();
+        auth.Show();
 
         base.OnStartup(e);
     }

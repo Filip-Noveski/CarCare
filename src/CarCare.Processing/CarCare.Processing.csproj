@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
     <EnablePreviewFeatures>true</EnablePreviewFeatures>
   </PropertyGroup>
@@ -12,8 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="CarCare.Processing.Tests"/>
+    <InternalsVisibleTo Include="CarCare.Processing.Tests" />
     <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
+    <PackageReference Include="OneOf" Version="3.0.271" />
   </ItemGroup>
 
 </Project>

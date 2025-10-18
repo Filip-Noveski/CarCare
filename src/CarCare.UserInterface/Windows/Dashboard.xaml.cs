@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using CarCare.UserInterface.Components;
+using Microsoft.Extensions.DependencyInjection;
+using System.Windows;
 
 namespace CarCare.UserInterface.Windows;
 
@@ -10,8 +12,10 @@ public partial class Dashboard : Window
     /// <summary>
     /// Creates a new instance of the <see cref="Dashboard"/> class.
     /// </summary>
-    public Dashboard()
+    public Dashboard(IServiceProvider serviceProvider)
     {
         InitializeComponent();
+        SessionControl sessionControl = serviceProvider.GetRequiredService<SessionControl>();
+        MainGrid.Children.Add(sessionControl);
     }
 }

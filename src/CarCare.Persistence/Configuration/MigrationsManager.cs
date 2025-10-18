@@ -57,12 +57,12 @@ internal class MigrationsManager : IMigrationsManager
         string sql = File.ReadAllText(path);
         using SqliteConnection connection = await _context.CreateConnectionAsync();
         await connection.ExecuteAsync(sql);
-        await _historyRepository.AddAsync(new Migration(id));
+        await _historyRepository.AddAsync(new MigrationDao(id));
     }
 
     public async Task UpdateToLatestAsync()
     {
-        Migration latest = await _historyRepository.GetLatestMigrationAsync();
+        MigrationDao latest = await _historyRepository.GetLatestMigrationAsync();
         int id = latest.Id;
         using SqliteConnection connection = await _context.CreateConnectionAsync();
         foreach ((int key, string file) in _migrations)
@@ -74,7 +74,7 @@ internal class MigrationsManager : IMigrationsManager
 
             string sql = File.ReadAllText(file);
             await connection.ExecuteAsync(sql);
-            await _historyRepository.AddAsync(new Migration(key));
+            await _historyRepository.AddAsync(new MigrationDao(key));
         }
     }
 }
