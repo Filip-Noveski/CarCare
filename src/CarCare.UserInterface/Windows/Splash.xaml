@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarCare.UserInterface.Windows"
+        xmlns:controls="clr-namespace:CarCare.UserInterface.Controls"
         mc:Ignorable="d"
         Icon="/CarCare.UserInterface;component/Resources/logo_smaller.ico"
         AllowsTransparency="True"
@@ -24,7 +25,10 @@
                Width="150" Height="50"
                Canvas.Left="20" Canvas.Top="40" />
 
-        <TextBlock Text="{Binding OperationText}" Foreground="#FFFFFF"
-                   Canvas.Left="8" Canvas.Top="225"/>
+        <controls:LoadingSpinner Canvas.Left="8" Canvas.Top="218" />
+        <Grid Width="200" Height="36" Canvas.Left="36" Canvas.Top="210">
+            <TextBlock Text="{Binding OperationText}" Foreground="#FFFFFF"
+                       TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Center" />
+        </Grid>
     </Canvas>
 </Window>
