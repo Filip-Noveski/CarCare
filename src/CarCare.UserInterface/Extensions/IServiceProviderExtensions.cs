@@ -1,4 +1,5 @@
 ﻿using CarCare.Processing.Interfaces.Service;
+using CarCare.UserInterface.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CarCare.UserInterface.Extensions;
@@ -17,5 +18,8 @@ public static class IServiceProviderExtensions
         // set the default theme
         IThemeService themeService = serviceProvider.GetRequiredService<IThemeService>();
         themeService.SetDefaultTheme();
+
+        // register resources
+        ResourceRegistrationService.RegisterResources();
     }
 }
