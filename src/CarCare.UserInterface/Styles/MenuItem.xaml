@@ -20,7 +20,8 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="{ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}" BasedOn="{x:Null}" TargetType="{x:Type ScrollViewer}">
+    <Style x:Key="{ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}"
+           BasedOn="{x:Null}" TargetType="{x:Type ScrollViewer}">
         <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="Template">
@@ -133,7 +134,8 @@
                     <Border x:Name="SubMenuBorder" Background="{DynamicResource Control.Background}" BorderBrush="{DynamicResource Control.Background}"
                             BorderThickness="1" Padding="2">
                         <ScrollViewer x:Name="SubMenuScrollViewer" 
-                                      Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
+                                      Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, 
+                                                 TypeInTargetAssembly={x:Type FrameworkElement}}}">
                             <Grid RenderOptions.ClearTypeHint="Enabled">
                                 <Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
                                     <Rectangle x:Name="OpaqueRect" Fill="{Binding Background, ElementName=SubMenuBorder}"
@@ -258,7 +260,8 @@
                     <Border x:Name="SubMenuBorder" Background="{DynamicResource Control.Background}" BorderBrush="{DynamicResource Control.Background}" 
                             BorderThickness="1" Padding="2">
                         <ScrollViewer x:Name="SubMenuScrollViewer" 
-                                      Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
+                                      Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, 
+                                                 TypeInTargetAssembly={x:Type FrameworkElement}}}">
                             <Grid RenderOptions.ClearTypeHint="Enabled">
                                 <Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
                                     <Rectangle x:Name="OpaqueRect" Fill="{Binding Background, ElementName=SubMenuBorder}" 
