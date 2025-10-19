@@ -36,7 +36,8 @@
     <SolidColorBrush x:Key="Text.Colour.Disabled" Color="#88BBBBBB" />
 
     <SolidColorBrush x:Key="Control.Background" Color="#FF282828" />
-    <SolidColorBrush x:Key="Control.Border" Color="#FF3A3A3A" />
+    <Color x:Key="Control.Border.Colour">#FF3A3A3A</Color>
+    <SolidColorBrush x:Key="Control.Border" Color="{DynamicResource Control.Border.Colour}" />
     <SolidColorBrush x:Key="Control.Selected.Background" Color="#22777777" />
     <SolidColorBrush x:Key="Control.Hover.Background" Color="#FF383838" />
     <SolidColorBrush x:Key="Control.Hover.Border" Color="#FF585858" />
