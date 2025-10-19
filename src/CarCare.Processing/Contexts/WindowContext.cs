@@ -9,6 +9,16 @@ namespace CarCare.Processing.Contexts;
 
 internal class WindowContext : Context, IWindowContext
 {
+    public string MaximiseButtonChar
+    {
+        get => field;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
     public ICommand CloseCommand { get; }
 
     public ICommand ToggleMaximiseCommand { get; }
@@ -17,6 +27,7 @@ internal class WindowContext : Context, IWindowContext
 
     public WindowContext()
     {
+        MaximiseButtonChar = "\U0001f5d7";  // assume we start maximised
         CloseCommand = new Command(Close);
         ToggleMaximiseCommand = new Command(ToggleMaximise);
         MinimiseCommand = new Command(Minimise);
@@ -39,10 +50,10 @@ internal class WindowContext : Context, IWindowContext
             return;
         }
 
-        window.WindowState = window.WindowState switch
+        (window.WindowState, MaximiseButtonChar) = window.WindowState switch
         {
-            WindowState.Normal => WindowState.Maximized,
-            WindowState.Maximized => WindowState.Normal,
+            WindowState.Normal => (WindowState.Maximized, "\U0001f5d7"),
+            WindowState.Maximized => (WindowState.Normal, "\U0001f5d6"),
             _ => throw new UnreachableException()
         };
     }

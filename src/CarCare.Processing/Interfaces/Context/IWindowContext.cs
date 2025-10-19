@@ -8,6 +8,11 @@ namespace CarCare.Processing.Interfaces.Context;
 public interface IWindowContext
 {
     /// <summary>
+    /// The character to show on the Toggle Maximise Button.
+    /// </summary>
+    string MaximiseButtonChar { get; }
+
+    /// <summary>
     /// Closes the window.
     /// </summary>
     ICommand CloseCommand { get; }
