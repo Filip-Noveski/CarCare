@@ -85,7 +85,7 @@
                                 <Binding Path="InnerPasswordBox" ElementName="PasswordBox"/>
                             </MultiBinding>
                         </Button.CommandParameter>
-                        Login
+                        Log in
                     </Button>
                 </StackPanel>
             </Grid>
