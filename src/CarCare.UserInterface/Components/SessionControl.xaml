@@ -16,9 +16,7 @@
                   Canvas.Right="0" Canvas.Top="0" Fill="{DynamicResource Control.Background}"
                   Data="M-18,36 C-8.059,36, 0,27.941, 0,18
                         C0,8.059, 8.059,0, 18,0
-                        C27.941,0, 36,8.059, 36,18
-                        L36,36
-                        " />
+                        C27.941,0, 36,8.059, 36,18 L36,36" />
 
             <Ellipse x:Name="AvatarSurroundHover" Width="36" Height="36"
                      Fill="{StaticResource HoverBrush}"/>
