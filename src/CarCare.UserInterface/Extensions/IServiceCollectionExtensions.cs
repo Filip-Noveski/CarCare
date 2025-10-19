@@ -20,6 +20,7 @@ public static class IServiceCollectionExtensions
         services.AddTransient<Splash>();
         services.AddTransient<Dashboard>();
         services.AddTransient<Authentication>();
+        services.AddTransient<AccountSettings>();
         services.AddTransient<Login>();
         services.AddTransient<Register>();
         services.AddTransient<SessionControl>();
