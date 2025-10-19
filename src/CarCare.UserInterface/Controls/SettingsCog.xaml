@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="CarCare.UserInterface.Controls.SettingsCog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CarCare.UserInterface.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="24" d:DesignWidth="24">
+    
+    <Path Data="M19.43 12.98c.04-.32.07-.65.07-.98s-.03-.66-.07-.98
+                l2.11-1.65a.5.5 0 0 0 .12-.63l-2-3.46
+                a.5.5 0 0 0-.6-.22l-2.49 1a7.007 7.007 0 0 0-1.69-.98
+                l-.38-2.65A.5.5 0 0 0 14 2h-4
+                a.5.5 0 0 0-.49.42l-.38 2.65c-.63.23-1.21.55-1.76.98l-2.49-1
+                a.5.5 0 0 0-.6.22l-2 3.46a.5.5 0 0 0 .12.63l2.11 1.65
+                c-.05.32-.08.66-.08.99s.03.67.08.99l-2.11 1.65
+                a.5.5 0 0 0-.12.63l2 3.46a.5.5 0 0 0 .6.22
+                l2.49-1c.55.43 1.13.75 1.76.98l.38 2.65a.5.5 0 0 0 .49.42
+                h4a.5.5 0 0 0 .49-.42l.38-2.65c.63-.23 1.21-.55 1.76-.98
+                l2.49 1a.5.5 0 0 0 .6-.22l2-3.46a.5.5 0 0 0-.12-.63l-2.11-1.65z
+                M12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z">
+        
+        <Path.Style>
+            <Style TargetType="Path">
+                <Setter Property="Width" Value="24"/>
+                <Setter Property="Height" Value="24"/>
+                <Setter Property="Stroke" Value="{DynamicResource Text.Colour}"/>
+                <Setter Property="StrokeThickness" Value="2"/>
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <TranslateTransform X="12" Y="12"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Path.Style>
+    </Path>
+</UserControl>
