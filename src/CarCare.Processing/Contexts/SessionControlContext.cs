@@ -46,6 +46,8 @@ internal class SessionControlContext : Context, ISessionControlContext
 
     public ICommand CloseMenuCommand { get; }
 
+    public ICommand ShowAccountSettingsCommand { get; }
+
     public SessionControlContext(
         INavigationService navigationService, 
         IUserSession userSession, 
@@ -59,6 +61,7 @@ internal class SessionControlContext : Context, ISessionControlContext
         LogoutCommand = new Command(Logout);
         ToggleMenuCommand = new Command(ToggleMenu);
         CloseMenuCommand = new Command(CloseMenu);
+        ShowAccountSettingsCommand = new Command(ShowAccountSettings);
     }
 
     private void Logout(object? parameter)
@@ -91,5 +94,11 @@ internal class SessionControlContext : Context, ISessionControlContext
     private void UpdateTheme()
     {
         _themeService.ChangeTheme(Theme);
+    }
+
+    private void ShowAccountSettings(object? parameter)
+    {
+        _navigationService.NavigateTo<IAccountSettingsContext>();
+        CloseMenu(null);
     }
 }

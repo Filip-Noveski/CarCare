@@ -39,4 +39,9 @@ public interface ISessionControlContext
     /// Hides the menu.
     /// </summary>
     ICommand CloseMenuCommand { get; }
+
+    /// <summary>
+    /// Opens the account settings window.
+    /// </summary>
+    ICommand ShowAccountSettingsCommand { get; }
 }
