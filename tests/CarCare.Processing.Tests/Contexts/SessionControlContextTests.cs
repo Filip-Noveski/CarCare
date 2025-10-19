@@ -127,4 +127,19 @@ public class SessionControlContextTests
         // Assert
         _themeService.Received().ChangeTheme(ApplicationTheme.Light);
     }
+
+    [Fact]
+    public void ShouldNavigateToAccountSettings()
+    {
+        // Arrange
+        ForceShowMenu();
+        _navigationService.NavigateTo<IAccountSettingsContext>();
+
+        // Act
+        _sut.ShowAccountSettingsCommand.Execute(null);
+
+        // Assert
+        _navigationService.Received().NavigateTo<IAccountSettingsContext>();
+        _sut.MenuVisibility.Should().Be(Visibility.Collapsed);
+    }
 }
