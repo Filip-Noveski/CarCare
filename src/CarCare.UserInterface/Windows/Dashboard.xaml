@@ -3,11 +3,126 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CarCare.UserInterface.Windows"
+        xmlns:local="clr-namespace:CarCare.UserInterface.Windows" 
+        xmlns:controls="clr-namespace:CarCare.UserInterface.Controls"
         mc:Ignorable="d"
+        WindowState="Maximized"
+        WindowStyle="SingleBorderWindow"
         Icon="/CarCare.UserInterface;component/Resources/logo_smaller.ico"
-        Title="CarCare" Height="450" Width="800">
-    <Grid x:Name="MainGrid">
-        
+        Title="CarCare" Height="450" Width="800"
+        StateChanged="WindowStateChanged">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="30"/>
+    </WindowChrome.WindowChrome>
+
+    <Grid>
+        <Grid x:Name="ContentGrid" Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="12" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="{DynamicResource Pane.Background}" Panel.ZIndex="100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0" Source="{DynamicResource TitleBarLogo}"
+                       Height="18" HorizontalAlignment="Left" Margin="6"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            WindowChrome.IsHitTestVisibleInChrome="True"
+                            ClipToBounds="False">
+
+                    <Grid x:Name="SessionControlContainer" Width="40" Height="24" Margin="3"
+                          ClipToBounds="False">
+                    </Grid>
+                    
+                    <Button Style="{DynamicResource WindowControlButton}" 
+                            Content="&#x1f5d5;" Command="{Binding MinimiseCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+                    
+                    <Button Style="{DynamicResource WindowControlButton}" 
+                            Content="{Binding MaximiseButtonChar}" Command="{Binding ToggleMaximiseCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+
+                    <Button Style="{DynamicResource WindowCloseButton}" 
+                            Content="&#x1f5d9;" Command="{Binding CloseCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+                </StackPanel>
+            </Grid>
+
+            <Rectangle Fill="{DynamicResource Pane.Background}" Grid.Row="1"/>
+
+            <Grid x:Name="MainGrid" Background="{DynamicResource Pane.Background}" Grid.Row="2">
+                <TabControl Style="{StaticResource VerticalStackTabControl}">
+                    <TabItem Header="My Cars" Style="{StaticResource VerticalStackTabItem}">
+                        
+                    </TabItem>
+
+                    <TabItem Header="Financial Breakdown" Style="{StaticResource VerticalStackTabItem}">
+                        
+                    </TabItem>
+
+                    <TabItem Header="Gallery" Style="{StaticResource VerticalStackTabItem}">
+                        
+                    </TabItem>
+
+                    <TabItem Header="Trips / Events" Style="{StaticResource VerticalStackTabItem}">
+                        
+                    </TabItem>
+                </TabControl>
+
+                <Button Style="{StaticResource IconButton}" Width="90" Height="32"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Left" Panel.ZIndex="2"
+                        Margin="12" HorizontalContentAlignment="Left" VerticalContentAlignment="Top">
+                    <Button.Resources>
+                        <Storyboard x:Key="RotateCog">
+                            <DoubleAnimation Storyboard.TargetName="CogRotation"
+                                             Storyboard.TargetProperty="Angle"
+                                             To="90" Duration="0:0:0:0.5" FillBehavior="HoldEnd"/>
+                        </Storyboard>
+                        
+                        <Storyboard x:Key="ResetCog">
+                            <DoubleAnimation Storyboard.TargetName="CogRotation"
+                                             Storyboard.TargetProperty="Angle"
+                                             To="0" Duration="0:0:0:0.5" FillBehavior="HoldEnd"/>
+                        </Storyboard>
+                    </Button.Resources>
+
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.MouseEnter">
+                            <BeginStoryboard Storyboard="{StaticResource RotateCog}" />
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Button.MouseLeave">
+                            <BeginStoryboard Storyboard="{StaticResource ResetCog}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+
+                    <Canvas>
+                        <Grid Canvas.Left="16" Canvas.Top="16">
+                            <Grid.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.67" ScaleY="0.67"/>
+                                    <TranslateTransform X="-16" Y="-16"/>
+                                    <RotateTransform x:Name="CogRotation" Angle="0"/>
+                                </TransformGroup>
+                            </Grid.RenderTransform>
+                            
+                            <controls:SettingsCog />
+                        </Grid>
+                        
+                        <TextBlock Style="{StaticResource Default}" FontSize="14"
+                                   Canvas.Left="24" Canvas.Top="3">
+                            Settings
+                        </TextBlock>
+                    </Canvas>
+                </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
