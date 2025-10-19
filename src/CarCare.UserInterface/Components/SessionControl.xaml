@@ -9,11 +9,16 @@
     <Canvas>
         <Grid Width="36" Height="36" Canvas.Right="0" Canvas.Top="0">
             <Grid.Resources>
-                <SolidColorBrush x:Key="HoverBrush" Color="Transparent"/>
+                <SolidColorBrush x:Key="HoverBrush" Color="#00000000"/>
             </Grid.Resources>
-            
-            <Ellipse Width="36" Height="36" Visibility="{Binding MenuVisibility}"
-                     Canvas.Right="0" Canvas.Top="0" Fill="#CCCCCC"/>
+
+            <Path Width="36" Height="36" Visibility="{Binding MenuVisibility}"
+                  Canvas.Right="0" Canvas.Top="0" Fill="{DynamicResource Control.Background}"
+                  Data="M-18,36 C-8.059,36, 0,27.941, 0,18
+                        C0,8.059, 8.059,0, 18,0
+                        C27.941,0, 36,8.059, 36,18
+                        L36,36
+                        " />
 
             <Ellipse x:Name="AvatarSurroundHover" Width="36" Height="36"
                      Fill="{StaticResource HoverBrush}"/>
@@ -33,8 +38,8 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <ColorAnimation Storyboard.TargetName="AvatarSurroundHover"
-                            Storyboard.TargetProperty="Fill.Color"
-                            To="#AAAAAA" Duration="0:0:0.25"/>
+                                                Storyboard.TargetProperty="Fill.Color"
+                                                To="{DynamicResource Control.Border.Colour}" Duration="0:0:0.25"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger>
@@ -42,8 +47,8 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <ColorAnimation Storyboard.TargetName="AvatarSurroundHover"
-                            Storyboard.TargetProperty="Fill.Color"
-                            To="Transparent" Duration="0:0:0.25"/>
+                                                Storyboard.TargetProperty="Fill.Color"
+                                                To="#00000000" Duration="0:0:0.25"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger>
@@ -51,11 +56,16 @@
             </Button>
         </Grid>
 
-        <StackPanel Width="160" Height="Auto"
-                    Orientation="Vertical" Visibility="{Binding MenuVisibility}"
-                    Canvas.Right="3" Canvas.Top="36">
-            <Button Content="Logout" Command="{Binding LogoutCommand}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-        </StackPanel>
+        <Border Background="{DynamicResource Control.Background}"
+                BorderThickness="0" Canvas.Right="0" Canvas.Top="36"
+                CornerRadius="6,0,6,6">
+            <StackPanel Width="160" Height="Auto" Margin="3"
+                        Orientation="Vertical" Visibility="{Binding MenuVisibility}">
+                <Button Style="{StaticResource IconButton}" Command="{Binding LogoutCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                    <TextBlock Style="{StaticResource Default}">Log out</TextBlock>
+                </Button>
+            </StackPanel>
+        </Border>
     </Canvas>
 </UserControl>
