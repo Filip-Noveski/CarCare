@@ -11,7 +11,7 @@
         ResizeMode="CanMinimize">
 
     <WindowChrome.WindowChrome>
-        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0" />
+        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="30" />
     </WindowChrome.WindowChrome>
 
     <Grid>
@@ -31,7 +31,8 @@
                    Height="18" HorizontalAlignment="Left" Margin="6"/>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal"
-                        HorizontalAlignment="Right">
+                        HorizontalAlignment="Right"
+                        WindowChrome.IsHitTestVisibleInChrome="True">
                 <Button Style="{DynamicResource WindowControlButton}" 
                         Content="&#x1f5d5;" Command="{Binding MinimiseCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
