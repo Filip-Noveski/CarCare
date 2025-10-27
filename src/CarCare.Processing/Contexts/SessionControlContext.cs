@@ -98,7 +98,7 @@ internal class SessionControlContext : Context, ISessionControlContext
 
     private void ShowAccountSettings(object? parameter)
     {
-        _navigationService.NavigateTo<IAccountSettingsContext>();
+        _navigationService.NavigateTo<ISettingsContext>();
         CloseMenu(null);
     }
 }
