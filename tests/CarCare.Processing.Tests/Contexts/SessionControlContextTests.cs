@@ -133,13 +133,13 @@ public class SessionControlContextTests
     {
         // Arrange
         ForceShowMenu();
-        _navigationService.NavigateTo<IAccountSettingsContext>();
+        _navigationService.NavigateTo<ISettingsContext>();
 
         // Act
         _sut.ShowAccountSettingsCommand.Execute(null);
 
         // Assert
-        _navigationService.Received().NavigateTo<IAccountSettingsContext>();
+        _navigationService.Received().NavigateTo<ISettingsContext>();
         _sut.MenuVisibility.Should().Be(Visibility.Collapsed);
     }
 }
