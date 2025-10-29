@@ -1,5 +1,5 @@
 # CarCare
-**CarCare** is a desktop application intended to allow enthusiasts to track maintanance and running costs related to their cars, as well as a gallery of images from their faviourite moments with each machine. The app stores the data locally on your PC, so there's no need for communication with third-pary servers or external accounts. 
+**CarCare** is a desktop application intended to allow enthusiasts to track maintenance and running costs related to their cars, as well as a gallery of images from their faviourite moments with each machine. The app stores the data locally on your PC, so there's no need for communication with third-pary servers or external accounts. 
 *All data is stored **locally** on your PC — no third-party servers or external accounts required.*
 
 # Features
