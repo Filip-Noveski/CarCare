@@ -62,4 +62,9 @@ public interface IAccountSettingsContext
     /// Opens a dialogue to select a new avatar.
     /// </summary>
     ICommand ChooseAvatarCommand { get; }
+
+    /// <summary>
+    /// Deletes the custom avatar.
+    /// </summary>
+    ICommand DeleteAvatarCommand { get; }
 }

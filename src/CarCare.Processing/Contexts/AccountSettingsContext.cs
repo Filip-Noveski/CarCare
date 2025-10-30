@@ -91,6 +91,8 @@ internal class AccountSettingsContext : Context, IAccountSettingsContext
 
     public ICommand ChooseAvatarCommand { get; }
 
+    public ICommand DeleteAvatarCommand { get; }
+
     public AccountSettingsContext(
         IUserService userService,
         IUserSession userSession,
@@ -108,6 +110,7 @@ internal class AccountSettingsContext : Context, IAccountSettingsContext
         UpdatePasswordCommand = new Command(UpdatePassword);
         UpdateAvatarCommand = new Command(UpdateAvatar);
         ChooseAvatarCommand = new Command(ChooseAvatar);
+        DeleteAvatarCommand = new Command(DeleteAvatar);
     }
 
     private async void UpdateUsername(object? parameter)
@@ -197,5 +200,10 @@ internal class AccountSettingsContext : Context, IAccountSettingsContext
     private void ChooseAvatar(object? parameter)
     {
         Avatar = _fileService.GetImageFile();
+    }
+
+    private void DeleteAvatar(object? parameter)
+    {
+        Avatar = null;
     }
 }
