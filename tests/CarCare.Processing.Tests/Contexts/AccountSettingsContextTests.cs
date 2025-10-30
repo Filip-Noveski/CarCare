@@ -408,4 +408,17 @@ public class AccountSettingsContextTests
         _fileService.Received().GetImageFile();
         _sut.Avatar.Should().Be(img);
     }
+
+    [Fact]
+    public void ShouldNullifyAvatar()
+    {
+        // Arrange
+        _sut.Avatar = new();
+
+        // Act
+        _sut.DeleteAvatarCommand.Execute(null);
+
+        // Assert
+        _sut.Avatar.Should().BeNull();
+    }
 }
