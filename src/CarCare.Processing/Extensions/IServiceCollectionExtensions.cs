@@ -33,7 +33,11 @@ public static class IServiceCollectionExtensions
         services.AddSingleton<IBitmapCreatorService, BitmapCreatorService>();
         services.AddTransient<ISessionControlContext, SessionControlContext>();
         services.AddSingleton<IUserSettingsService, UserSettingsService>();
-        services.AddScoped<ISettingsContext, SettingsContext>();
+
+        // to allow for tab changing; proper data should be in specific data contexts bound to tabs
+        services.AddSingleton<ISettingsContext, SettingsContext>();
+
         services.AddScoped<IAccountSettingsContext, AccountSettingsContext>();
+        services.AddScoped<IDashboardContext, DashboardContext>();
     }
 }
