@@ -96,11 +96,11 @@
                         <TabItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Grid Margin="8,0,14,0" Width="20" Height="20" ClipToBounds="False">
-                                    <Image Source="{StaticResource SmallLogo}"
+                                    <Image Source="{DynamicResource SmallLogo}"
                                            Width="36" Height="36" Margin="-8"/>
-                                    <Image x:Name="MyCarsFlash" Source="{StaticResource SmallLogoFlash}" 
+                                    <Image x:Name="MyCarsFlash" Source="{DynamicResource SmallLogoFlash}" 
                                            Width="36" Height="36" Margin="-8" Opacity="0" />
-                                    <Image x:Name="MyCarsHeadlights" Source="{StaticResource SmallLogoHeadlight}"
+                                    <Image x:Name="MyCarsHeadlights" Source="{DynamicResource SmallLogoHeadlight}"
                                            Width="36" Height="36" Margin="-8" Opacity="0" />
                                 </Grid>
                                 <TextBlock>My Cars</TextBlock>
@@ -136,9 +136,9 @@
                         <TabItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Grid Margin="8,0,14,0" Width="20" Height="20" ClipToBounds="False">
-                                    <Image Source="{StaticResource Finance}"
+                                    <Image Source="{DynamicResource Finance}"
                                            Width="20" Height="20" Margin="0"/>
-                                    <Image x:Name="FinancialBreakdownGold" Source="{StaticResource FinanceGold}" 
+                                    <Image x:Name="FinancialBreakdownGold" Source="{DynamicResource FinanceGold}" 
                                            Width="20" Height="20" Margin="0" Opacity="0" />
                                 </Grid>
                                 <TextBlock>Financial Breakdown</TextBlock>
@@ -181,11 +181,11 @@
                         <TabItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Grid Margin="8,0,14,0" Width="20" Height="20" ClipToBounds="False">
-                                    <Image Source="{StaticResource Gallery}"
+                                    <Image Source="{DynamicResource Gallery}"
                                            Width="32" Height="32" Margin="-6"/>
-                                    <Image x:Name="GalleryColour" Source="{StaticResource GalleryColour}" 
+                                    <Image x:Name="GalleryColour" Source="{DynamicResource GalleryColour}" 
                                            Width="32" Height="32" Margin="-6" Opacity="0" />
-                                    <Image x:Name="GallerySun" Source="{StaticResource GallerySun}" 
+                                    <Image x:Name="GallerySun" Source="{DynamicResource GallerySun}" 
                                            Width="32" Height="32" Margin="-6" Opacity="0" />
                                 </Grid>
                                 <TextBlock>Gallery</TextBlock>
@@ -237,9 +237,9 @@
                         <TabItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Grid Margin="8,0,14,0" Width="20" Height="20" ClipToBounds="False">
-                                    <Image Source="{StaticResource TripBase}"
+                                    <Image Source="{DynamicResource TripBase}"
                                            Width="36" Height="36" Margin="-4,-10,-4,-10"/>
-                                    <Image x:Name="TripBaseColour" Source="{StaticResource TripBaseColour}" 
+                                    <Image x:Name="TripBaseColour" Source="{DynamicResource TripBaseColour}" 
                                            Width="36" Height="36" Margin="-4,-10,-4,-10" Opacity="0" />
                                     <Grid Margin="-4,-10,-4,-10">
                                         <Grid Margin="18">
@@ -247,9 +247,9 @@
                                                 <RotateTransform x:Name="TripPinRotation" Angle="0" />
                                             </Grid.RenderTransform>
                                             <Grid Margin="-18">
-                                                <Image Source="{StaticResource TripPin}"
+                                                <Image Source="{DynamicResource TripPin}"
                                                        Width="36" Height="36"/>
-                                                <Image x:Name="TripPinColour" Source="{StaticResource TripPinColour}" 
+                                                <Image x:Name="TripPinColour" Source="{DynamicResource TripPinColour}" 
                                                        Width="36" Height="36" Opacity="0"/>
                                             </Grid>
                                         </Grid>
