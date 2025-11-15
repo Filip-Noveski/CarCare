@@ -3,8 +3,8 @@
 
     <Style x:Key="InputControlBorder" TargetType="Border">
         <Setter Property="CornerRadius" Value="6" />
-        <Setter Property="BorderBrush" Value="{StaticResource Shared.Accent}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Shared.Accent}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Background" Value="{StaticResource Control.Background}" />
+        <Setter Property="Background" Value="{DynamicResource Control.Background}" />
     </Style>
 </ResourceDictionary>
