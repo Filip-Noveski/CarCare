@@ -20,5 +20,8 @@ public partial class Settings : Window
 
         AccountSettings accSettings = provider.GetRequiredService<AccountSettings>();
         AccountSettingsTab.Content = accSettings;
+
+        ApplicationSettings appSettings = provider.GetRequiredService<ApplicationSettings>();
+        AppSettingsTab.Content = appSettings;
     }
 }
