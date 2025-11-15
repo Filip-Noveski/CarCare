@@ -8,6 +8,8 @@
         WindowStyle="None"
         Title="CarCare" Height="275" Width="400"
         Background="{DynamicResource Window.Background}"
+        BorderBrush="{DynamicResource Shared.Accent}"
+        BorderThickness="1"
         ResizeMode="CanMinimize">
 
     <WindowChrome.WindowChrome>
