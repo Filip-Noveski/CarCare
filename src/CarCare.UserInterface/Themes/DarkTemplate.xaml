@@ -2,7 +2,22 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <BitmapImage x:Key="TitleBarLogo" UriSource="/CarCare.UserInterface;component/Resources/logo_and_script_dark.png" />
-
+    <BitmapImage x:Key="SmallLogo" UriSource="/CarCare.UserInterface;component/Resources/logo_smaller_dark.png" />
+    <BitmapImage x:Key="SmallLogoFlash" UriSource="/CarCare.UserInterface;component/Resources/logo_smaller_flash.png" />
+    <BitmapImage x:Key="SmallLogoHeadlight" UriSource="/CarCare.UserInterface;component/Resources/logo_smaller_headlight.png" />
+    
+    <BitmapImage x:Key="Finance" UriSource="/CarCare.UserInterface;component/Resources/finance_dark.png" />
+    <BitmapImage x:Key="FinanceGold" UriSource="/CarCare.UserInterface;component/Resources/finance_gold.png" />
+    
+    <BitmapImage x:Key="Gallery" UriSource="/CarCare.UserInterface;component/Resources/gallery_dark.png" />
+    <BitmapImage x:Key="GalleryColour" UriSource="/CarCare.UserInterface;component/Resources/gallery_colour.png" />
+    <BitmapImage x:Key="GallerySun" UriSource="/CarCare.UserInterface;component/Resources/gallery_sun.png" />
+    
+    <BitmapImage x:Key="TripBase" UriSource="/CarCare.UserInterface;component/Resources/trip_base_dark.png" />
+    <BitmapImage x:Key="TripPin" UriSource="/CarCare.UserInterface;component/Resources/trip_pin_dark.png" />
+    <BitmapImage x:Key="TripBaseColour" UriSource="/CarCare.UserInterface;component/Resources/trip_base_colour.png" />
+    <BitmapImage x:Key="TripPinColour" UriSource="/CarCare.UserInterface;component/Resources/trip_pin_colour.png" />
+    
     <SolidColorBrush x:Key="Shared.Accent" Color="#FFFF2020" />
     <SolidColorBrush x:Key="Shared.Accent.SemiTransparent" Color="#22FF2020" />
 
