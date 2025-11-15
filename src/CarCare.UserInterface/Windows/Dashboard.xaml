@@ -263,7 +263,8 @@
 
                 <Button Style="{StaticResource IconButton}" Width="90" Height="32"
                         VerticalAlignment="Bottom" HorizontalAlignment="Left" Panel.ZIndex="2"
-                        Margin="12" HorizontalContentAlignment="Left" VerticalContentAlignment="Top">
+                        Margin="12" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"
+                        Command="{Binding OpenAppSettingsCommand}">
                     <Button.Resources>
                         <Storyboard x:Key="RotateCog">
                             <DoubleAnimation Storyboard.TargetName="CogRotation"
