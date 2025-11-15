@@ -24,6 +24,7 @@ public static class IServiceCollectionExtensions
         services.AddTransient<Login>();
         services.AddTransient<Register>();
         services.AddTransient<SessionControl>();
+        services.AddTransient<AccountSettings>();
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IFileDialogueService, FileDialogueService>();
         services.AddSingleton<IThemeService, ThemeService>();
