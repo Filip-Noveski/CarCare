@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="CarCare.UserInterface.Controls.ComboBoxControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CarCare.UserInterface.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Border Style="{StaticResource InputControlBorder}">
+        <StackPanel Orientation="Vertical" Margin="6">
+            <TextBlock Style="{StaticResource InputControlHeading}" 
+                       Text="{Binding Heading, RelativeSource={RelativeSource AncestorType={x:Type local:ComboBoxControl}}}" />
+            <ComboBox Style="{StaticResource InputControlComboBox}"
+                      ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType={x:Type local:ComboBoxControl}}}"
+                      SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type local:ComboBoxControl}}, Mode=TwoWay}"
+                      SelectionChanged="SelectionChanged"/>
+        </StackPanel>
+    </Border>
+</UserControl>
