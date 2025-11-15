@@ -39,5 +39,6 @@ public static class IServiceCollectionExtensions
 
         services.AddScoped<IAccountSettingsContext, AccountSettingsContext>();
         services.AddScoped<IDashboardContext, DashboardContext>();
+        services.AddScoped<IApplicationSettingsContext, ApplicationSettingsContext>();
     }
 }
