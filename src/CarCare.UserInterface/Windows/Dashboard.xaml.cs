@@ -14,7 +14,7 @@ public partial class Dashboard : Window
     /// <summary>
     /// Creates a new instance of the <see cref="Dashboard"/> class.
     /// </summary>
-    public Dashboard(IWindowContext context, IServiceProvider serviceProvider)
+    public Dashboard(IDashboardContext context, IServiceProvider serviceProvider)
     {
         DataContext = context;
         InitializeComponent();
