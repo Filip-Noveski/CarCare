@@ -12,7 +12,7 @@ internal class NavigationService : INavigationService
         { typeof(IDashboardContext), typeof(Dashboard) },
         { typeof(ISplashScreenContext), typeof(Splash) },
         { typeof(IAuthenticationContext), typeof(Authentication) },
-        { typeof(IAccountSettingsContext), typeof(AccountSettings) }
+        { typeof(ISettingsContext), typeof(Settings) }
     };
     private readonly IServiceProvider _provider;
 
