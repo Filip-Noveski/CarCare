@@ -5,6 +5,7 @@ using CarCare.Processing.Interfaces.Context;
 using CarCare.Processing.Interfaces.Service;
 using CarCare.Processing.Interfaces.Session;
 using CarCare.Processing.Models.Dto;
+using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
@@ -13,6 +14,7 @@ namespace CarCare.Processing.Contexts;
 
 internal class SessionControlContext : Context, ISessionControlContext
 {
+    private readonly IServiceProvider _serviceProvider;
     private readonly INavigationService _navigationService;
     private readonly IUserSession _userSession;
     private readonly IThemeService _themeService;
@@ -49,10 +51,12 @@ internal class SessionControlContext : Context, ISessionControlContext
     public ICommand ShowAccountSettingsCommand { get; }
 
     public SessionControlContext(
+        IServiceProvider serviceProvider,
         INavigationService navigationService, 
         IUserSession userSession, 
         IThemeService themeService)
     {
+        _serviceProvider = serviceProvider;
         _navigationService = navigationService;
         _userSession = userSession;
         _themeService = themeService;
@@ -99,6 +103,8 @@ internal class SessionControlContext : Context, ISessionControlContext
     private void ShowAccountSettings(object? parameter)
     {
         _navigationService.NavigateTo<ISettingsContext>();
+        ISettingsContext settingsContext = _serviceProvider.GetRequiredService<ISettingsContext>();
+        settingsContext.Tab = SettingsTab.AccountSettings;
         CloseMenu(null);
     }
 }
