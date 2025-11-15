@@ -27,7 +27,7 @@ public partial class Dashboard : Window
     {
         ContentGrid.Margin = WindowState switch
         {
-            WindowState.Maximized => new(8),
+            WindowState.Maximized => new(7),
             _ => new(0)
         };
     }
