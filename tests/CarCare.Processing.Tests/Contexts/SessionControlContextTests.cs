@@ -12,6 +12,8 @@ namespace CarCare.Processing.Tests.Contexts;
 
 public class SessionControlContextTests
 {
+    private readonly IServiceProvider _serviceProvider;
+    private readonly ISettingsContext _settingsContext;
     private readonly INavigationService _navigationService;
     private readonly IUserSession _userSession;
     private readonly IThemeService _themeService;
@@ -19,10 +21,12 @@ public class SessionControlContextTests
 
     public SessionControlContextTests()
     {
+        _serviceProvider = Substitute.For<IServiceProvider>();
+        _settingsContext = Substitute.For<ISettingsContext>();
         _navigationService = Substitute.For<INavigationService>();
         _userSession = Substitute.For<IUserSession>();
         _themeService = Substitute.For<IThemeService>();
-        _sut = new(_navigationService, _userSession, _themeService);
+        _sut = new(_serviceProvider, _navigationService, _userSession, _themeService);
     }
 
     private void ForceShowMenu()
@@ -134,6 +138,7 @@ public class SessionControlContextTests
         // Arrange
         ForceShowMenu();
         _navigationService.NavigateTo<ISettingsContext>();
+        _serviceProvider.GetService(typeof(ISettingsContext)).Returns(_settingsContext);
 
         // Act
         _sut.ShowAccountSettingsCommand.Execute(null);
@@ -141,5 +146,7 @@ public class SessionControlContextTests
         // Assert
         _navigationService.Received().NavigateTo<ISettingsContext>();
         _sut.MenuVisibility.Should().Be(Visibility.Collapsed);
+        _serviceProvider.Received().GetService(typeof(ISettingsContext));
+        _settingsContext.Received().Tab = SettingsTab.AccountSettings;
     }
 }
