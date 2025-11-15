@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="CarCare.UserInterface.Components.ApplicationSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CarCare.UserInterface.Components" xmlns:controls="clr-namespace:CarCare.UserInterface.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical">
+            <Border BorderBrush="{StaticResource Shared.Accent}"
+                    BorderThickness="0,0,0,2" Padding="0,6,0,6">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Style="{StaticResource HeadingMedium}">App Style</TextBlock>
+
+                    <controls:ComboBoxControl Heading="Application Theme" 
+                                              ItemsSource="{Binding AvailableThemes}"
+                                              SelectedItem="{Binding Theme, Mode=TwoWay}"
+                                              SelectionChangedCommand="{Binding UpdateThemeCommand}" 
+                                              Margin="6" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
