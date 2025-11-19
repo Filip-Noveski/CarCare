@@ -20,6 +20,7 @@ public class UserSettingsRepositoryTests : RepositoryTestsGroup
         CREATE TABLE IF NOT EXISTS UserSettings (
             UserId TEXT PRIMARY KEY,
             Theme TEXT,
+            PreferredCurrency TEXT DEFAULT 'EUR',
 
             FOREIGN KEY (UserId) REFERENCES Users(Id)
         );
@@ -50,12 +51,12 @@ public class UserSettingsRepositoryTests : RepositoryTestsGroup
         await connection.ExecuteAsync(addUsersSql, new { Id = id2 });
 
         string addSettingsSql = """
-            INSERT INTO UserSettings (UserId, Theme)
-            VALUES (@UserId, @Theme)
+            INSERT INTO UserSettings (UserId, Theme, PreferredCurrency)
+            VALUES (@UserId, @Theme, @PreferredCurrency)
             """;
-        UserSettingsDao settings1 = new(id0, "Dark");
-        UserSettingsDao settings2 = new(id1, "Light");
-        UserSettingsDao settings3 = new(id2, "Blue");
+        UserSettingsDao settings1 = new(id0, "Dark", "EUR");
+        UserSettingsDao settings2 = new(id1, "Light", "GBP");
+        UserSettingsDao settings3 = new(id2, "Blue", "EUR");
         await connection.ExecuteAsync(addSettingsSql, settings1);
         await connection.ExecuteAsync(addSettingsSql, settings2);
         await connection.ExecuteAsync(addSettingsSql, settings3);
@@ -71,7 +72,7 @@ public class UserSettingsRepositoryTests : RepositoryTestsGroup
         string addUserSql = "INSERT INTO Users (Id) VALUES (@Id)";
         Guid id = Guid.NewGuid();
         await connection.ExecuteAsync(addUserSql, new { Id = id });
-        UserSettingsDao settings = new(id, "Grey");
+        UserSettingsDao settings = new(id, "Grey", "AUD");
 
         // Act
         await _sut.AddAsync(settings);
@@ -93,7 +94,7 @@ public class UserSettingsRepositoryTests : RepositoryTestsGroup
         string addUserSql = "INSERT INTO Users (Id) VALUES (@Id)";
         Guid id = Guid.NewGuid();
         await connection.ExecuteAsync(addUserSql, new { Id = id });
-        UserSettingsDao input = new(id, "Grey");
+        UserSettingsDao input = new(id, "Grey", "AUD");
 
         // Act
         await _sut.AddAsync(input);
@@ -146,7 +147,7 @@ public class UserSettingsRepositoryTests : RepositoryTestsGroup
     {
         // Arrange
         UserSettingsDao[] starterEntries = await AddStarterEntries();
-        UserSettingsDao newSettings1 = new(starterEntries[1].UserId, "Grey");
+        UserSettingsDao newSettings1 = new(starterEntries[1].UserId, "Grey", "AUD");
 
         // Act
         await _sut.UpdateAsync(newSettings1);
