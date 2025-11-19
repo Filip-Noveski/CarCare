@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{0CB79E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarCare.Api", "src\CarCare.Api\CarCare.Api.csproj", "{E3C90CCE-D162-4D49-A46B-1B052830636D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarCare.Api.Tests", "tests\CarCare.Api.Tests\CarCare.Api.Tests.csproj", "{6034C3BC-6972-4811-9786-1F909E84B723}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{E3C90CCE-D162-4D49-A46B-1B052830636D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3C90CCE-D162-4D49-A46B-1B052830636D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3C90CCE-D162-4D49-A46B-1B052830636D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6034C3BC-6972-4811-9786-1F909E84B723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6034C3BC-6972-4811-9786-1F909E84B723}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6034C3BC-6972-4811-9786-1F909E84B723}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6034C3BC-6972-4811-9786-1F909E84B723}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,6 +93,7 @@ Global
 		{C47F4B8F-F7DC-4C92-835D-17F1B9BD7E79} = {F2125487-BE80-41C0-836D-CF68BB1EA9AA}
 		{8EE80ABF-E8BF-4111-B75B-3803BA69C642} = {F2125487-BE80-41C0-836D-CF68BB1EA9AA}
 		{E3C90CCE-D162-4D49-A46B-1B052830636D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{6034C3BC-6972-4811-9786-1F909E84B723} = {F2125487-BE80-41C0-836D-CF68BB1EA9AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39950539-1EAA-4FBA-9BF8-71E39BCAC96E}
