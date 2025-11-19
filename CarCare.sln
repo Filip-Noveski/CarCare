@@ -26,6 +26,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{0CB79E15-D77B-4E10-B93A-D66D8AC25F78}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		carcare_logo.png = carcare_logo.png
 		README.md = README.md
 	EndProjectSection
 EndProject
