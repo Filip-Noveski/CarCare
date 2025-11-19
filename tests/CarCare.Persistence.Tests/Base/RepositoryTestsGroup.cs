@@ -19,6 +19,7 @@ public abstract class RepositoryTestsGroup : DBTestsGroup
     public override async Task InitializeAsync()
     {
         SqlMapper.AddTypeHandler(new StringToGuidHandler());
+        SqlMapper.AddTypeHandler(new StringToDateOnlyHandler());
 
         using SqliteConnection connection = await Context.CreateConnectionAsync();
         await connection.ExecuteAsync(RelevantTablesSql);
