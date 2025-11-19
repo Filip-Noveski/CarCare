@@ -1,5 +1,4 @@
-﻿using CarCare.Api.Enums;
-using CarCare.Api.Interfaces;
+﻿using CarCare.Api.Interfaces;
 using CarCare.Api.Models.Dao;
 using CarCare.Api.Models.Json;
 using System.Net.Http.Json;
@@ -15,10 +14,10 @@ internal class RatesDbCurrencyRatesService : ICurrencyRatesService
         _client = client;
     }
 
-    public async Task<FinancialAmountDao> ConvertAsync(FinancialAmountDao amount, Currency currency)
+    public async Task<FinancialAmountDao> ConvertAsync(FinancialAmountDao amount, string currency)
     {
-        string from = $"from={amount.Currency.ToString().ToUpper()}";
-        string to = $"to={currency.ToString().ToUpper()}";
+        string from = $"from={amount.Currency}";
+        string to = $"to={currency}";
         string endpoint = $"/rates?{from}&{to}";
 
         double rate = await Call(endpoint);
@@ -26,10 +25,10 @@ internal class RatesDbCurrencyRatesService : ICurrencyRatesService
         return new(newAmount, currency);
     }
 
-    public async Task<FinancialAmountDao> ConvertAsync(FinancialAmountDao amount, Currency currency, DateOnly date)
+    public async Task<FinancialAmountDao> ConvertAsync(FinancialAmountDao amount, string currency, DateOnly date)
     {
-        string from = $"from={amount.Currency.ToString().ToUpper()}";
-        string to = $"to={currency.ToString().ToUpper()}";
+        string from = $"from={amount.Currency}";
+        string to = $"to={currency}";
         string dateP = $"date={date:yyyy-mm-dd}";
         string endpoint = $"/rates?{from}&{to}&{dateP}";
 

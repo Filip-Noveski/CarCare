@@ -1,6 +1,4 @@
-﻿using CarCare.Api.Enums;
-
-namespace CarCare.Api.Models.Dao;
+﻿namespace CarCare.Api.Models.Dao;
 
 /// <summary>
 /// Represents an amount of money of a currency.
@@ -15,7 +13,7 @@ public class FinancialAmountDao
     /// <summary>
     /// The currency.
     /// </summary>
-    public Currency Currency { get; set; }
+    public string Currency { get; set; }
 
     /// <summary>
     /// Creates a new <see cref="FinancialAmountDao"/> instance.
@@ -23,7 +21,7 @@ public class FinancialAmountDao
     public FinancialAmountDao()
     {
         Amount = 0;
-        Currency = Currency.Eur;
+        Currency = "EUR";
     }
 
     /// <summary>
@@ -31,7 +29,7 @@ public class FinancialAmountDao
     /// </summary>
     /// <param name="amount">The amount of money.</param>
     /// <param name="currency">The currency of the amount.</param>
-    public FinancialAmountDao(double amount, Currency currency)
+    public FinancialAmountDao(double amount, string currency)
     {
         Amount = amount;
         Currency = currency;
