@@ -27,5 +27,6 @@ public static class IServiceCollectionExtensions
         services.AddSingleton<IUserSettingsRepository, UserSettingsRepository>();
 
         SqlMapper.AddTypeHandler(new StringToGuidHandler());
+        SqlMapper.AddTypeHandler(new StringToDateOnlyHandler());
     }
 }
