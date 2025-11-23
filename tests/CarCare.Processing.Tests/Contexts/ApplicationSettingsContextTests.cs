@@ -35,7 +35,7 @@ public class ApplicationSettingsContextTests
         _sut.Theme = newTheme;
         _themeService.ChangeTheme(newTheme);
         _session.User.Returns(new UserDto(userId, "Irrelevant", new()));
-        _userSettingsService.GetAsync(userId).Returns(new UserSettings(userId, oldTheme));
+        _userSettingsService.GetAsync(userId).Returns(new UserSettings(userId, oldTheme, Currency.Gbp));
         _userSettingsService.UpdateAsync(Arg.Any<UserSettings>()).Returns(Task.CompletedTask);
 
         // Act
@@ -45,6 +45,25 @@ public class ApplicationSettingsContextTests
         _themeService.Received().ChangeTheme(newTheme);
         await _userSettingsService.Received().GetAsync(userId);
         await _userSettingsService.Received().UpdateAsync(Arg.Is<UserSettings>(
-            s => s.UserId == userId && s.Theme == newTheme));
+            s => s.UserId == userId && s.Theme == newTheme && s.PreferredCurrency == Currency.Gbp));
+    }
+
+    [Fact]
+    public async Task ShouldUpdateCurrency()
+    {
+        // Arrange
+        Guid userId = Guid.NewGuid();
+        _sut.PreferredCurrency = Currency.Aud;
+        _session.User.Returns(new UserDto(userId, "Irrelevant", new()));
+        _userSettingsService.GetAsync(userId).Returns(new UserSettings(userId, ApplicationTheme.Dark, Currency.Gbp));
+        _userSettingsService.UpdateAsync(Arg.Any<UserSettings>()).Returns(Task.CompletedTask);
+
+        // Act
+        _sut.UpdatePreferredCurrencyCommand.Execute(null);
+
+        // Assert
+        await _userSettingsService.Received().GetAsync(userId);
+        await _userSettingsService.Received().UpdateAsync(Arg.Is<UserSettings>(
+            s => s.UserId == userId && s.Theme == ApplicationTheme.Dark && s.PreferredCurrency == Currency.Aud));
     }
 }
