@@ -226,7 +226,8 @@ public class UserServiceTests
         _hasher.VerifyHashedPassword(null!, Password, Password).Returns(PasswordVerificationResult.Success);
         _bitmapService.ConvertToBitmap(Avatar).Returns(AvatarBmp);
         _userSession.LoginUser(Arg.Any<UserDto>());
-        _userSettingsService.GetAsync(user.Id).Returns(new UserSettings(user.Id, ApplicationTheme.Light));
+        _userSettingsService.GetAsync(user.Id).Returns(
+            new UserSettings(user.Id, ApplicationTheme.Light, Currency.Gbp));
         _themeService.ChangeTheme(ApplicationTheme.Light);
 
         // Act
