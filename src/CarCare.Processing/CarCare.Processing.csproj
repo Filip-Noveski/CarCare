@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CarCare.Api\CarCare.Api.csproj" />
     <ProjectReference Include="..\CarCare.Persistence\CarCare.Persistence.csproj" />
   </ItemGroup>
 
