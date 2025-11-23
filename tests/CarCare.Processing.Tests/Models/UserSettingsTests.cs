@@ -27,7 +27,7 @@ public class UserSettingsTests
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        UserSettings settings = new(id, ApplicationTheme.Light);
+        UserSettings settings = new(id, ApplicationTheme.Light, Currency.Gbp);
 
         // Act
         UserSettingsDto dto = settings.ToDto();
@@ -35,6 +35,7 @@ public class UserSettingsTests
         // Assert
         dto.UserId.Should().Be(id);
         dto.Theme.Should().Be(ApplicationTheme.Light);
+        dto.PreferredCurrency.Should().Be(Currency.Gbp);
     }
 
     [Fact]
@@ -42,7 +43,7 @@ public class UserSettingsTests
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        UserSettings settings = new(id, ApplicationTheme.Light);
+        UserSettings settings = new(id, ApplicationTheme.Light, Currency.Gbp);
 
         // Act
         UserSettingsDao dao = settings.ToDao();
@@ -50,5 +51,6 @@ public class UserSettingsTests
         // Assert
         dao.UserId.Should().Be(id);
         dao.Theme.Should().Be("Light");
+        dao.PreferredCurrency.Should().Be("GBP");
     }
 }
