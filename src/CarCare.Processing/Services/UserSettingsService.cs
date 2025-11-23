@@ -38,7 +38,8 @@ internal class UserSettingsService : IUserSettingsService
     {
         UserSettingsDao dao = await _settingsRepository.GetAsync(userId);
         ApplicationTheme theme = Enum.Parse<ApplicationTheme>(dao.Theme);
-        UserSettings settings = new(dao.UserId, theme);
+        Currency currency = Enum.Parse<Currency>(dao.PreferredCurrency, ignoreCase: true);
+        UserSettings settings = new(dao.UserId, theme, currency);
         return settings;
     }
 
