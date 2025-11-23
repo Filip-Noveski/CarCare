@@ -5,7 +5,7 @@ namespace CarCare.Api.Interfaces;
 /// <summary>
 /// Manages exchange rates between currencies.
 /// </summary>
-public interface ICurrencyRatesService
+public interface ICurrencyRatesApi
 {
     /// <summary>
     /// Converts the <paramref name="amount"/> to the provided <paramref name="currency"/>.

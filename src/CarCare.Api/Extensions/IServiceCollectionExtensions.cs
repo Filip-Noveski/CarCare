@@ -15,8 +15,8 @@ public static class IServiceCollectionExtensions
     /// <param name="services">The <see cref="IServiceCollection"/>.</param>
     public static void AddApiServices(this IServiceCollection services)
     {
-        services.AddHttpClient<RatesDbCurrencyRatesService>(
+        services.AddHttpClient<RatesDbCurrencyRatesApi>(
             c => c.BaseAddress = new("https://free.ratesdb.com/v1"));
-        services.AddScoped<ICurrencyRatesService, RatesDbCurrencyRatesService>();
+        services.AddScoped<ICurrencyRatesApi, RatesDbCurrencyRatesApi>();
     }
 }

@@ -5,11 +5,11 @@ using System.Net.Http.Json;
 
 namespace CarCare.Api.Services;
 
-internal class RatesDbCurrencyRatesService : ICurrencyRatesService
+internal class RatesDbCurrencyRatesApi : ICurrencyRatesApi
 {
     private readonly HttpClient _client;
 
-    public RatesDbCurrencyRatesService(HttpClient client)
+    public RatesDbCurrencyRatesApi(HttpClient client)
     {
         _client = client;
     }
