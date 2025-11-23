@@ -17,7 +17,19 @@ internal class ApplicationSettingsContext : Context, IApplicationSettingsContext
 
     public ApplicationTheme[] AvailableThemes => Enum.GetValues<ApplicationTheme>();
 
+    public Currency[] AvailableCurrencies => Enum.GetValues<Currency>();
+
     public ApplicationTheme Theme
+    {
+        get => field;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public Currency PreferredCurrency
     {
         get => field;
         set
@@ -29,6 +41,8 @@ internal class ApplicationSettingsContext : Context, IApplicationSettingsContext
 
     public ICommand UpdateThemeCommand { get; }
 
+    public ICommand UpdatePreferredCurrencyCommand { get; }
+
     public ApplicationSettingsContext(
         IThemeService themeService,
         IUserSettingsService userSettingsService,
@@ -39,6 +53,7 @@ internal class ApplicationSettingsContext : Context, IApplicationSettingsContext
         _session = session;
         Theme = _themeService.Theme;
         UpdateThemeCommand = new AsyncCommand(UpdateTheme);
+        UpdatePreferredCurrencyCommand = new AsyncCommand(UpdatePreferredCurrency);
     }
 
     private async Task UpdateTheme()
@@ -48,6 +63,15 @@ internal class ApplicationSettingsContext : Context, IApplicationSettingsContext
         Guid id = _session.User!.Id;
         UserSettings settings = await _userSettingsService.GetAsync(id);
         settings.Theme = theme;
+        await _userSettingsService.UpdateAsync(settings);
+    }
+
+    private async Task UpdatePreferredCurrency()
+    {
+        Currency currency = PreferredCurrency;
+        Guid id = _session.User!.Id;
+        UserSettings settings = await _userSettingsService.GetAsync(id);
+        settings.PreferredCurrency = currency;
         await _userSettingsService.UpdateAsync(settings);
     }
 }
