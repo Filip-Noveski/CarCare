@@ -27,7 +27,7 @@ public class UserSettingsServiceTests
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        UserSettings settings = new(id, ApplicationTheme.Light);
+        UserSettings settings = new(id, ApplicationTheme.Light, Currency.Eur);
         _settingsRepository.AddAsync(Arg.Any<UserSettingsDao>()).Returns(Task.CompletedTask);
 
         // Act
@@ -35,7 +35,7 @@ public class UserSettingsServiceTests
 
         // Assert
         await _settingsRepository.Received().AddAsync(Arg.Is<UserSettingsDao>(
-                x => x.UserId == id && x.Theme == "Light"));
+                x => x.UserId == id && x.Theme == "Light" && x.PreferredCurrency == "EUR"));
     }
 
     [Fact]
@@ -75,7 +75,7 @@ public class UserSettingsServiceTests
     {
         // Arrange
         Guid id = Guid.NewGuid();
-        UserSettingsDao dao = new(id, "Light");
+        UserSettingsDao dao = new(id, "Light", "GBP");
         _settingsRepository.GetAsync(id).Returns(dao);
 
         // Act
@@ -83,14 +83,14 @@ public class UserSettingsServiceTests
 
         // Assert
         await _settingsRepository.Received().GetAsync(id);
-        result.Should().BeEquivalentTo(new UserSettings(id, ApplicationTheme.Light));
+        result.Should().BeEquivalentTo(new UserSettings(id, ApplicationTheme.Light, Currency.Gbp));
     }
 
     [Fact]
     public async Task ShouldRequestUpdateOnAuth()
     {
         // Arrange
-        UserSettings settings = new(Guid.NewGuid(), ApplicationTheme.Light);
+        UserSettings settings = new(Guid.NewGuid(), ApplicationTheme.Light, Currency.Gbp);
         _settingsRepository.UpdateAsync(Arg.Any<UserSettingsDao>()).Returns(Task.CompletedTask);
         _session.IsAuthenticated(settings.UserId).Returns(true);
 
@@ -99,7 +99,7 @@ public class UserSettingsServiceTests
 
         // Assert
         await _settingsRepository.Received().UpdateAsync(Arg.Is<UserSettingsDao>(
-            x => x.UserId == settings.UserId && x.Theme == "Light"));
+            x => x.UserId == settings.UserId && x.Theme == "Light" && x.PreferredCurrency == "GBP"));
         _session.Received().IsAuthenticated(settings.UserId);
     }
 
@@ -107,7 +107,7 @@ public class UserSettingsServiceTests
     public async Task ShouldNotRequestUpdateWithoutAuth()
     {
         // Arrange
-        UserSettings settings = new(Guid.NewGuid(), ApplicationTheme.Light);
+        UserSettings settings = new(Guid.NewGuid(), ApplicationTheme.Light, Currency.Gbp);
         _settingsRepository.UpdateAsync(Arg.Any<UserSettingsDao>()).Returns(Task.CompletedTask);
         _session.IsAuthenticated(settings.UserId).Returns(false);
 
