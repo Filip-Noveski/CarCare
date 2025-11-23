@@ -41,5 +41,6 @@ public static class IServiceCollectionExtensions
         services.AddScoped<IDashboardContext, DashboardContext>();
         services.AddScoped<IApplicationSettingsContext, ApplicationSettingsContext>();
         services.AddSingleton<ICurrencyRateService, CurrencyRateService>();
+        services.AddSingleton<IFinanceConversionService, FinanceConversionService>();
     }
 }
