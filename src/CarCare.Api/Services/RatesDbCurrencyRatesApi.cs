@@ -14,34 +14,32 @@ internal class RatesDbCurrencyRatesApi : ICurrencyRatesApi
         _client = client;
     }
 
-    public async Task<FinancialAmountDao> ConvertAsync(FinancialAmountDao amount, string currency)
-    {
-        string from = $"from={amount.Currency}";
-        string to = $"to={currency}";
-        string endpoint = $"/rates?{from}&{to}";
-
-        double rate = await Call(endpoint);
-        double newAmount = amount.Amount * rate;
-        return new(newAmount, currency);
-    }
-
-    public async Task<FinancialAmountDao> ConvertAsync(FinancialAmountDao amount, string currency, DateOnly date)
-    {
-        string from = $"from={amount.Currency}";
-        string to = $"to={currency}";
-        string dateP = $"date={date:yyyy-mm-dd}";
-        string endpoint = $"/rates?{from}&{to}&{dateP}";
-
-        double rate = await Call(endpoint);
-        double newAmount = amount.Amount * rate;
-        return new(newAmount, currency);
-    }
-
     private async Task<double> Call(string endpoint)
     {
         RatesDbBodyJson response = await _client.GetFromJsonAsync<RatesDbBodyJson>(endpoint)
             ?? throw new InvalidOperationException("The returned JSON was null");
 
         return response.Data.Rates.First().Value;   // only one rate should be returned
+    }
+
+    public async Task<CurrencyRateApiModel> GetAsync(string fromCurrency, string toCurrency)
+    {
+        string from = $"from={fromCurrency}";
+        string to = $"to={toCurrency}";
+        string endpoint = $"/rates?{from}&{to}";
+
+        double rate = await Call(endpoint);
+        return new(fromCurrency, toCurrency, rate, new(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day));
+    }
+
+    public async Task<CurrencyRateApiModel> GetAsync(string fromCurrency, string toCurrency, DateOnly date)
+    {
+        string from = $"from={fromCurrency}";
+        string to = $"to={toCurrency}";
+        string dateP = $"date={date:yyyy-mm-dd}";
+        string endpoint = $"/rates?{from}&{to}&{dateP}";
+
+        double rate = await Call(endpoint);
+        return new(fromCurrency, toCurrency, rate, date);
     }
 }
