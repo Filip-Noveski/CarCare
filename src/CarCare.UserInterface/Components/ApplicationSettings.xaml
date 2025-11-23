@@ -21,6 +21,19 @@
                                               Margin="6" />
                 </StackPanel>
             </Border>
+            
+            <Border BorderBrush="{StaticResource Shared.Accent}"
+                    BorderThickness="0,0,0,2" Padding="0,6,0,6">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Style="{StaticResource HeadingMedium}">Data Format</TextBlock>
+
+                    <controls:ComboBoxControl Heading="Preferred Currency" 
+                                              ItemsSource="{Binding AvailableCurrencies}"
+                                              SelectedItem="{Binding PreferredCurrency, Mode=TwoWay}"
+                                              SelectionChangedCommand="{Binding UpdatePreferredCurrencyCommand}" 
+                                              Margin="6" />
+                </StackPanel>
+            </Border>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
