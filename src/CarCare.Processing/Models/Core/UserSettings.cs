@@ -10,24 +10,27 @@ internal class UserSettings
 
     public ApplicationTheme Theme { get; set; }
 
-    public UserSettings(Guid userId, ApplicationTheme theme)
+    public Currency PreferredCurrency { get; set; }
+
+    public UserSettings(Guid userId, ApplicationTheme theme, Currency preferredCurrency)
     {
         UserId = userId;
         Theme = theme;
+        PreferredCurrency = preferredCurrency;
     }
 
     public UserSettingsDto ToDto()
     {
-        return new(UserId, Theme);
+        return new(UserId, Theme, PreferredCurrency);
     }
 
     public UserSettingsDao ToDao()
     {
-        return new(UserId, Theme.ToString());
+        return new(UserId, Theme.ToString(), PreferredCurrency.ToString().ToUpper());
     }
 
     public static UserSettings CreateDefault(Guid userId)
     {
-        return new(userId, ApplicationTheme.Dark);
+        return new(userId, ApplicationTheme.Dark, Currency.Eur);
     }
 }
