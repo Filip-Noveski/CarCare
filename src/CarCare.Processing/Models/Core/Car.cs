@@ -1,5 +1,6 @@
 ﻿using CarCare.Persistence.Models;
 using CarCare.Processing.Interfaces.Service;
+using CarCare.Processing.Models.Dto;
 using System.Windows.Media.Imaging;
 
 namespace CarCare.Processing.Models.Core;
@@ -53,5 +54,17 @@ internal class Car
             Specification,
             ModelYear,
             Image is null ? null : bitmapCreator.ConvertToBinary(Image));
+    }
+
+    public CarDto ToDto(IBitmapCreatorService bitmapCreator)
+    {
+        return new(
+            Id,
+            UserId,
+            Manufacturer,
+            Model,
+            Specification,
+            ModelYear,
+            Image);
     }
 }
