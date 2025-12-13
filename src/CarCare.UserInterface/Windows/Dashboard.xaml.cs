@@ -18,9 +18,13 @@ public partial class Dashboard : Window
     {
         DataContext = context;
         InitializeComponent();
+
         SessionControl sessionControl = serviceProvider.GetRequiredService<SessionControl>();
         WindowChrome.SetIsHitTestVisibleInChrome(sessionControl, true);
         SessionControlContainer.Children.Add(sessionControl);
+
+        MyCars myCars = serviceProvider.GetRequiredService<MyCars>();
+        MyCarsTab.Content = myCars;
     }
 
     private void WindowStateChanged(object sender, EventArgs e)

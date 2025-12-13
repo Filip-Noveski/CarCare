@@ -62,7 +62,8 @@
 
             <Grid x:Name="MainGrid" Background="{DynamicResource Pane.Background}" Grid.Row="2">
                 <TabControl Style="{StaticResource VerticalStackTabControl}">
-                    <TabItem Style="{StaticResource VerticalStackTabItem}">
+                    <TabItem Style="{StaticResource VerticalStackTabItem}"
+                             x:Name="MyCarsTab">
                         <TabItem.Triggers>
                             <EventTrigger RoutedEvent="StackPanel.MouseEnter">
                                 <BeginStoryboard>
@@ -108,7 +109,8 @@
                         </TabItem.Header>
                     </TabItem>
 
-                    <TabItem Style="{StaticResource VerticalStackTabItem}">
+                    <TabItem Style="{StaticResource VerticalStackTabItem}"
+                             x:Name="FinancialBreakdownTab">
                         <TabItem.Triggers>
                             <EventTrigger RoutedEvent="StackPanel.MouseEnter">
                                 <BeginStoryboard>
@@ -146,7 +148,8 @@
                         </TabItem.Header>
                     </TabItem>
 
-                    <TabItem Style="{StaticResource VerticalStackTabItem}">
+                    <TabItem Style="{StaticResource VerticalStackTabItem}"
+                             x:Name="GalleryTab">
                         <TabItem.Triggers>
                             <EventTrigger RoutedEvent="StackPanel.MouseEnter">
                                 <BeginStoryboard>
@@ -193,7 +196,8 @@
                         </TabItem.Header>
                     </TabItem>
 
-                    <TabItem Style="{StaticResource VerticalStackTabItem}">
+                    <TabItem Style="{StaticResource VerticalStackTabItem}"
+                             x:Name="TripsTab">
                         <TabItem.Triggers>
                             <EventTrigger RoutedEvent="StackPanel.MouseEnter">
                                 <BeginStoryboard>
