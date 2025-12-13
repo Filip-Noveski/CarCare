@@ -45,5 +45,6 @@ public static class IServiceCollectionExtensions
         services.AddSingleton<ICarService, CarService>();
         services.AddSingleton<IEventManagerService, EventManagerService>();
         services.AddTransient<IAddCarContext, AddCarContext>();
+        services.AddScoped<IMyCarsContext, MyCarsContext>();
     }
 }
