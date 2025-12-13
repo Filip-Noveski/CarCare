@@ -4,7 +4,7 @@
 -- Add Cars table
 
 ALTER TABLE [UserSettings]
-ADD COLUMN [PreferredCurrency] TEXT NOT NULL DEFAULT 'EUR';
+ADD COLUMN IF NOT EXISTS [PreferredCurrency] TEXT NOT NULL DEFAULT 'EUR';
 
 CREATE TABLE IF NOT EXISTS [CurrencyRatesCache] (
     [Id] INTEGER PRIMARY KEY,
