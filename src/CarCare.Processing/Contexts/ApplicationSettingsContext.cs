@@ -56,7 +56,7 @@ internal class ApplicationSettingsContext : Context, IApplicationSettingsContext
         UpdatePreferredCurrencyCommand = new AsyncCommand(UpdatePreferredCurrency);
     }
 
-    private async Task UpdateTheme()
+    private async Task UpdateTheme(object? parameter)
     {
         ApplicationTheme theme = Theme;
         _themeService.ChangeTheme(theme);
@@ -66,7 +66,7 @@ internal class ApplicationSettingsContext : Context, IApplicationSettingsContext
         await _userSettingsService.UpdateAsync(settings);
     }
 
-    private async Task UpdatePreferredCurrency()
+    private async Task UpdatePreferredCurrency(object? parameter)
     {
         Currency currency = PreferredCurrency;
         Guid id = _session.User!.Id;

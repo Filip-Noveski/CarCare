@@ -4,17 +4,17 @@ namespace CarCare.Processing.Commands;
 
 internal class AsyncCommand : ICommand
 {
-    private readonly Func<Task> _execute;
+    private readonly Func<object?, Task> _execute;
     private readonly Predicate<object?>? _canExecute;
     private bool _isExecuting;
 
-    public AsyncCommand(Func<Task> execute)
+    public AsyncCommand(Func<object?, Task> execute)
     {
         _execute = execute;
         _isExecuting = false;
     }
 
-    public AsyncCommand(Func<Task> execute, Predicate<object?>? canExecute)
+    public AsyncCommand(Func<object?, Task> execute, Predicate<object?>? canExecute)
     {
         _execute = execute;
         _canExecute = canExecute;
@@ -35,7 +35,7 @@ internal class AsyncCommand : ICommand
 
         try
         {
-            await _execute();
+            await _execute(parameter);
         }
         finally
         {
