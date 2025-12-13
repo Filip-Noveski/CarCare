@@ -43,5 +43,6 @@ public static class IServiceCollectionExtensions
         services.AddSingleton<ICurrencyRateService, CurrencyRateService>();
         services.AddSingleton<IFinanceConversionService, FinanceConversionService>();
         services.AddSingleton<ICarService, CarService>();
+        services.AddSingleton<IEventManagerService, EventManagerService>();
     }
 }
