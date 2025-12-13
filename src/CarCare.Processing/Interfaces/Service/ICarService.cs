@@ -10,7 +10,7 @@ internal interface ICarService
 
     Task<Car> GetAsync(Guid id);
 
-    Task<IEnumerable<Car>> GetAllByUserIdAsync(Guid userId);
+    Task<IEnumerable<Car>> GetAllByUserIdAsync(Guid userId, int page = 1, int count = 10);
 
     Task UpdateAsync(Car car);
 }
