@@ -11,7 +11,8 @@
         ResizeMode="CanMinimize"
         Background="{DynamicResource Pane.Background}"
         BorderBrush="{DynamicResource Shared.Accent}"
-        BorderThickness="1">
+        BorderThickness="1"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Thickness x:Key="TabItemPadding">12,8,48,8</Thickness>
         <converters:EnumToIntConverter x:Key="EnumToIntConverter" />
