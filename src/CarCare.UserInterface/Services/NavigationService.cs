@@ -12,7 +12,8 @@ internal class NavigationService : INavigationService
         { typeof(IDashboardContext), typeof(Dashboard) },
         { typeof(ISplashScreenContext), typeof(Splash) },
         { typeof(IAuthenticationContext), typeof(Authentication) },
-        { typeof(ISettingsContext), typeof(Settings) }
+        { typeof(ISettingsContext), typeof(Settings) },
+        { typeof(IAddCarContext), typeof(AddCar) }
     };
     private readonly IServiceProvider _provider;
 
