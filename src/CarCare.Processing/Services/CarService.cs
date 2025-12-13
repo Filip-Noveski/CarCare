@@ -43,9 +43,9 @@ internal class CarService : ICarService
         await _carRepository.DeleteAsync(id);
     }
 
-    public async Task<IEnumerable<Car>> GetAllByUserIdAsync(Guid userId)
+    public async Task<IEnumerable<Car>> GetAllByUserIdAsync(Guid userId, int page = 1, int count = 10)
     {
-        IEnumerable<CarDao> result = await _carRepository.GetAllByUserAsync(userId);
+        IEnumerable<CarDao> result = await _carRepository.GetAllByUserAsync(userId, page, count);
         return result.Select(
             x => new Car(
                 x.Id,
