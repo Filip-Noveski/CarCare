@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="CarCare.UserInterface.Components.MyCars"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CarCare.UserInterface.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid x:Name="NoRegisteredCarsView">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Cars.Count}" Value="0">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+
+            <Grid>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource HeadingMedium}"
+                               Text="You do not have any registered cars at the moment."/>
+
+                    <Button Command="{Binding AddNewCarCommand}"
+                            Content="Add New Car"
+                            Width="128" Margin="0,8,0,0"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        
+        <Grid x:Name="CarsListView">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Cars.Count}" Value="0">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+
+            <Grid Margin="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="192" />
+                        <ColumnDefinition Width="36" />
+                        <ColumnDefinition Width="128" />
+                        <ColumnDefinition Width="36" />
+                        <ColumnDefinition Width="36" />
+                        <ColumnDefinition Width="128" />
+                        <ColumnDefinition Width="36" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button Grid.Row="1" Grid.Column="0"
+                            HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Command="{Binding AddNewCarCommand}"
+                            Content="Add New Car" />
+
+                    <Button Grid.Row="1" Grid.Column="1"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Command="{Binding PreviousPageCommand}"
+                            Content="&#x276c;"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Style="{StaticResource Default}"
+                               Text="Page"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Style="{StaticResource Default}"
+                               Text="{Binding Page}"/>
+                    <Button Grid.Row="1" Grid.Column="3"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Command="{Binding NextPageCommand}"
+                            Content="&#x276d;"/>
+
+                    <Button Grid.Row="1" Grid.Column="4"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Command="{Binding DecreaseItemsPerPageCommand}"
+                            Content="–"/>
+                    <TextBlock Grid.Row="0" Grid.Column="5"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Style="{StaticResource Default}"
+                               Text="Items per page"/>
+                    <TextBlock Grid.Row="1" Grid.Column="5"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Style="{StaticResource Default}"
+                               Text="{Binding ItemsPerPage}"/>
+                    <Button Grid.Row="1" Grid.Column="6"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Command="{Binding IncreaseItemsPerPageCommand}"
+                            Content="+"/>
+                </Grid>
+                
+                <ScrollViewer Grid.Row="1"
+                              VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Cars}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:CarCard />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
