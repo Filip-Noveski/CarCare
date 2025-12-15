@@ -27,6 +27,7 @@ public static class IServiceCollectionExtensions
         services.AddSingleton<IUserSettingsRepository, UserSettingsRepository>();
         services.AddSingleton<ICurrencyRatesCacheRepository, CurrencyRatesCacheRepository>();
         services.AddSingleton<ICarRepository, CarRepository>();
+        services.AddSingleton<ICarLifecycleRepository, CarLifecycleRepository>();
 
         SqlMapper.AddTypeHandler(new StringToGuidHandler());
         SqlMapper.AddTypeHandler(new StringToDateOnlyHandler());
