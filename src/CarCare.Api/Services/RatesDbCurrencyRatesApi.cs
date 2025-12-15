@@ -36,7 +36,7 @@ internal class RatesDbCurrencyRatesApi : ICurrencyRatesApi
     {
         string from = $"from={fromCurrency}";
         string to = $"to={toCurrency}";
-        string dateP = $"date={date:yyyy-mm-dd}";
+        string dateP = $"date={date:yyyy-MM-dd}";
         string endpoint = $"/rates?{from}&{to}&{dateP}";
 
         double rate = await Call(endpoint);
