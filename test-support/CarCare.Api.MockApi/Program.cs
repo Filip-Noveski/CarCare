@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddSingleton<MockConfigService<Rate>>();
+builder.Services.AddSingleton<RequestsService>();
 
 var app = builder.Build();
 
