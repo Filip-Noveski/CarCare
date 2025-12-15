@@ -2,6 +2,7 @@
 -- Add UserSettings.PreferredCurrency column
 -- Add CurrencyRatesCache table
 -- Add Cars table
+-- Add CarLifecycles table
 
 ALTER TABLE [UserSettings]
 ADD COLUMN IF NOT EXISTS [PreferredCurrency] TEXT NOT NULL DEFAULT 'EUR';
@@ -25,4 +26,16 @@ CREATE TABLE IF NOT EXISTS [Cars] (
     [Image] BLOB,
 
     FOREIGN KEY ([UserId]) REFERENCES [Users]([Id])
+);
+
+CREATE TABLE IF NOT EXISTS [CarLifecycles] (
+    [CarId] TEXT PRIMARY KEY,
+    [PurchaseDate] TEXT NOT NULL,
+    [PurchasePrice] NUMERIC NOT NULL,
+    [PurchaseCurrency] TEXT NOT NULL,
+    [SellDate] TEXT,
+    [SellPrice] NUMERIC,
+    [SellCurrency] TEXT,
+
+    FOREIGN KEY ([CarId]) REFERENCES [Cars]([Id])
 );
