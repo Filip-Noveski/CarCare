@@ -26,7 +26,7 @@ public interface ICarRepository
     /// Gets the <see cref="CarDao"/> by the <paramref name="id"/>.
     /// </summary>
     /// <param name="id">The id to search by.</param>
-    /// <returns></returns>
+    /// <returns>The requested <see cref="CarDao"/>.</returns>
     Task<CarDao> GetAsync(Guid id);
 
     /// <summary>
