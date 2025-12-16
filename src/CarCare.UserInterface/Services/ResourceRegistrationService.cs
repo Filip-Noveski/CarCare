@@ -30,6 +30,7 @@ internal static class ResourceRegistrationService
         dictionaries.Add(GetStyle("IconButton"));
         dictionaries.Add(GetStyle("InputControlBorder"));
         dictionaries.Add(GetStyle("InputControlComboBox"));
+        dictionaries.Add(GetStyle("InputControlDatePicker"));
         dictionaries.Add(GetStyle("InputControlPasswordBox"));
         dictionaries.Add(GetStyle("InputControlTextBox"));
         dictionaries.Add(GetStyle("Menu"));
