@@ -1,4 +1,5 @@
 ﻿using CarCare.Processing.Contexts;
+using CarCare.Processing.Enums;
 using CarCare.Processing.Interfaces.Service;
 using CarCare.Processing.Interfaces.Session;
 using CarCare.Processing.Models.Core;
@@ -35,6 +36,9 @@ public class AddCarContextTests
         _sut.Model = "Clio";
         _sut.Specification = "RS 197";
         _sut.ModelYear = "2008";
+        _sut.PurchaseDate = new(2023, 1, 8);
+        _sut.PurchasePrice = "15_000";
+        _sut.PurchaseCurrency = Currency.Eur;
         UserDto user = new(Guid.NewGuid(), string.Empty, null!);
         _session.User.Returns(user);
         _carService.AddAsync(Arg.Any<Car>()).Returns(Task.CompletedTask);
@@ -54,7 +58,13 @@ public class AddCarContextTests
             && x.Model == "Clio"
             && x.Specification == "RS 197"
             && x.ModelYear == 2008
-            && x.Image == null));
+            && x.Image == null
+            && x.Lifecycle.PurchaseDate == new DateOnly(2023, 1, 8)
+            && x.Lifecycle.PurchasePrice == 15_000
+            && x.Lifecycle.PurchaseCurrency == Currency.Eur
+            && x.Lifecycle.SaleDate == null
+            && x.Lifecycle.SalePrice == null
+            && x.Lifecycle.SaleCurrency == null));
         _eventManager.Received().OnMyCarsChanged();
     }
 
@@ -66,6 +76,9 @@ public class AddCarContextTests
         _sut.Model = "Clio";
         _sut.Specification = "RS 197";
         _sut.ModelYear = "2008";
+        _sut.PurchaseDate = new(2023, 1, 8);
+        _sut.PurchasePrice = "15_000";
+        _sut.PurchaseCurrency = Currency.Eur;
         UserDto user = new(Guid.NewGuid(), string.Empty, null!);
         _session.User.Returns(user);
 
@@ -89,6 +102,9 @@ public class AddCarContextTests
         _sut.Model = "";
         _sut.Specification = "RS 197";
         _sut.ModelYear = "2008";
+        _sut.PurchaseDate = new(2023, 1, 8);
+        _sut.PurchasePrice = "15_000";
+        _sut.PurchaseCurrency = Currency.Eur;
         UserDto user = new(Guid.NewGuid(), string.Empty, null!);
         _session.User.Returns(user);
 
