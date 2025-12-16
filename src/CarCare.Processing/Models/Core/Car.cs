@@ -1,4 +1,5 @@
 ﻿using CarCare.Persistence.Models;
+using CarCare.Processing.Enums;
 using CarCare.Processing.Interfaces.Service;
 using CarCare.Processing.Models.Dto;
 using System.Windows.Media.Imaging;
@@ -21,7 +22,15 @@ internal class Car
 
     public BitmapImage? Image { get; set; }
 
-    public Car(Guid id, Guid userId, string manufacturer, string model, string specification, int modelYear)
+    public CarLifecycle Lifecycle { get; set; }
+
+    public Car(Guid id,
+        Guid userId,
+        string manufacturer,
+        string model,
+        string specification,
+        int modelYear,
+        CarLifecycle lifecycle)
     {
         Id = id;
         UserId = userId;
@@ -29,6 +38,7 @@ internal class Car
         Model = model;
         Specification = specification;
         ModelYear = modelYear;
+        Lifecycle = lifecycle;
     }
 
     public Car(
@@ -38,8 +48,9 @@ internal class Car
         string model,
         string specification,
         int modelYear,
-        BitmapImage? image) 
-        : this(id, userId, manufacturer, model, specification, modelYear)
+        BitmapImage? image,
+        CarLifecycle lifecycle) 
+        : this(id, userId, manufacturer, model, specification, modelYear, lifecycle)
     {
         Image = image;
     }
@@ -56,8 +67,16 @@ internal class Car
             Image is null ? null : bitmapCreator.ConvertToBinary(Image));
     }
 
-    public CarDto ToDto(IBitmapCreatorService bitmapCreator)
+    public CarDto ToDto()
     {
+        CarLifecycleDto lifecycle = new(
+            Lifecycle.PurchaseDate,
+            Lifecycle.PurchasePrice,
+            Lifecycle.PurchaseCurrency,
+            Lifecycle.SaleDate,
+            Lifecycle.SalePrice,
+            Lifecycle.SaleCurrency);
+
         return new(
             Id,
             UserId,
@@ -65,6 +84,27 @@ internal class Car
             Model,
             Specification,
             ModelYear,
-            Image);
+            Image,
+            lifecycle);
+    }
+
+    public CarLifecycleDao LifecycleToDao()
+    {
+        return new(
+            Id,
+            Lifecycle.PurchaseDate,
+            Lifecycle.PurchasePrice,
+            Lifecycle.PurchaseCurrency.ToString().ToUpper(),
+            Lifecycle.SaleDate,
+            Lifecycle.SalePrice,
+            Lifecycle.SaleCurrency?.ToString().ToUpper());
     }
 }
+
+internal record CarLifecycle(
+    DateOnly PurchaseDate,
+    double PurchasePrice,
+    Currency PurchaseCurrency,
+    DateOnly? SaleDate = null,
+    double? SalePrice = null,
+    Currency? SaleCurrency = null);
