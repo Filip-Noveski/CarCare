@@ -97,7 +97,7 @@ internal class MyCarsContext : Context, IMyCarsContext
             Cars.Clear();
             foreach (Car car in cars)
             {
-                Cars.Add(car.ToDto(_bitmapService));
+                Cars.Add(car.ToDto());
             }
         });
     }
