@@ -1,4 +1,5 @@
 ﻿using CarCare.Processing.Commands;
+using CarCare.Processing.Enums;
 using CarCare.Processing.Interfaces.Context;
 using CarCare.Processing.Interfaces.Service;
 using CarCare.Processing.Interfaces.Session;
@@ -15,6 +16,8 @@ internal class AddCarContext : WindowContext, IAddCarContext
     private readonly IUserSession _session;
     private readonly IEventManagerService _eventManager;
     private readonly IFileDialogueService _fileService;
+
+    public Currency[] AvailableCurrencies => Enum.GetValues<Currency>();
 
     public string Manufacturer
     {
@@ -106,6 +109,38 @@ internal class AddCarContext : WindowContext, IAddCarContext
         }
     }
 
+    public DateTime PurchaseDate
+    {
+        get => field;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string PurchasePrice
+    {
+        get => field;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string PurchasePriceError
+    {
+        get => field;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public Currency PurchaseCurrency { get; set; }
+
     public ICommand AddCarCommand { get; }
 
     public ICommand ChooseMainImageCommand { get; }
@@ -127,11 +162,15 @@ internal class AddCarContext : WindowContext, IAddCarContext
         Model = string.Empty;
         Specification = string.Empty;
         ModelYear = DateTime.Now.Year.ToString();
+        PurchaseDate = DateTime.Now;
+        PurchasePrice = "1500";
+        PurchaseCurrency = Currency.Eur;
 
         ManufacturerError = string.Empty;
         ModelError = string.Empty;
         SpecificationError = string.Empty;
         ModelYearError = string.Empty;
+        PurchasePriceError = string.Empty;
 
         AddCarCommand = new AsyncCommand(AddCar);
         ChooseMainImageCommand = new Command(ChooseMainImage);
@@ -166,12 +205,21 @@ internal class AddCarContext : WindowContext, IAddCarContext
             ModelYearError = "Please specify a valid model year";
             error = true;
         }
+        if (!double.TryParse(PurchasePrice, out double purchasePriceDouble) || purchasePriceDouble < 0)
+        {
+            PurchasePriceError = "Please enter a valid purchase price";
+            error = true;
+        }
 
         if (error)
         {
             return;
         }
 
+        CarLifecycle lifecycle = new(
+            new(PurchaseDate.Year, PurchaseDate.Month, PurchaseDate.Day),
+            purchasePriceDouble,
+            PurchaseCurrency);
         Car car = new(
             Guid.NewGuid(),
             _session.User!.Id,
@@ -179,7 +227,8 @@ internal class AddCarContext : WindowContext, IAddCarContext
             Model,
             Specification,
             modelYearInt,
-            MainImage);
+            MainImage,
+            lifecycle);
         await _carService.AddAsync(car);
         _eventManager.OnMyCarsChanged();
         CloseCommand.Execute(window);

@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using CarCare.Processing.Enums;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace CarCare.Processing.Interfaces.Context;
@@ -8,6 +9,11 @@ namespace CarCare.Processing.Interfaces.Context;
 /// </summary>
 public interface IAddCarContext : IWindowContext
 {
+    /// <summary>
+    /// The currencies that may be selected between.
+    /// </summary>
+    Currency[] AvailableCurrencies { get; }
+
     /// <summary>
     /// The manufacturer of the car.
     /// </summary>
@@ -52,6 +58,26 @@ public interface IAddCarContext : IWindowContext
     /// An optional cover image of the car.
     /// </summary>
     BitmapImage? MainImage { get; set; }
+
+    /// <summary>
+    /// The date the car was purchased.
+    /// </summary>
+    DateTime PurchaseDate { get; set; }
+
+    /// <summary>
+    /// The price the car was purchased for.
+    /// </summary>
+    string PurchasePrice { get; set; }
+
+    /// <summary>
+    /// An error related to the PurchasePrice.
+    /// </summary>
+    string PurchasePriceError { get; set; }
+
+    /// <summary>
+    /// The currency of the purchase.
+    /// </summary>
+    Currency PurchaseCurrency { get; set; }
 
     /// <summary>
     /// Adds a car with the provided data.
