@@ -13,10 +13,6 @@
         BorderThickness="1"
         WindowStartupLocation="CenterScreen">
     
-    <Window.Resources>
-        <Thickness x:Key="TabItemPadding">12,8,48,8</Thickness>
-    </Window.Resources>
-
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="30"/>
     </WindowChrome.WindowChrome>
@@ -88,21 +84,34 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="60" />
                 </Grid.RowDefinitions>
-                
-                <StackPanel Grid.Row="0" Orientation="Vertical">
-                    <controls:TextBoxControl Heading="ModelYear" Text="{Binding ModelYear, Mode=TwoWay}"
-                                             Margin="6" />
-                    <TextBlock Style="{StaticResource Error}" Text="{Binding ModelYearError}" />
-                    <controls:TextBoxControl Heading="Manufacturer" Text="{Binding Manufacturer, Mode=TwoWay}"
-                                             Margin="6" />
-                    <TextBlock Style="{StaticResource Error}" Text="{Binding ManufacturerError}" />
-                    <controls:TextBoxControl Heading="Model" Text="{Binding Model, Mode=TwoWay}"
-                                             Margin="6" />
-                    <TextBlock Style="{StaticResource Error}" Text="{Binding ModelError}" />
-                    <controls:TextBoxControl Heading="Specification" Text="{Binding Specification, Mode=TwoWay}"
-                                             Margin="6" />
-                    <TextBlock Style="{StaticResource Error}" Text="{Binding SpecificationError}" />
-                </StackPanel>
+
+                <ScrollViewer Grid.Row="0"  VerticalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Vertical">
+                        <controls:TextBoxControl Heading="ModelYear" Text="{Binding ModelYear, Mode=TwoWay}"
+                                                 Margin="6" />
+                        <TextBlock Style="{StaticResource Error}" Text="{Binding ModelYearError}" />
+                        <controls:TextBoxControl Heading="Manufacturer" Text="{Binding Manufacturer, Mode=TwoWay}"
+                                                 Margin="6" />
+                        <TextBlock Style="{StaticResource Error}" Text="{Binding ManufacturerError}" />
+                        <controls:TextBoxControl Heading="Model" Text="{Binding Model, Mode=TwoWay}"
+                                                 Margin="6" />
+                        <TextBlock Style="{StaticResource Error}" Text="{Binding ModelError}" />
+                        <controls:TextBoxControl Heading="Specification" Text="{Binding Specification, Mode=TwoWay}"
+                                                 Margin="6" />
+                        <TextBlock Style="{StaticResource Error}" Text="{Binding SpecificationError}" />
+
+                        <controls:DatePickerControl Heading="Purchase Date" 
+                                                    Date="{Binding PurchaseDate, Mode=TwoWay}"
+                                                    Margin="6"/>
+                        <controls:TextBoxControl Heading="Purchase Price" Text="{Binding PurchasePrice, Mode=TwoWay}"
+                                                 Margin="6" />
+                        <TextBlock Style="{StaticResource Error}" Text="{Binding PurchasePriceError}" />
+                        <controls:ComboBoxControl Heading="Currency of Transaction" 
+                                                  ItemsSource="{Binding AvailableCurrencies}"
+                                                  SelectedItem="{Binding PurchaseCurrency, Mode=TwoWay}"
+                                                  Margin="6" />
+                    </StackPanel>
+                </ScrollViewer>
 
                 <Button Grid.Row="1" Content="Add Car" Margin="16"
                         Command="{Binding AddCarCommand}"
