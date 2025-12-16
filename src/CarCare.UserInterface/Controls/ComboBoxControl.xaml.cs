@@ -73,6 +73,6 @@ public partial class ComboBoxControl : UserControl
 
     private void SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        SelectionChangedCommand.Execute(null);
+        SelectionChangedCommand?.Execute(null);
     }
 }
